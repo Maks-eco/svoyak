@@ -1,3 +1,3 @@
 # svoyak
 
-Interface for a multiplayer quiz.
+Interface for a multiplayer quiz
