@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import type { StorageProduct } from '../types/StorageProduct'
 import type { Category } from '../types/Category'
 import type { Product } from '../types/Product'
+import type { Question, Round } from '../types/GameEntities'
 
 const storeId = '108362264'
 const token = 'public_RiNvjTVVzKLhFNWyzR5fNY68u1GMHLEs'
@@ -101,6 +102,22 @@ const useCounterStore = defineStore('counter', () => {
         return data
     }
 
+    const getAllQuestions = async (): Promise<null | Round[]> => {
+        const data = await $fetch<null | Round[]>('questions.json')
+        return data
+    }
+
+    const getOneQuestion = async (
+        theme_id: number,
+        question_id: number
+    ): Promise<null | Question> => {
+        const rounds: Round[] | null = await getAllQuestions()
+        let data: null | Question = null
+        if (rounds?.length)
+            data = rounds[0].themes[theme_id].questions[question_id]
+        return data
+    }
+
     const getProductDataByCategoryId = async (
         page: number,
         id: string
@@ -146,6 +163,8 @@ const useCounterStore = defineStore('counter', () => {
         getCountItems,
         saveValue,
         deleteItem,
+        getAllQuestions,
+        getOneQuestion,
         getAllProduct,
         getCategoryData,
         getProductData,
