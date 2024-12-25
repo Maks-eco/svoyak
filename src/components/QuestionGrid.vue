@@ -10,13 +10,14 @@
                     <div class="theme__name">
                         {{ theme.name }}
                     </div>
-                    <div
+                    <!-- <div> -->
+                    <OneQuestion
                         class="theme__question"
                         v-for="question in theme.questions"
-                        :theme="question.id"
-                    >
-                        <OneQuestion :item="question" :theme-id="theme.id" />
-                    </div>
+                        :item="question"
+                        :theme-id="theme.id"
+                    />
+                    <!-- </div> -->
                 </div>
             </div>
         </Transition>
@@ -73,6 +74,7 @@ onMounted(() => {
 .v-leave-to {
     opacity: 0;
 }
+@grid_gap: 20px;
 .theme {
     &__wrapper {
         display: flex;
@@ -82,35 +84,23 @@ onMounted(() => {
     &__list {
         display: flex;
         flex-direction: column;
+        gap: @grid_gap;
         height: 100%;
         width: 100%;
     }
     &__row {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
+        align-items: center;
+        gap: @grid_gap;
         height: 100%;
     }
     &__question {
     }
-}
-.category-contnr {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-}
-.category-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-@media (min-width: 1024px) {
-    .category-list {
-        width: 860px;
-    }
-}
-@media (max-width: 1024px) {
-    .category-list {
-        width: 80%;
+
+    &__name {
+        font-size: 40px;
+        text-align: center;
     }
 }
 </style>

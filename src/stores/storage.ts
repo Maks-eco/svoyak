@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import type { StorageProduct } from '../types/StorageProduct'
 import type { Category } from '../types/Category'
 import type { Product } from '../types/Product'
-import type { Question, Round } from '../types/GameEntities'
+import type { Question, Round, Theme } from '../types/GameEntities'
 
 const storeId = '108362264'
 const token = 'public_RiNvjTVVzKLhFNWyzR5fNY68u1GMHLEs'
@@ -111,10 +111,16 @@ const useCounterStore = defineStore('counter', () => {
         theme_id: number,
         question_id: number
     ): Promise<null | Question> => {
+        const filterValue = (obj: any, key: string, value: any) =>
+            obj.find((v: any) => v[key] === value)
+
         const rounds: Round[] | null = await getAllQuestions()
         let data: null | Question = null
-        if (rounds?.length)
-            data = rounds[0].themes[theme_id].questions[question_id]
+        let theme: Theme | null = null
+        if (rounds?.length) {
+            theme = filterValue(rounds[0].themes, 'id', theme_id) as Theme
+            data = filterValue(theme.questions, 'id', question_id) as Question
+        }
         return data
     }
 

@@ -10,29 +10,29 @@
                     {
                         "id": 1,
                         "description": "some",
-                        "ask": "Product 1 Product 1 Product 1 Product 1 ",
-                        "answer": "images/1.jpg",
+                        "ask": "/images/round1/1_3.jpg",
+                        "answer": "Product 1 Product 1 Product 1 Product 1",
                         "cost": 200
                     },
                     {
                         "id": 2,
                         "description": "some",
                         "ask": "Product 2222 Product 1 Product 1 Product 1 ",
-                        "answer": "images/2.jpg",
+                        "answer": "/images/round1/1_3.jpg",
                         "cost": 200
                     },
                     {
                         "id": 3,
                         "description": "some",
                         "ask": "Product 33 Product 1 Product 1 Product 1 ",
-                        "answer": "images/3.jpg",
+                        "answer": "images/round1/1_3.jpg",
                         "cost": 300
                     },
                     {
                         "id": 4,
                         "description": "some",
-                        "ask": "Product 1 Product 44444 Product 1 Product 1 ",
-                        "answer": "images/4.jpg",
+                        "ask": "images/round1/1_3.jpg",
+                        "answer": "Product 1 Product 44444 Product 1 Product 1 ",
                         "cost": 400
                     },
                     {

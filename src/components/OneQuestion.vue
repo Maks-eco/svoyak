@@ -14,7 +14,7 @@
         :item="item"
     >
         <div class="one-section">
-            I am link to question
+            <!-- I am link to question -->
             <!-- <div class="section__img-contnr">
                     <img
                         class="section__img"
@@ -48,16 +48,24 @@ defineProps({
 
 <style scoped>
 a {
+    height: 100%;
     text-decoration: none;
 }
-.section-contnr {
-    margin-bottom: 50px;
-}
+
 .one-section {
-    /* width: 250px;
-    height: 260px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
-    margin: 10px;
+    /* margin: 10px; */
+    border-radius: 20px;
+    transition: background-color 0.3s;
+    background-color: greenyellow;
+
+    &:hover {
+        transition: background-color 0.3s;
+        background-color: khaki;
+    }
 }
 .section__descr {
     margin: 5px;
@@ -65,21 +73,7 @@ a {
     color: #333;
     transition: color 0.4s;
 }
-.one-section:hover .section__descr {
-    color: #af66d4;
-}
-.section__img-contnr {
-    width: 160px;
-    height: 160px;
-    overflow: hidden;
-    margin: 20px auto 0px auto;
-}
-.section__img {
-    aspect-ratio: 1 / 1;
-    width: 100%;
-    object-fit: cover;
-    transition: 0.5s all ease-in-out;
-}
+
 .one-section:hover .section__img {
     transform: scale(1.05);
 }
