@@ -46,7 +46,7 @@ import { onMounted, ref } from 'vue'
 import type { Product } from '../types/Product'
 import OrderCompletionMessage from '../components/OrderCompletionMessage.vue'
 import useCounterStore from '../stores/storage'
-import BurningCoal from '~/components/BurningCoal.vue'
+import BurningCoal from '~/components/SpamButton.vue'
 // import { useMeta } from 'vue-meta'
 
 // useMeta({
