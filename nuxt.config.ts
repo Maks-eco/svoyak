@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
     app: {
         baseURL: '/svoyak/',
+        pageTransition: { name: 'page', mode: 'out-in' },
     },
     srcDir: 'src/',
     css: ['@/global/styles.less'],

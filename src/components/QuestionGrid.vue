@@ -1,26 +1,26 @@
 <template>
     <div class="theme__wrapper">
-        <Transition>
-            <div class="theme__list" v-if="round">
-                <div
-                    class="theme__row"
-                    v-for="theme in round?.themes"
-                    :theme="theme.id"
-                >
-                    <div class="theme__name">
-                        {{ theme.name }}
-                    </div>
-                    <!-- <div> -->
-                    <OneQuestion
-                        class="theme__question"
-                        v-for="question in theme.questions"
-                        :item="question"
-                        :theme-id="theme.id"
-                    />
-                    <!-- </div> -->
+        <!-- <Transition> -->
+        <div class="theme__list" v-if="round">
+            <div
+                class="theme__row"
+                v-for="theme in round?.themes"
+                :theme="theme.id"
+            >
+                <div class="theme__name">
+                    {{ theme.name }}
                 </div>
+                <!-- <div> -->
+                <OneQuestion
+                    class="theme__question"
+                    v-for="question in theme.questions"
+                    :item="question"
+                    :theme-id="theme.id"
+                />
+                <!-- </div> -->
             </div>
-        </Transition>
+        </div>
+        <!-- </Transition> -->
     </div>
     <!-- <router-view /> -->
 </template>

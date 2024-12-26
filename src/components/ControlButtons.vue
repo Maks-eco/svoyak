@@ -2,7 +2,9 @@
     <div>
         <div class="contol__wrapper">
             <div class="contol__get-answer" @click="getAnswer">Ответ</div>
-            <NuxtLink class="contol__to-menu" to="/">В меню</NuxtLink>
+            <NuxtLink class="contol__to-menu" to="/playing_field"
+                >В меню</NuxtLink
+            >
         </div>
     </div>
 </template>

@@ -57,51 +57,6 @@ const useCounterStore = defineStore('counter', () => {
         locStorage.saveData('container', count.value)
     }
 
-    const getCategoryData = (parentId: string): Promise<null | Category[]> => {
-        return fetch(
-            `https://app.ecwid.com/api/v3/${storeId}/categories?parent=${parentId}&productIds=true`,
-            options
-        )
-            .then((response) => response.json())
-            .then((response) => {
-                return response.items as Category[]
-            })
-            .catch((err) => {
-                console.error(err)
-                return null
-            })
-    }
-
-    const getProductData = (): Promise<null | Product[]> => {
-        return fetch(
-            `https://app.ecwid.com/api/v3/${storeId}/products`,
-            options
-        )
-            .then((response) => response.json())
-            .then((response) => {
-                return response.items as Product[]
-            })
-            .catch((err) => {
-                console.log(err.message)
-                return null
-            })
-    }
-
-    const getProductDataById = async (id: string): Promise<null | Product> => {
-        const data = await $fetch<null | Product[]>('products.json')
-        let finded = null
-        if (data)
-            finded = data.find((item: Product) => {
-                return item.id.toString() === id
-            }) as Product
-        return finded
-    }
-
-    const getAllProduct = async (page: number): Promise<null | Product[]> => {
-        const data = await $fetch<null | Product[]>('products.json')
-        return data
-    }
-
     const getAllQuestions = async (): Promise<null | Round[]> => {
         const data = await $fetch<null | Round[]>('questions.json')
         return data
@@ -124,45 +79,6 @@ const useCounterStore = defineStore('counter', () => {
         return data
     }
 
-    const getProductDataByCategoryId = async (
-        page: number,
-        id: string
-    ): Promise<null | Product[]> => {
-        let idsList: any = await fetch(
-            `https://app.ecwid.com/api/v3/${storeId}/categories?productIds=true`,
-            options
-        )
-            .then((response) => response.json())
-            .then((response) => {
-                const category = response.items.filter(
-                    (item: any) => item.id.toString() === id
-                )[0]
-                if (!category?.productIds) return null
-                const idsListBuf = category.productIds
-                    .slice((page - 1) * 6, page * 6)
-                    .join(',')
-                if (idsListBuf.length < 1) return null
-                return idsListBuf
-            })
-            .catch((err) => {
-                console.error(err)
-                return null
-            })
-        if (!idsList) return null
-        return fetch(
-            `https://app.ecwid.com/api/v3/${storeId}/products?productId=${idsList}`,
-            options
-        )
-            .then((response) => response.json())
-            .then((response) => {
-                return response.items as Product[]
-            })
-            .catch((err) => {
-                console.error(err)
-                return null
-            })
-    }
-
     return {
         count,
         getValue,
@@ -171,11 +87,6 @@ const useCounterStore = defineStore('counter', () => {
         deleteItem,
         getAllQuestions,
         getOneQuestion,
-        getAllProduct,
-        getCategoryData,
-        getProductData,
-        getProductDataById,
-        getProductDataByCategoryId,
     }
 })
 

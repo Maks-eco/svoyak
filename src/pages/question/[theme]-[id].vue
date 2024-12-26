@@ -1,14 +1,17 @@
 <template>
-    <Transition>
-        <div class="big-text__wrapper">
-            <div><div v-html="img_on_page"></div></div>
+    <!-- <Transition> -->
+    <div class="big-text__wrapper">
+        <div :class="{ hidden: !isImage }">
+            <!-- <div v-html="img_on_page"></div> -->
             <img class="big-image" alt="some" :src="location + img_on_page" />
-            <!-- v-bind="{ src: '@/' + img_on_page }" -->
-            <div class="big-text">{{ text_on_page }}</div>
-            <ControlButtons @getAnswer="getAnswer()" />
-            {{ isImage }}
         </div>
-    </Transition>
+        <!-- v-bind="{ src: '@/' + img_on_page }" -->
+        <div :class="{ hidden: isImage }" class="big-text">
+            {{ text_on_page }}
+        </div>
+        <ControlButtons @getAnswer="getAnswer()" />
+    </div>
+    <!-- </Transition> -->
 </template>
 
 <script lang="ts" setup>
@@ -58,9 +61,12 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
     if (newQuestion.includes('image')) {
         isImage.value = true
         img_on_page.value = text_on_page.value
-        console.log('i watch', img_on_page.value)
+        // console.log('i watch', img_on_page.value)
+    } else {
+        isImage.value = false
     }
-    isImage.value = false
+
+    console.log('i watch', isImage.value)
 })
 </script>
 
@@ -72,6 +78,9 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
 .v-enter-from,
 .v-leave-to {
     opacity: 0;
+}
+.hidden {
+    display: none;
 }
 .big-text {
     font-size: 40px;
@@ -88,5 +97,7 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
 }
 .big-image {
     border-radius: 20px;
+    height: 100%;
+    width: 100%;
 }
 </style>
