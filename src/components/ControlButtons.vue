@@ -42,7 +42,7 @@ const numberOfPurchases = useCounterStore()
 
     &__get-answer,
     &__to-menu {
-        font-size: 30px;
+        font-size: 20px;
         padding: 20px 40px;
         border-radius: 20px;
         text-decoration: none;
