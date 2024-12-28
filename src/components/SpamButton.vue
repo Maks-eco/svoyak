@@ -2,15 +2,14 @@
     <NameInput />
     <button id="get_someth" @click="itsPushed()">Get someth!</button>
     <br /><br /><br />
-    <button id="get_upd" @click="itsUpd()">Upd</button>
+    <!-- <button id="get_upd" @click="itsUpd()">Upd</button> -->
     <p>{{ nameCode }}</p>
     <p>{{ places }}</p>
 </template>
 
 <script lang="ts" setup>
-import { initializeApp } from 'firebase/app'
+// import { initializeApp } from 'firebase/app'
 import {
-    getFirestore,
     addDoc,
     collection,
     serverTimestamp,
@@ -19,50 +18,19 @@ import {
     doc,
 } from 'firebase/firestore'
 
-const firebaseConfig = {
-    apiKey: 'AIzaSyAqtrA7R-eTQEyEsApXu_ZcX4xAIbVbOzw',
-    authDomain: 'svoyak-game.firebaseapp.com',
-    projectId: 'svoyak-game',
-    storageBucket: 'svoyak-game.firebasestorage.app',
-    messagingSenderId: '665514390922',
-    appId: '1:665514390922:web:00af8370ac10f15e608473',
-}
+import useCounterStore from '@/stores/storage'
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig)
-const db = getFirestore(app)
+const store = useCounterStore()
+const db = store.db
+
 const nameCode = ref('')
 const places = ref('')
 
 const itsPushed = async () => {
     const docRef = doc(db, 'users', nameCode.value)
     const updateTimestamp = await updateDoc(docRef, {
-        timestamp: serverTimestamp(),
+        ['timestamp' + Date.now().toString().slice(-7)]: serverTimestamp(),
     })
-}
-
-const itsUpd = async () => {
-    try {
-        const itemsArray: any[] = []
-        const querySnapshot = await getDocs(collection(db, 'users'))
-        querySnapshot.forEach((doc) => {
-            itemsArray.push({ ...doc.data(), id: doc.id })
-            console.log(`${doc.id} => ${doc.data()}`, doc.data())
-        })
-        const result = itemsArray.filter((item: any) => {
-            return item.hasOwnProperty('timestamp')
-        })
-        result.sort((a, b) => a.timestamp.seconds - b.timestamp.seconds)
-        let strRes = ''
-        result.forEach((item, index) => {
-            strRes += `${item.name} was ${index + 1}, `
-        })
-
-        places.value = strRes.slice(0, -2)
-        console.log('result', result, places.value)
-    } catch (e) {
-        console.error('Error adding document: ', e)
-    }
 }
 
 onMounted(async () => {
@@ -82,7 +50,7 @@ onMounted(async () => {
                 try {
                     const docRef = await addDoc(collection(db, 'users'), {
                         name: nameStor,
-                        timestamp: serverTimestamp(),
+                        // timestamp: serverTimestamp(),
                     })
                     console.log('Document written with ID: ', docRef.id)
                     nameCode.value = docRef.id

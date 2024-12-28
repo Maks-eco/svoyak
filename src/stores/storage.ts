@@ -8,6 +8,28 @@ import type { Question, Round, Theme } from '../types/GameEntities'
 const storeId = '108362264'
 const token = 'public_RiNvjTVVzKLhFNWyzR5fNY68u1GMHLEs'
 
+import { initializeApp } from 'firebase/app'
+import {
+    getFirestore,
+    getDocs,
+    collection,
+    setDoc,
+    doc,
+} from 'firebase/firestore'
+
+const firebaseConfig = {
+    apiKey: 'AIzaSyAqtrA7R-eTQEyEsApXu_ZcX4xAIbVbOzw',
+    authDomain: 'svoyak-game.firebaseapp.com',
+    projectId: 'svoyak-game',
+    storageBucket: 'svoyak-game.firebasestorage.app',
+    messagingSenderId: '665514390922',
+    appId: '1:665514390922:web:00af8370ac10f15e608473',
+}
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig)
+const db = getFirestore(app)
+
 const options = {
     method: 'GET',
     headers: { accept: 'application/json', Authorization: `Bearer ${token}` },
@@ -79,7 +101,97 @@ const useCounterStore = defineStore('counter', () => {
         return data
     }
 
+    const getPlayersTapState = async (): Promise<{
+        string: string
+        centered: any
+    }> => {
+        try {
+            const itemsArray: any[] = []
+            const querySnapshot = await getDocs(collection(db, 'users'))
+            const gameStateCol = await getDocs(collection(db, 'game_state'))
+            const gameStateArray: any[] = []
+
+            gameStateCol.forEach((doc) => {
+                gameStateArray.push({ ...doc.data(), id: doc.id })
+                // console.log(`${doc.id} => ${doc.data()}`, doc.data())
+            })
+            let gameStateValue: any = gameStateArray[0].question_timestamp
+
+            querySnapshot.forEach((doc) => {
+                itemsArray.push({ ...doc.data(), id: doc.id })
+                // console.log(`${doc.id} => ${doc.data()}`, doc.data())
+            })
+            const result: any[] = []
+            itemsArray.map((item: any) => {
+                // return item.hasOwnProperty('timestamp')
+                for (const [key, value] of Object.entries(item)) {
+                    // console.log(`${key}: ${value}`);
+                    if (key.includes('timestamp'))
+                        result.push({
+                            //...item,
+                            timestamp: value,
+                            name: item.name,
+                        })
+                }
+                return
+            })
+            console.log('result', result)
+            result.sort(
+                (a: any, b: any) => a.timestamp.seconds - b.timestamp.seconds
+            )
+
+            const centered = result.map((item) => {
+                return {
+                    ...item,
+                    center: item.timestamp.seconds - gameStateValue.seconds,
+                    gs: gameStateValue.seconds,
+                    is: item.seconds,
+                }
+            })
+            let strRes = ''
+            result.forEach((item, index) => {
+                strRes += `${item.name} was ${index + 1}, `
+            })
+            // console.log('result', result, strRes)
+            return { string: strRes.slice(0, -2), centered: centered }
+        } catch (e) {
+            console.error('Error adding document: ', e)
+            return { string: '', centered: null }
+        }
+    }
+
+    const clearPlayersTapState = async () => {
+        try {
+            const itemsArray: any[] = []
+            const querySnapshot = await getDocs(collection(db, 'users'))
+            querySnapshot.forEach((doc) => {
+                itemsArray.push({ ...doc.data(), id: doc.id })
+                // console.log(`${doc.id} => ${doc.data()}`, doc.data())
+            })
+
+            const result: any[] = []
+            itemsArray.map(async (item: any) => {
+                await setDoc(doc(db, 'users', item.id), { name: item.name })
+
+                // return
+            })
+        } catch (e) {
+            console.error('Error adding document: ', e)
+        }
+    }
+
+    const getGameState = async () => {
+        const gameStateArray: any[] = []
+        const gameStateCollection = await getDocs(collection(db, 'game_state'))
+        gameStateCollection.forEach((doc) => {
+            gameStateArray.push({ ...doc.data(), id: doc.id })
+        })
+        if (gameStateArray.length > 0) return gameStateArray[0]
+        return null
+    }
+
     return {
+        db,
         count,
         getValue,
         getCountItems,
@@ -87,6 +199,9 @@ const useCounterStore = defineStore('counter', () => {
         deleteItem,
         getAllQuestions,
         getOneQuestion,
+        getPlayersTapState,
+        getGameState,
+        clearPlayersTapState,
     }
 })
 

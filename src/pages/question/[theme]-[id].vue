@@ -1,17 +1,13 @@
 <template>
-    <!-- <Transition> -->
     <div class="big-text__wrapper">
         <div :class="{ hidden: !isImage }">
-            <!-- <div v-html="img_on_page"></div> -->
             <img class="big-image" alt="some" :src="location + img_on_page" />
         </div>
-        <!-- v-bind="{ src: '@/' + img_on_page }" -->
         <div :class="{ hidden: isImage }" class="big-text">
             {{ text_on_page }}
         </div>
         <ControlButtons @getAnswer="getAnswer()" />
     </div>
-    <!-- </Transition> -->
 </template>
 
 <script lang="ts" setup>
@@ -19,25 +15,31 @@ import type { Question } from '@/types/GameEntities'
 import useCounterStore from '@/stores/storage'
 import ControlButtons from '~/components/ControlButtons.vue'
 
+import { serverTimestamp, updateDoc, doc } from 'firebase/firestore'
+
 const runtimeConfig = useRuntimeConfig()
-
-// console.log(runtimeConfig.app.baseURL)
-
 const store = useCounterStore()
-
 const route = useRoute()
-
 const question = ref(null as Question | null)
-
 const isImage = ref(false)
-
 const text_on_page = ref('' as string)
 const img_on_page = ref('' as string)
 const location = ref('' as string)
+const db = store.db
+
+const itsStarted = async () => {
+    const gameState = await store.getGameState()
+    console.log('gs', gameState)
+    const docRef = doc(db, 'game_state', gameState.id)
+    const updateTimestamp = await updateDoc(docRef, {
+        question_timestamp: serverTimestamp(),
+    })
+}
 
 const getAnswer = () => {
     if (question.value) text_on_page.value = question.value.answer
     console.log('aga')
+    /*только для тестов!*/ itsStarted()
 }
 
 onMounted(async () => {
@@ -55,13 +57,17 @@ onMounted(async () => {
         location.value = window.location.origin + runtimeConfig.app?.baseURL
     if (question.value) text_on_page.value = question.value.ask
     console.log('route', route, location.value)
+
+    // setInterval(async () => {
+    // itsStarted()
+    // console.log('upd_question_tap')
+    // }, 3000)
 })
 
 watch(text_on_page, async (newQuestion, oldQuestion) => {
     if (newQuestion.includes('image')) {
         isImage.value = true
         img_on_page.value = text_on_page.value
-        // console.log('i watch', img_on_page.value)
     } else {
         isImage.value = false
     }
@@ -91,7 +97,7 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
         position: fixed;
         display: flex;
         justify-content: center;
-        height: 70%; //calc(100% - 500px);;
+        height: 70%;
         width: 100%;
     }
 }
