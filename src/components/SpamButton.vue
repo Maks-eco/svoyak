@@ -1,10 +1,9 @@
 <template>
-    <NameInput />
+    <NameInput @nameSet="sendNewNameToBase()" />
     <button id="get_someth" @click="itsPushed()">Get someth!</button>
     <br /><br /><br />
-    <!-- <button id="get_upd" @click="itsUpd()">Upd</button> -->
-    <p>{{ nameCode }}</p>
     <p>{{ places }}</p>
+    <p>{{ isNameInBase ? 'Imja v base' : 'Ne naideno v base' }}</p>
 </template>
 
 <script lang="ts" setup>
@@ -25,6 +24,8 @@ const db = store.db
 
 const nameCode = ref('')
 const places = ref('')
+const nameStor = ref('')
+const isNameInBase = ref(false)
 
 const itsPushed = async () => {
     const docRef = doc(db, 'users', nameCode.value)
@@ -33,36 +34,55 @@ const itsPushed = async () => {
     })
 }
 
-onMounted(async () => {
-    const nameStor = localStorage.getItem('myname')
-    if (nameStor) {
+const sendNewNameToBase = async () => {
+    const mynameStorage = localStorage.getItem('myname')
+    nameStor.value = mynameStorage ? mynameStorage : ''
+    const { isExist } = await isExistInBase()
+    if (!isExist) {
         try {
-            const itemsArray: any[] = []
-            const querySnapshot = await getDocs(collection(db, 'users'))
-            querySnapshot.forEach((doc) => {
-                itemsArray.push({ ...doc.data(), id: doc.id })
-                // console.log(`${doc.id} => ${doc.data()}`, doc.data())
+            const docRef = await addDoc(collection(db, 'users'), {
+                name: nameStor.value,
+                // timestamp: serverTimestamp(),
             })
-            const result = itemsArray.filter((item: any) => {
-                return item?.name?.toString() === nameStor /*nameStor*/
-            })
-            if (result.length === 0) {
-                try {
-                    const docRef = await addDoc(collection(db, 'users'), {
-                        name: nameStor,
-                        // timestamp: serverTimestamp(),
-                    })
-                    console.log('Document written with ID: ', docRef.id)
-                    nameCode.value = docRef.id
-                } catch (e) {
-                    console.error('Error adding document: ', e)
-                }
-            } else {
-                nameCode.value = result[0].id
-            }
-            console.log('?', result, itemsArray)
+            console.log('Document written with ID: ', docRef.id)
+            nameCode.value = docRef.id
+            isNameInBase.value = true
         } catch (e) {
             console.error('Error adding document: ', e)
+        }
+    }
+}
+
+const isExistInBase = async () => {
+    try {
+        const itemsArray: any[] = []
+        const querySnapshot = await getDocs(collection(db, 'users'))
+        querySnapshot.forEach((doc) => {
+            itemsArray.push({ ...doc.data(), id: doc.id })
+            // console.log(`${doc.id} => ${doc.data()}`, doc.data())
+        })
+        const result = itemsArray.filter((item: any) => {
+            return item?.name?.toString() === nameStor.value /*nameStor*/
+        })
+        console.log('?', result, itemsArray)
+        return { isExist: result.length !== 0, id: result[0].id }
+    } catch (e) {
+        console.error('Error adding document: ', e)
+        return { isExist: false, id: 0 }
+    }
+}
+
+onMounted(async () => {
+    const mynameStorage = localStorage.getItem('myname')
+    nameStor.value = mynameStorage ? mynameStorage : ''
+    if (nameStor.value) {
+        const { isExist, id } = await isExistInBase()
+        if (!isExist) {
+            // sendNewNameToBase()
+            isNameInBase.value = false
+        } else {
+            nameCode.value = id
+            isNameInBase.value = true
         }
     }
 })

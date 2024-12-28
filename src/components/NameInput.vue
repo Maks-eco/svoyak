@@ -2,7 +2,10 @@
     <div>
         <input type="text" v-model="name" />
         <span>{{ name }}</span> <br />
-        <span>{{ name ? 'Youre imya: ' + name : 'Vvedite imya' }}</span> <br />
+        <span>{{
+            storedName ? 'Youre imya: ' + storedName : 'Vvedite imya'
+        }}</span>
+        <br />
         <button @click="saveName">Store</button>
     </div>
 </template>
@@ -12,14 +15,21 @@
 import { ref, onMounted } from 'vue'
 const name = ref('')
 const nameCode = ref('')
+const storedName = ref('')
+
+const emit = defineEmits(['nameSet'])
+
 const saveName = () => {
     localStorage.setItem('myname', name.value)
+    const lsName = localStorage.getItem('myname')
+    storedName.value = lsName ? lsName : ''
+    if (lsName) emit('nameSet')
 }
 
 onMounted(() => {
     const nameStor = localStorage.getItem('myname')
     if (nameStor) {
-        name.value = nameStor
+        storedName.value = name.value = nameStor
     }
 })
 </script>
