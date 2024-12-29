@@ -121,6 +121,15 @@ const useCounterStore = defineStore('counter', () => {
                 itemsArray.push({ ...doc.data(), id: doc.id })
                 // console.log(`${doc.id} => ${doc.data()}`, doc.data())
             })
+
+            const timestampConcatMilliseconds = (timestamp: any) => {
+                const res =
+                    timestamp.seconds * 1e3 + timestamp.nanoseconds / 1e6
+
+                // console.log('r', res)
+                return res
+            }
+
             const result: any[] = []
             itemsArray.map((item: any) => {
                 // return item.hasOwnProperty('timestamp')
@@ -135,25 +144,36 @@ const useCounterStore = defineStore('counter', () => {
                 }
                 return
             })
-            console.log('result', result)
-            result.sort(
-                (a: any, b: any) => a.timestamp.seconds - b.timestamp.seconds
+            // console.log('result', result)
+            const resultSorted = result.sort(
+                (a: any, b: any) =>
+                    timestampConcatMilliseconds(a.timestamp) -
+                    timestampConcatMilliseconds(b.timestamp)
             )
 
-            const centered = result.map((item) => {
+            const centered = resultSorted.map((item) => {
+                const centerWithSign =
+                    timestampConcatMilliseconds(item.timestamp) -
+                    timestampConcatMilliseconds(gameStateValue)
                 return {
                     ...item,
-                    center: item.timestamp.seconds - gameStateValue.seconds,
-                    gs: gameStateValue.seconds,
-                    is: item.seconds,
+                    center: centerWithSign,
+                    centerUnsign: Math.abs(centerWithSign),
+                    sign: centerWithSign >= 0 ? 1 : -1,
+                    ts: timestampConcatMilliseconds(item.timestamp),
+                    // gs: gameStateValue.seconds,
+                    // is: item.seconds,
                 }
             })
+            const centerSorted = centered.sort(
+                (a: any, b: any) => a.centerUnsign - b.centerUnsign
+            )
             let strRes = ''
-            result.forEach((item, index) => {
+            resultSorted.forEach((item, index) => {
                 strRes += `${item.name} was ${index + 1}, `
             })
             // console.log('result', result, strRes)
-            return { string: strRes.slice(0, -2), centered: centered }
+            return { string: strRes.slice(0, -2), centered: centerSorted }
         } catch (e) {
             console.error('Error adding document: ', e)
             return { string: '', centered: null }

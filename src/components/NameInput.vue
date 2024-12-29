@@ -1,7 +1,8 @@
 <template>
     <div>
-        <input type="text" v-model="name" />
-        <span>{{ name }}</span> <br />
+        <input type="text" v-model="name" maxlength="20" />
+        <!-- <span>{{ name }}</span> -->
+        <br />
         <span>{{
             storedName ? 'Youre imya: ' + storedName : 'Vvedite imya'
         }}</span>

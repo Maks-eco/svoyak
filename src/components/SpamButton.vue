@@ -29,7 +29,7 @@ const isNameInBase = ref(false)
 
 const itsPushed = async () => {
     const docRef = doc(db, 'users', nameCode.value)
-    const updateTimestamp = await updateDoc(docRef, {
+    await updateDoc(docRef, {
         ['timestamp' + Date.now().toString().slice(-7)]: serverTimestamp(),
     })
 }

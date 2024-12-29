@@ -1,5 +1,6 @@
 <template>
     <div class="big-text__wrapper">
+        <div class="timer-row"></div>
         <div :class="{ hidden: !isImage }">
             <img class="big-image" alt="some" :src="location + img_on_page" />
         </div>
@@ -25,6 +26,7 @@ const isImage = ref(false)
 const text_on_page = ref('' as string)
 const img_on_page = ref('' as string)
 const location = ref('' as string)
+const timerBarWidth = ref('100%')
 const db = store.db
 
 const itsStarted = async () => {
@@ -34,6 +36,17 @@ const itsStarted = async () => {
     const updateTimestamp = await updateDoc(docRef, {
         question_timestamp: serverTimestamp(),
     })
+}
+let steps = 50
+const itsTimer = async () => {
+    timerBarWidth.value = (steps * 2).toString() + '%'
+    steps -= 1
+    console.log(steps)
+    if (steps >= 0) {
+        setTimeout(async () => {
+            await itsTimer()
+        }, 100)
+    }
 }
 
 const getAnswer = () => {
@@ -62,6 +75,7 @@ onMounted(async () => {
     // itsStarted()
     // console.log('upd_question_tap')
     // }, 3000)
+    itsTimer()
 })
 
 watch(text_on_page, async (newQuestion, oldQuestion) => {
@@ -88,6 +102,13 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
 .hidden {
     display: none;
 }
+.timer-row {
+    height: 20px;
+    background-color: blue;
+    padding: 20px 0;
+    width: v-bind(timerBarWidth);
+    transition: width 0.2s linear;
+}
 .big-text {
     font-size: 40px;
     text-align: center;
@@ -96,7 +117,9 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
     &__wrapper {
         position: fixed;
         display: flex;
-        justify-content: center;
+        // justify-content: center;
+        flex-direction: column;
+        align-items: center;
         height: 70%;
         width: 100%;
     }
