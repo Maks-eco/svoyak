@@ -65,8 +65,26 @@ let ddd: any
 type PlayersStatusAndRef = Partial<PlayersStatus> & {
     ref: number //globalThis.Ref<number, number>
 }
-const changeStat = (id: any, ref: any) => {
-    console.log(id, ref)
+const changeStat = (id: string | undefined, ref: any) => {
+    const newArray: PlayersStatus[] = []
+    console.log('beforesave', playersStatus.value)
+    if (playersStatus.value) {
+        playersStatus.value.forEach((item) => {
+            if (item.id && item.name && item.image) {
+                const newItem: PlayersStatus = {
+                    id: item.id,
+                    name: item.name,
+                    points: id === item.id ? item.points + ref : item.points,
+                    image: item.image,
+                }
+
+                newArray.push(newItem)
+            }
+        })
+    }
+
+    store.setPlayersData(newArray)
+    console.log('savethis', newArray)
 }
 const itsPushed = async () => {
     store.clearPlayersTapState()

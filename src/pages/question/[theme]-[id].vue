@@ -93,10 +93,12 @@ const itsTimer = async (
 const getAnswer = () => {
     if (question.value) text_on_page.value = question.value.answer
     console.log('aga')
-    /*только для тестов!*/ itsStarted()
+    /*только для тестов!*/ //itsStarted()
 }
 
 onMounted(async () => {
+    store.clearPlayersTapState()
+
     const theme_id: string =
         typeof route.params.theme === 'string' ? route.params.theme : '0'
     const questn_id: string =
@@ -123,7 +125,7 @@ onMounted(async () => {
         45,
         text_on_page.value.length,
         (st: any) => readText(st),
-        () => Helllooo()
+        () => itsStarted()
     )
 })
 
