@@ -5,7 +5,8 @@
             <img class="big-image" alt="some" :src="location + img_on_page" />
         </div>
         <div :class="{ hidden: isImage }" class="big-text">
-            {{ text_on_page }}
+            <!-- {{ text_on_page }} -->
+            <p v-html="finalText"></p>
         </div>
         <ControlButtons @getAnswer="getAnswer()" />
     </div>
@@ -26,6 +27,7 @@ const isImage = ref(false)
 const text_on_page = ref('' as string)
 const img_on_page = ref('' as string)
 const location = ref('' as string)
+const finalText = ref('')
 const timerBarWidth = ref('100%')
 const db = store.db
 
@@ -37,15 +39,49 @@ const itsStarted = async () => {
         question_timestamp: serverTimestamp(),
     })
 }
-let steps = 50
-const itsTimer = async () => {
-    timerBarWidth.value = (steps * 2).toString() + '%'
-    steps -= 1
-    console.log(steps)
-    if (steps >= 0) {
+
+const readText = (char: number) => {
+    const cutSymbol = text_on_page.value.length - char
+    const procSymbol = (char * 100) / text_on_page.value.length
+    // console.log(char, procSymbol)
+    decreaseTimer(procSymbol)
+    finalText.value = `<span class="highlighted">${text_on_page.value.slice(
+        0,
+        cutSymbol
+    )}</span>${text_on_page.value.slice(cutSymbol)}`
+}
+
+const Helllooo = () => {
+    console.log('hello')
+}
+const decreaseTimer = (steps?: number) => {
+    // console.log('s', steps)
+    if (steps) timerBarWidth.value = steps.toString() + '%'
+}
+// let steps = 50
+const itsTimer = async (
+    stepPause: number,
+    steps: number,
+    callback: any,
+    onEnd?: any
+) => {
+    callback(steps - 1)
+    // console.log(steps)
+    if (steps > 0) {
         setTimeout(async () => {
-            await itsTimer()
-        }, 100)
+            await itsTimer(
+                stepPause,
+                steps - 1,
+                (st: any) => {
+                    callback(st)
+                },
+                () => {
+                    onEnd()
+                }
+            )
+        }, stepPause)
+    } else {
+        onEnd()
     }
 }
 
@@ -71,11 +107,19 @@ onMounted(async () => {
     if (question.value) text_on_page.value = question.value.ask
     console.log('route', route, location.value)
 
-    // setInterval(async () => {
-    // itsStarted()
-    // console.log('upd_question_tap')
-    // }, 3000)
-    itsTimer()
+    // itsTimer(
+    //     50,
+    //     100,
+    //     (st: any) => decreaseTimer(st),
+    //     () => Helllooo()
+    // )
+
+    itsTimer(
+        55,
+        text_on_page.value.length,
+        (st: any) => readText(st),
+        () => Helllooo()
+    )
 })
 
 watch(text_on_page, async (newQuestion, oldQuestion) => {
@@ -84,6 +128,7 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
         img_on_page.value = text_on_page.value
     } else {
         isImage.value = false
+        finalText.value = text_on_page.value
     }
 
     console.log('i watch', isImage.value)
@@ -98,6 +143,9 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
 .v-enter-from,
 .v-leave-to {
     opacity: 0;
+}
+.highlighted {
+    color: rgb(225, 0, 255);
 }
 .hidden {
     display: none;
