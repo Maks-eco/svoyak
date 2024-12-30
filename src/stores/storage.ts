@@ -227,7 +227,7 @@ const useCounterStore = defineStore('counter', () => {
             gameStateArray.push(doc.data() as gameStat)
             stateId = doc.id
         })
-        console.log('GSAAA', gameStateArray[0])
+        // console.log('GSAAA', gameStateArray[0])
         if (gameStateArray.length > 0)
             return { allData: gameStateArray[0], idInBase: stateId }
         return null

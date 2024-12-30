@@ -36,10 +36,20 @@
                             type="number"
                             maxlength="6"
                             v-model="player.ref"
-                        /><button @click="changeStat(player.id, player.ref)">
+                        /><button
+                            @click="
+                                changeStat(player.id, player.ref).then(() => {})
+                            "
+                        >
                             Add
                         </button>
-                        <button @click="changeStat(player.id, -player.ref)">
+                        <button
+                            @click="
+                                changeStat(player.id, -player.ref).then(
+                                    () => {}
+                                )
+                            "
+                        >
                             Om-nom-nom
                         </button>
                     </div>
@@ -65,7 +75,8 @@ let ddd: any
 type PlayersStatusAndRef = Partial<PlayersStatus> & {
     ref: number //globalThis.Ref<number, number>
 }
-const changeStat = (id: string | undefined, ref: any) => {
+const changeStat = async (id: string | undefined, ref: any) => {
+    // getPlayersData().then(() => {
     const newArray: PlayersStatus[] = []
     console.log('beforesave', playersStatus.value)
     if (playersStatus.value) {
@@ -82,9 +93,13 @@ const changeStat = (id: string | undefined, ref: any) => {
             }
         })
     }
-
-    store.setPlayersData(newArray)
     console.log('savethis', newArray)
+    store.setPlayersData(newArray).then(() => {
+        getPlayersData()
+    })
+
+    // })
+    // getPlayersData()
 }
 const itsPushed = async () => {
     store.clearPlayersTapState()
@@ -111,7 +126,7 @@ const sortThis = (centered: any[]) => {
         return { ...item, converted: msToTime(item.centerUnsign) }
     })
 
-    console.log('cc', centerConverted)
+    // console.log('cc', centerConverted)
     return centerConverted
 }
 
@@ -128,8 +143,9 @@ function msToTime(duration: any) {
     return hours + ':' + minutes + ':' + seconds + '.' + milliseconds
 }
 
-onMounted(async () => {
+const getPlayersData = async () => {
     store.getGameState().then((info) => {
+        playersStatus.value = []
         if (info) {
             const bufarray: PlayersStatus[] = info.allData.data
 
@@ -144,6 +160,10 @@ onMounted(async () => {
             console.log('pv', bufarray, playersStatus.value)
         }
     })
+}
+
+onMounted(async () => {
+    getPlayersData()
     // store.initPlayersState()
     // console.log(
     //     'timestamp' + Date.now().toString().slice(-5),
@@ -152,7 +172,7 @@ onMounted(async () => {
     setInterval(async () => {
         ;({ string: tapsState.value, centered: ddd } =
             await store.getPlayersTapState())
-        console.log('upd_tap_info', ddd)
+        // console.log('upd_tap_info', ddd)
         answerList.value = sortThis(ddd)
     }, 2000)
 })
