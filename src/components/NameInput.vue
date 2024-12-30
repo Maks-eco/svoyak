@@ -1,11 +1,9 @@
 <template>
     <div>
+        <span>{{ storedName ? 'Твой ник: ' + storedName : 'Введи ник:' }}</span>
+        <br />
         <input type="text" v-model="name" maxlength="20" />
         <!-- <span>{{ name }}</span> -->
-        <br />
-        <span>{{
-            storedName ? 'Youre imya: ' + storedName : 'Vvedite imya'
-        }}</span>
         <br />
         <button @click="saveName">Store</button>
     </div>

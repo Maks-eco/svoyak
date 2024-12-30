@@ -34,10 +34,15 @@ const db = store.db
 const itsStarted = async () => {
     const gameState = await store.getGameState()
     console.log('gs', gameState)
-    const docRef = doc(db, 'game_state', gameState.id)
-    const updateTimestamp = await updateDoc(docRef, {
-        question_timestamp: serverTimestamp(),
-    })
+    if (gameState?.idInBase && question.value) {
+        const docRef = doc(db, 'game_state', gameState?.idInBase)
+        const updateTimestamp = await updateDoc(docRef, {
+            question_timestamp: serverTimestamp(),
+            question_cost: question.value.cost,
+        })
+    } else {
+        console.log('Not started!')
+    }
 }
 
 const readText = (char: number) => {
@@ -115,7 +120,7 @@ onMounted(async () => {
     // )
 
     itsTimer(
-        55,
+        45,
         text_on_page.value.length,
         (st: any) => readText(st),
         () => Helllooo()

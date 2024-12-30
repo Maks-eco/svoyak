@@ -1,9 +1,16 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { StorageProduct } from '../types/StorageProduct'
-import type { Category } from '../types/Category'
-import type { Product } from '../types/Product'
-import type { Question, Round, Theme } from '../types/GameEntities'
+import type {
+    Question,
+    Round,
+    Theme,
+    PlayersStatus,
+} from '../types/GameEntities'
+
+// type PlayersStatusAndId = Partial<PlayersStatus> & {
+//     idInBase: string
+// }
 
 const storeId = '108362264'
 const token = 'public_RiNvjTVVzKLhFNWyzR5fNY68u1GMHLEs'
@@ -15,6 +22,7 @@ import {
     collection,
     setDoc,
     doc,
+    updateDoc,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -25,6 +33,8 @@ const firebaseConfig = {
     messagingSenderId: '665514390922',
     appId: '1:665514390922:web:00af8370ac10f15e608473',
 }
+
+let globalGameState: any = null
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
@@ -200,42 +210,63 @@ const useCounterStore = defineStore('counter', () => {
         }
     }
 
-    const getGameState = async () => {
-        const gameStateArray: any[] = []
+    interface gameStat {
+        data: PlayersStatus[]
+        question_timestamp: any
+        question_cost: number
+    }
+
+    const getGameState = async (): Promise<{
+        allData: gameStat
+        idInBase: string
+    } | null> => {
+        const gameStateArray: gameStat[] = []
+        let stateId = ''
         const gameStateCollection = await getDocs(collection(db, 'game_state'))
         gameStateCollection.forEach((doc) => {
-            gameStateArray.push({ ...doc.data(), id: doc.id })
+            gameStateArray.push(doc.data() as gameStat)
+            stateId = doc.id
         })
-        if (gameStateArray.length > 0) return gameStateArray[0]
+        console.log('GSAAA', gameStateArray[0])
+        if (gameStateArray.length > 0)
+            return { allData: gameStateArray[0], idInBase: stateId }
         return null
     }
 
-    const playersStatus = [
-        {
-            id: 'bububububl',
-            name: 'me',
-            points: 600,
-            image: '1.jpg',
-        },
-        {
-            id: '3y56y56f3356',
-            name: 'mo',
-            points: -600,
-            image: '2.jpg',
-        },
-        {
-            id: 'f6fy36yf356yf356fy6',
-            name: 'mem',
-            points: 1600,
-            image: '3.jpg',
-        },
-        {
-            id: 'rtyt356fytrhdrth',
-            name: 'rrr',
-            points: 0,
-            image: '4.jpg',
-        },
-    ]
+    const setPlayersData = async (data: PlayersStatus[]) => {
+        const gameState = await getGameState()
+        if (gameState) {
+            {
+                const docRef = doc(db, 'game_state', gameState.idInBase)
+                const updateTimestamp = await updateDoc(docRef, {
+                    data: data,
+                })
+            }
+        }
+    }
+
+    // const getPlayersData = async () => {
+    //     const gameState = await getGameState()
+    //     if (gameState) {
+    //         {
+    //             // console.log('gs', gameState)
+    //             const docRef = doc(db, 'game_state', gameState.id)
+    //             const updateTimestamp = await updateDoc(docRef, {
+    //                 data: data,
+    //             })
+    //         }
+    //     }
+    // }
+
+    // const initPlayersState = async () => {
+    //     const gameStateArray: any[] = []
+    //     const gameStateCol = await getDocs(collection(db, 'game_state'))
+    //     gameStateCol.forEach((doc) => {
+    //         gameStateArray.push({ ...doc.data(), id: doc.id })
+    //         // console.log(`${doc.id} => ${doc.data()}`, doc.data())
+    //     })
+    //     if (gameStateArray.length === 1) globalGameState = gameStateArray[0]
+    // }
 
     return {
         db,
@@ -249,7 +280,8 @@ const useCounterStore = defineStore('counter', () => {
         getPlayersTapState,
         getGameState,
         clearPlayersTapState,
-        playersStatus,
+        setPlayersData,
+        // initPlayersState,
     }
 })
 

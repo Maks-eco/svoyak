@@ -1,9 +1,10 @@
 <template>
-    <NameInput @nameSet="sendNewNameToBase()" />
-    <button id="get_someth" @click="itsPushed()">Get someth!</button>
     <br /><br /><br />
-    <p>{{ places }}</p>
-    <p>{{ isNameInBase ? 'Imja v base' : 'Ne naideno v base' }}</p>
+    <NameInput v-if="!isNameInBase" @nameSet="sendNewNameToBase()" />
+    <button id="get_someth" @click="itsPushed()">Жамк</button>
+    <br /><br /><br />
+    <!-- <p>{{ places }}</p> -->
+    <!-- <p>{{ isNameInBase ? 'Imja v base' : 'Ne naideno v base' }}</p> -->
 </template>
 
 <script lang="ts" setup>
@@ -90,6 +91,7 @@ onMounted(async () => {
 
 <style scoped lang="less">
 #get_someth {
+    font-size: 40px;
     height: 150px;
     width: 300px;
     margin-left: 30px;
@@ -97,7 +99,7 @@ onMounted(async () => {
     @media (max-width: 600px) {
         height: 150px;
         width: 80vw;
-        margin-left: 100vw;
+        // margin-left: 100vw;
     }
 }
 form {

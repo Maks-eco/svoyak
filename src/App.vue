@@ -1,7 +1,7 @@
 <template>
-    <router-link to="/">
+    <NuxtLink to="/" class="logo-link">
         <img class="logo__img" alt="logo" src="./assets/logo.jpg" />
-    </router-link>
+    </NuxtLink>
     <NuxtPage page-key="index" />
     <!-- <router-view /> -->
 </template>
@@ -12,6 +12,10 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #494949;
+}
+.logo-link {
+    position: fixed;
+    z-index: 1000;
 }
 .logo__img {
     width: 200px;
