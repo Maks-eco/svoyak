@@ -210,6 +210,33 @@ const useCounterStore = defineStore('counter', () => {
         return null
     }
 
+    const playersStatus = [
+        {
+            id: 'bububububl',
+            name: 'me',
+            points: 600,
+            image: '1.jpg',
+        },
+        {
+            id: '3y56y56f3356',
+            name: 'mo',
+            points: -600,
+            image: '2.jpg',
+        },
+        {
+            id: 'f6fy36yf356yf356fy6',
+            name: 'mem',
+            points: 1600,
+            image: '3.jpg',
+        },
+        {
+            id: 'rtyt356fytrhdrth',
+            name: 'rrr',
+            points: 0,
+            image: '4.jpg',
+        },
+    ]
+
     return {
         db,
         count,
@@ -222,6 +249,7 @@ const useCounterStore = defineStore('counter', () => {
         getPlayersTapState,
         getGameState,
         clearPlayersTapState,
+        playersStatus,
     }
 })
 

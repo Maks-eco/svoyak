@@ -1,22 +1,14 @@
 <template>
-    <div class="theme__wrapper">
-        <div class="theme__list" v-if="round">
-            <div
-                class="theme__row"
-                v-for="theme in round?.themes"
-                :theme="theme.id"
-            >
-                <div class="theme__name">
-                    {{ theme.name }}
-                </div>
-                <OneQuestion
-                    class="theme__question"
-                    v-for="question in theme.questions"
-                    :item="question"
-                    :theme-id="theme.id"
-                />
-            </div>
+    <div class="player__wrapper">
+        <!-- <div class="theme__list" v-if="round"> -->
+        <div class="player__item" v-for="player in players">
+            <!-- <div class="theme__name">
+                {{ theme.name }}
+            </div> -->
+            <p class="player__name">{{ player.name }}</p>
+            <p class="player__points">{{ player.points }}</p>
         </div>
+        <!-- </div> -->
     </div>
 </template>
 
@@ -29,6 +21,9 @@ import useCounterStore from '@/stores/storage'
 const store = useCounterStore()
 
 const round = ref(null as Round | null)
+const players = ref(
+    {} as { id: string; name: string; points: number; image: string }[]
+)
 
 const getQuestions = async () => {
     const rounds = await store.getAllQuestions()
@@ -38,33 +33,33 @@ const getQuestions = async () => {
 
 onMounted(() => {
     getQuestions()
+    players.value = useCounterStore().playersStatus
 })
 </script>
 
 <style scoped lang="less">
 @grid_gap: 20px;
 
-.theme {
+.player {
     &__wrapper {
         display: flex;
+        justify-content: space-around;
+        gap: 20px;
+        // flex-direction: row;
         width: 100vw;
-        height: 70vh;
+        height: 20vh;
     }
 
-    &__list {
+    &__item {
+        flex: 1;
         display: flex;
         flex-direction: column;
-        gap: @grid_gap;
-        height: 100%;
-        width: 100%;
-    }
-
-    &__row {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
+        // grid-template-columns: repeat(6, 1fr);
         align-items: center;
         gap: @grid_gap;
         height: 100%;
+        border-radius: 12px;
+        background-color: greenyellow;
     }
 
     &__name {
