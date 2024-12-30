@@ -5,123 +5,123 @@
         "themes": [
             {
                 "id": 1,
-                "name": "Some theme",
+                "name": "Две буквы",
                 "questions": [
                     {
                         "id": 1,
                         "description": "some",
-                        "ask": "Тестовый вопрос",
-                        "answer": "Тестовый ответ",
-                        "cost": 200
+                        "ask": "images/round1/1_1.jpg",
+                        "answer": "Юг",
+                        "cost": 100
                     },
                     {
                         "id": 2,
                         "description": "some",
-                        "ask": "Чему равна гипотенуза треугольника с катетами 6 и 8",
-                        "answer": "10",
+                        "ask": "images/round1/1_2.jpg",
+                        "answer": "Иж",
                         "cost": 200
                     },
                     {
                         "id": 3,
                         "description": "some",
                         "ask": "images/round1/1_3.jpg",
-                        "answer": "не девочка",
+                        "answer": "Щи",
                         "cost": 300
                     },
                     {
                         "id": 4,
                         "description": "some",
-                        "ask": "Вопрос про царя основателя города Санкт-Петербурга. Петр I был провозглашён царём в 10-летнем возрасте , стал править самостоятельно с 1689 года. Кто был его соправителем до этого момента?",
-                        "answer": "Формальным соправителем Петра был его брат Иван (V) (до своей смерти в 1696 году)",
+                        "ask": "images/round1/1_4.jpg",
+                        "answer": "Го",
                         "cost": 400
                     },
                     {
                         "id": 5,
                         "description": "some",
-                        "ask": "Сколько черных парней на меме с девушкой на диване?",
-                        "answer": "images/round1/1_5.jpg",
+                        "ask": "images/round1/1_5.jpg",
+                        "answer": "Ил",
                         "cost": 500
                     }
                 ]
             },
             {
                 "id": 2,
-                "name": "Some theme 2",
+                "name": "Жепки",
                 "questions": [
                     {
                         "id": 1,
                         "description": "some",
-                        "ask": "Product 1 Product 1 Product 1 Product 1 ",
-                        "answer": "images/1.jpg",
+                        "ask": "images/round1/2_1.jpg",
+                        "answer": "Свинья",
                         "cost": 100
                     },
                     {
                         "id": 2,
                         "description": "some",
-                        "ask": "Product 2222 Product 1 Product 1 Product 1 ",
-                        "answer": "images/2.jpg",
-                        "cost": 100
+                        "ask": "images/round1/2_2.jpg",
+                        "answer": "Носорог",
+                        "cost": 200
                     },
                     {
                         "id": 3,
                         "description": "some",
-                        "ask": "Product 33 Product 1 Product 1 Product 1 ",
-                        "answer": "images/3.jpg",
-                        "cost": 100
+                        "ask": "images/round1/2_3.jpg",
+                        "answer": "Скунс",
+                        "cost": 300
                     },
                     {
                         "id": 4,
                         "description": "some",
-                        "ask": "Product 1 Product 44444 Product 1 Product 1 ",
-                        "answer": "images/4.jpg",
-                        "cost": 100
+                        "ask": "images/round1/2_4.jpg",
+                        "answer": "Лиса",
+                        "cost": 400
                     },
                     {
                         "id": 5,
                         "description": "some",
-                        "ask": "Product 1 Product 1 Product 55555 Product 1 ",
-                        "answer": "images/5.jpg",
-                        "cost": 100
+                        "ask": "images/round1/2_5.jpg",
+                        "answer": "Капибара",
+                        "cost": 500
                     }
                 ]
             },
             {
                 "id": 3,
-                "name": "Ttheme 3",
+                "name": "Пашины прозвища",
                 "questions": [
                     {
                         "id": 1,
                         "description": "some",
-                        "ask": "Product 1 Product 1 Product 1 Product 1 ",
-                        "answer": "images/1.jpg",
-                        "cost": 100
+                        "ask": "images/round1/3_1.jpg",
+                        "answer": "Паштет",
+                        "cost": 300
                     },
                     {
                         "id": 2,
                         "description": "some",
-                        "ask": "Product 2222 Product 1 Product 1 Product 1 ",
-                        "answer": "images/2.jpg",
-                        "cost": 100
+                        "ask": "images/round1/3_2.jpg",
+                        "answer": "Павлик Морозов",
+                        "cost": 600
                     },
                     {
                         "id": 3,
                         "description": "some",
-                        "ask": "Product 33 Product 1 Product 1 Product 1 ",
-                        "answer": "images/3.jpg",
-                        "cost": 100
+                        "ask": "images/round1/3_3.jpg",
+                        "answer": "Пахан",
+                        "cost": 900
                     },
                     {
                         "id": 4,
                         "description": "some",
-                        "ask": "Product 1 Product 44444 Product 1 Product 1 ",
-                        "answer": "images/4.jpg",
-                        "cost": 800
+                        "ask": "images/round1/3_4.jpg",
+                        "answer": "Пабло Эскобар",
+                        "cost": 1200
                     },
                     {
                         "id": 5,
                         "description": "some",
-                        "ask": "Product 1 Product 1 Product 55555 Product 1 ",
-                        "answer": "images/5.jpg",
+                        "ask": "images/round1/3_5.jpg",
+                        "answer": "Павлин",
                         "cost": 1500
                     }
                 ]
