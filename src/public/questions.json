@@ -10,35 +10,35 @@
                     {
                         "id": 1,
                         "description": "some",
-                        "ask": "images/round1/1_1.jpg",
+                        "ask": "images/round1/1_1.JPG",
                         "answer": "Юг",
                         "cost": 100
                     },
                     {
                         "id": 2,
                         "description": "some",
-                        "ask": "images/round1/1_2.jpg",
+                        "ask": "images/round1/1_2.JPG",
                         "answer": "Иж",
                         "cost": 200
                     },
                     {
                         "id": 3,
                         "description": "some",
-                        "ask": "images/round1/1_3.jpg",
+                        "ask": "images/round1/1_3.JPG",
                         "answer": "Щи",
                         "cost": 300
                     },
                     {
                         "id": 4,
                         "description": "some",
-                        "ask": "images/round1/1_4.jpg",
+                        "ask": "images/round1/1_4.JPG",
                         "answer": "Го",
                         "cost": 400
                     },
                     {
                         "id": 5,
                         "description": "some",
-                        "ask": "images/round1/1_5.jpg",
+                        "ask": "images/round1/1_5.JPG",
                         "answer": "Ил",
                         "cost": 500
                     }
@@ -51,35 +51,35 @@
                     {
                         "id": 1,
                         "description": "some",
-                        "ask": "images/round1/2_1.jpg",
+                        "ask": "images/round1/2_1.JPG",
                         "answer": "Свинья",
                         "cost": 100
                     },
                     {
                         "id": 2,
                         "description": "some",
-                        "ask": "images/round1/2_2.jpg",
+                        "ask": "images/round1/2_2.JPG",
                         "answer": "Носорог",
                         "cost": 200
                     },
                     {
                         "id": 3,
                         "description": "some",
-                        "ask": "images/round1/2_3.jpg",
+                        "ask": "images/round1/2_3.JPG",
                         "answer": "Скунс",
                         "cost": 300
                     },
                     {
                         "id": 4,
                         "description": "some",
-                        "ask": "images/round1/2_4.jpg",
+                        "ask": "images/round1/2_4.JPG",
                         "answer": "Лиса",
                         "cost": 400
                     },
                     {
                         "id": 5,
                         "description": "some",
-                        "ask": "images/round1/2_5.jpg",
+                        "ask": "images/round1/2_5.JPG",
                         "answer": "Капибара",
                         "cost": 500
                     }
@@ -92,35 +92,35 @@
                     {
                         "id": 1,
                         "description": "some",
-                        "ask": "images/round1/3_1.jpg",
+                        "ask": "images/round1/3_1.JPG",
                         "answer": "Паштет",
                         "cost": 300
                     },
                     {
                         "id": 2,
                         "description": "some",
-                        "ask": "images/round1/3_2.jpg",
+                        "ask": "images/round1/3_2.JPG",
                         "answer": "Павлик Морозов",
                         "cost": 600
                     },
                     {
                         "id": 3,
                         "description": "some",
-                        "ask": "images/round1/3_3.jpg",
+                        "ask": "images/round1/3_3.JPG",
                         "answer": "Пахан",
                         "cost": 900
                     },
                     {
                         "id": 4,
                         "description": "some",
-                        "ask": "images/round1/3_4.jpg",
+                        "ask": "images/round1/3_4.JPG",
                         "answer": "Пабло Эскобар",
                         "cost": 1200
                     },
                     {
                         "id": 5,
                         "description": "some",
-                        "ask": "images/round1/3_5.jpg",
+                        "ask": "images/round1/3_5.JPG",
                         "answer": "Павлин",
                         "cost": 1500
                     }
