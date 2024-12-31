@@ -17,6 +17,7 @@
                 />
             </div>
         </div>
+        <button class="hidden_button" @click="nextRound()">Next round</button>
     </div>
 </template>
 
@@ -30,10 +31,21 @@ const store = useCounterStore()
 
 const round = ref(null as Round | null)
 
+const nextRound = () => {
+    console.log('rv', round.value?.id)
+    store.globalRound(round.value?.id)
+    localStorage.removeItem('containerAnswer')
+
+    setTimeout(() => {
+        navigateTo('/playing_field')
+    }, 100)
+    // getQuestions()
+}
+
 const getQuestions = async () => {
-    const rounds = await store.getAllQuestions()
+    const rounds = await store.getAllQuestions(store.globalRound())
     if (rounds && rounds.length > 0) round.value = rounds[0]
-    console.log(round.value)
+    console.log('roundVal', round.value)
 }
 
 onMounted(() => {
@@ -43,12 +55,21 @@ onMounted(() => {
 
 <style scoped lang="less">
 @grid_gap: 20px;
+.hidden_button {
+    width: 5px;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 
+    &:hover {
+        width: 60px;
+    }
+}
 .theme {
     &__wrapper {
         display: flex;
-        width: 100vw;
-        height: 70vh;
     }
 
     &__list {

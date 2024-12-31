@@ -89,8 +89,10 @@ const useCounterStore = defineStore('counter', () => {
         locStorage.saveData('container', count.value)
     }
 
-    const getAllQuestions = async (): Promise<null | Round[]> => {
-        const data = await $fetch<null | Round[]>('questions.json')
+    const getAllQuestions = async (
+        page: number = 1
+    ): Promise<null | Round[]> => {
+        const data = await $fetch<null | Round[]>(`questions${page}.json`)
         return data
     }
 
@@ -247,6 +249,18 @@ const useCounterStore = defineStore('counter', () => {
         }
     }
 
+    const globalRound = (id?: number): number => {
+        let round: number = id ? id : 0
+        let bufround: number = NaN
+        try {
+            bufround = parseInt(locStorage.getData('globalRound'))
+        } catch {}
+        round = round > 0 ? round : bufround
+        locStorage.saveData('globalRound', round)
+        console.log(round)
+        return round
+    }
+
     const setAnsweredQuestion = (theme: any, id: any) => {
         let savedVal: {} = {}
         try {
@@ -284,6 +298,7 @@ const useCounterStore = defineStore('counter', () => {
         setPlayersData,
         setAnsweredQuestion,
         getStatusThisQuestion,
+        globalRound,
         // initPlayersState,
     }
 })

@@ -125,7 +125,7 @@ onMounted(async () => {
         rgba(246, 153, 27, 1) 50%,
         rgba(246, 153, 27, 1) 100%
     );
-    animation: gradient 2.6s linear;
+    animation: gradient 2.7s linear;
     background-size: 200% 200%;
 }
 
@@ -182,16 +182,16 @@ textarea {
 }
 
 button {
-    background: #4caf50;
+    background: #50426c;
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 12px;
     cursor: pointer;
 }
 
 button:hover {
-    background: #45a049;
+    background: #67568c;
 }
 
 .error {

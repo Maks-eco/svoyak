@@ -161,15 +161,16 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
     opacity: 0;
 }
 .highlighted {
-    color: rgb(225, 0, 255);
+    color: #7958c2;
 }
 .hidden {
     display: none;
 }
 .timer-row {
-    height: 20px;
-    background-color: blue;
-    padding: 20px 0;
+    height: 30px;
+    border-radius: 10px;
+    background-color: #ff6960;
+    margin: 10px 0;
     width: v-bind(timerBarWidth);
     transition: width 0.2s linear;
 }
@@ -177,6 +178,7 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
     font-size: 40px;
     text-align: center;
     margin: auto 0;
+    color: #333;
 
     &__wrapper {
         position: fixed;

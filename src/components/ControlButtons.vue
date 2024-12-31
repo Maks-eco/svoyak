@@ -52,11 +52,13 @@ const saveAnswer = () => {
     }
 
     &__get-answer {
-        background-color: greenyellow;
+        background-color: #67568c;
+        color: white;
         cursor: pointer;
     }
     &__to-menu {
         background-color: gainsboro;
+        color: #444;
     }
 
     &__get-answer,

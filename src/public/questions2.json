@@ -1,7 +1,8 @@
 [
     {
-        "name": "Raynd 1",
+        "name": "Raynd 2",
         "koef": 1,
+        "id": 1,
         "themes": [
             {
                 "id": 1,
@@ -12,14 +13,14 @@
                         "description": "some",
                         "ask": "Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1",
                         "answer": "Юг",
-                        "cost": 100
+                        "cost": 444
                     },
                     {
                         "id": 2,
                         "description": "some",
                         "ask": "images/round1/1_2.jpeg",
                         "answer": "Иж",
-                        "cost": 200
+                        "cost": 222
                     },
                     {
                         "id": 3,

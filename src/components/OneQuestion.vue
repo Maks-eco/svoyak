@@ -41,7 +41,7 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="less">
 a {
     height: 100%;
     text-decoration: none;
@@ -54,11 +54,11 @@ a {
     height: 100%;
     border-radius: 20px;
     transition: background-color 0.3s;
-    background-color: greenyellow;
+    background-color: #67568c;
 
     &:hover {
         transition: background-color 0.3s;
-        background-color: khaki;
+        background-color: #50426c;
     }
 }
 .one-section.answered {
@@ -70,7 +70,7 @@ a {
 .section__descr {
     margin: 5px;
     font-size: 24px;
-    color: #333;
+    color: white; //#333;
     transition: color 0.4s;
 }
 </style>

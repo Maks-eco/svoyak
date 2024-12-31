@@ -13,6 +13,7 @@ interface Theme {
 }
 
 interface Round {
+    id: number
     name: string
     koef: number
     themes: Theme[]

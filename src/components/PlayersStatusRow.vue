@@ -68,8 +68,6 @@ onMounted(async () => {
         justify-content: space-around;
         gap: 20px;
         // flex-direction: row;
-        width: 100vw;
-        height: 30vh;
     }
 
     &__item {
@@ -81,7 +79,7 @@ onMounted(async () => {
         // gap: @grid_gap;
         height: 100%;
         border-radius: 12px;
-        background-color: greenyellow;
+        background-color: #ff6960;
     }
 
     &__image {
@@ -93,6 +91,7 @@ onMounted(async () => {
     &__name,
     &__points {
         margin: 0;
+        color: white;
     }
     &__name {
         font-size: 20px;
