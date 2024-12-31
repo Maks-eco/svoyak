@@ -9,7 +9,7 @@
         }"
         :item="item"
     >
-        <div class="one-section">
+        <div class="one-section" :class="{ answered: isAnswered }">
             <p class="section__descr">{{ item.cost }}</p>
         </div>
     </NuxtLink>
@@ -18,8 +18,12 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import type { Question } from '@/types/GameEntities'
+import useCounterStore from '@/stores/storage'
 
-defineProps({
+const isAnswered = ref(false)
+const store = useCounterStore()
+
+const props = defineProps({
     item: {
         required: true,
         type: Object as PropType<Question>,
@@ -28,6 +32,12 @@ defineProps({
         required: true,
         type: Number,
     },
+})
+onMounted(() => {
+    isAnswered.value = store.getStatusThisQuestion(
+        props.themeId.toString(),
+        props.item.id.toString()
+    )
 })
 </script>
 
@@ -49,6 +59,12 @@ a {
     &:hover {
         transition: background-color 0.3s;
         background-color: khaki;
+    }
+}
+.one-section.answered {
+    background-color: #e9e9e9;
+    .section__descr {
+        color: #c5c5c5;
     }
 }
 .section__descr {

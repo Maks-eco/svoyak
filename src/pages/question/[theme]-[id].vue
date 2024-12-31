@@ -8,7 +8,11 @@
             <!-- {{ text_on_page }} -->
             <p v-html="finalText"></p>
         </div>
-        <ControlButtons @getAnswer="getAnswer()" />
+        <ControlButtons
+            @getAnswer="getAnswer()"
+            :itemId="questn_id"
+            :themeId="theme_id"
+        />
     </div>
 </template>
 
@@ -31,6 +35,9 @@ const finalText = ref('')
 const timerBarWidth = ref('100%')
 const db = store.db
 
+const theme_id = ref('')
+const questn_id = ref('')
+
 const itsStarted = async () => {
     const gameState = await store.getGameState()
     console.log('gs', gameState)
@@ -39,6 +46,8 @@ const itsStarted = async () => {
         const updateTimestamp = await updateDoc(docRef, {
             question_timestamp: serverTimestamp(),
             question_cost: question.value.cost,
+            question_ask: question.value.ask,
+            question_answer: question.value.answer,
         })
     } else {
         console.log('Not started!')
@@ -99,14 +108,14 @@ const getAnswer = () => {
 onMounted(async () => {
     store.clearPlayersTapState()
 
-    const theme_id: string =
+    theme_id.value =
         typeof route.params.theme === 'string' ? route.params.theme : '0'
-    const questn_id: string =
+    questn_id.value =
         typeof route.params.id === 'string' ? route.params.id : '0'
 
     question.value = await store.getOneQuestion(
-        parseInt(theme_id),
-        parseInt(questn_id)
+        parseInt(theme_id.value),
+        parseInt(questn_id.value)
     )
 
     if (runtimeConfig.app?.baseURL && window.location?.origin)

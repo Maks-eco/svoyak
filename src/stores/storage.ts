@@ -214,6 +214,8 @@ const useCounterStore = defineStore('counter', () => {
         data: PlayersStatus[]
         question_timestamp: any
         question_cost: number
+        question_ask: string
+        question_answer: string
     }
 
     const getGameState = async (): Promise<{
@@ -245,28 +247,27 @@ const useCounterStore = defineStore('counter', () => {
         }
     }
 
-    // const getPlayersData = async () => {
-    //     const gameState = await getGameState()
-    //     if (gameState) {
-    //         {
-    //             // console.log('gs', gameState)
-    //             const docRef = doc(db, 'game_state', gameState.id)
-    //             const updateTimestamp = await updateDoc(docRef, {
-    //                 data: data,
-    //             })
-    //         }
-    //     }
-    // }
+    const setAnsweredQuestion = (theme: any, id: any) => {
+        let savedVal: {} = {}
+        try {
+            savedVal = locStorage.getData('containerAnswer')
+        } catch {}
+        savedVal = { ...savedVal, [`${theme}_${id}`]: true }
+        locStorage.saveData('containerAnswer', savedVal)
+    }
 
-    // const initPlayersState = async () => {
-    //     const gameStateArray: any[] = []
-    //     const gameStateCol = await getDocs(collection(db, 'game_state'))
-    //     gameStateCol.forEach((doc) => {
-    //         gameStateArray.push({ ...doc.data(), id: doc.id })
-    //         // console.log(`${doc.id} => ${doc.data()}`, doc.data())
-    //     })
-    //     if (gameStateArray.length === 1) globalGameState = gameStateArray[0]
-    // }
+    const getStatusThisQuestion = (theme: string, id: string): boolean => {
+        let savedVal: { [key: string]: boolean } = {}
+        try {
+            savedVal = locStorage.getData('containerAnswer')
+        } catch {}
+        const index: string = `${theme}_${id}`
+        if (savedVal[index]) {
+            return savedVal[index]
+        } else {
+            return false
+        }
+    }
 
     return {
         db,
@@ -281,6 +282,8 @@ const useCounterStore = defineStore('counter', () => {
         getGameState,
         clearPlayersTapState,
         setPlayersData,
+        setAnsweredQuestion,
+        getStatusThisQuestion,
         // initPlayersState,
     }
 })

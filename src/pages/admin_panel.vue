@@ -1,11 +1,13 @@
 <template>
     <div>
-        <br /><br /><br /><br />
-        <button id="get_somethg" @click="itsPushed()">Clear someth!</button>
-        <br />
+        <br /><br /><br />
+        <!-- <button id="get_somethg" @click="itsPushed()">Clear someth!</button>
+        <br /> -->
         <!-- <button id="get_somethg" @click="itsInited()">Init players</button> -->
         <!-- <p>admin panel</p> -->
-        <p>{{ tapsState }}</p>
+        <!-- <p>{{ tapsState }}</p> -->
+        <p>{{ question_ask }}</p>
+        <p>{{ question_answer }}</p>
         <p>{{ questionCost }}</p>
         <div class="panel__divider">
             <div>
@@ -24,35 +26,37 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="players__wrapper">
                 <div
                     class="players__item"
                     v-for="player in playersStatus"
                     :key="player.id"
                 >
-                    <div>
-                        {{ player.name }}: {{ player.points }}
-                        <input
-                            type="number"
-                            maxlength="6"
-                            v-model="player.ref"
-                        /><button
-                            @click="
-                                changeStat(player.id, player.ref).then(() => {})
-                            "
-                        >
-                            Add
-                        </button>
-                        <button
-                            @click="
-                                changeStat(player.id, -player.ref).then(
-                                    () => {}
-                                )
-                            "
-                        >
-                            Om-nom-nom
-                        </button>
-                    </div>
+                    <!-- <div> -->
+                    <span class="player__name">{{ player.name }}</span
+                    >: {{ player.points }}
+                    <input
+                        class="points__input"
+                        type="number"
+                        maxlength="6"
+                        v-model="player.ref"
+                    /><button
+                        class="player__button-add"
+                        @click="
+                            changeStat(player.id, player.ref).then(() => {})
+                        "
+                    >
+                        Add
+                    </button>
+                    <button
+                        class="player__button-delete"
+                        @click="
+                            changeStat(player.id, -player.ref).then(() => {})
+                        "
+                    >
+                        Отжать
+                    </button>
+                    <!-- </div> -->
                 </div>
             </div>
         </div>
@@ -67,6 +71,8 @@ const store = useCounterStore()
 const tapsState = ref('')
 const ratedState = ref('')
 const questionCost = ref(0)
+const question_ask = ref('')
+const question_answer = ref('')
 // const ratedState = ref('')
 const answerList = ref([] as any[])
 const playersStatus = ref([] as PlayersStatusAndRef[] | null)
@@ -150,6 +156,8 @@ const getPlayersData = async () => {
             const bufarray: PlayersStatus[] = info.allData.data
 
             questionCost.value = info.allData.question_cost
+            question_ask.value = info.allData.question_ask
+            question_answer.value = info.allData.question_answer
 
             bufarray.forEach((bufitem) => {
                 playersStatus.value?.push({
@@ -174,15 +182,49 @@ onMounted(async () => {
             await store.getPlayersTapState())
         // console.log('upd_tap_info', ddd)
         answerList.value = sortThis(ddd)
+        getPlayersData()
     }, 2000)
 })
 // getPlayersTapState
 </script>
 
 <style scoped>
+.players__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.player__name {
+    font-weight: bold;
+}
 .players__item {
     display: flex;
     justify-content: flex-end;
+    gap: 12px;
+    padding: 3px;
+    border-radius: 5px;
+    transition: background-color 0.7s;
+
+    &:hover {
+        background-color: rgba(0, 0, 255, 0.158);
+        transition: background-color 0.3s;
+    }
+}
+.points__input {
+    width: 60px;
+}
+.player__button-add,
+.player__button-delete {
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+.player__button-add {
+    background-color: rgb(50, 187, 50);
+}
+.player__button-delete {
+    background-color: rgb(255, 77, 77);
 }
 .panel__divider {
     display: flex;

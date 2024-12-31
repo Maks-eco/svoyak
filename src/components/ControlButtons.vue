@@ -2,7 +2,10 @@
     <div>
         <div class="contol__wrapper">
             <div class="contol__get-answer" @click="getAnswer">Ответ</div>
-            <NuxtLink class="contol__to-menu" to="/playing_field"
+            <NuxtLink
+                @click="saveAnswer()"
+                class="contol__to-menu"
+                to="/playing_field"
                 >В меню</NuxtLink
             >
         </div>
@@ -12,12 +15,26 @@
 <script lang="ts" setup>
 const emit = defineEmits(['getAnswer'])
 
+const props = defineProps({
+    itemId: {
+        required: true,
+        type: String,
+    },
+    themeId: {
+        required: true,
+        type: String,
+    },
+})
+
 const getAnswer = () => {
     emit('getAnswer')
 }
 import useCounterStore from '../stores/storage'
 
-const numberOfPurchases = useCounterStore()
+const store = useCounterStore()
+const saveAnswer = () => {
+    store.setAnsweredQuestion(props.themeId, props.itemId)
+}
 </script>
 
 <style lang="less" scoped>
