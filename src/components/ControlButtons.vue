@@ -41,10 +41,12 @@ const saveAnswer = () => {
 .contol {
     &__wrapper {
         position: fixed;
-        right: 0;
+        left: 0;
+        width: calc(100% - 24px);
         bottom: 0;
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
         gap: 12px;
         padding: 12px;
     }

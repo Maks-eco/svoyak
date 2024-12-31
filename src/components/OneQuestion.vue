@@ -62,7 +62,7 @@ a {
     }
 }
 .one-section.answered {
-    background-color: #e9e9e9;
+    background-color: rgba(233, 233, 233, 0.46);
     .section__descr {
         color: #c5c5c5;
     }

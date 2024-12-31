@@ -1,8 +1,14 @@
 <template>
     <br /><br /><br />
     <NameInput v-if="!isNameInBase" @nameSet="sendNewNameToBase()" />
-    <button id="get_someth" @click="itsPushed()">Жамк</button>
-    <br /><br /><br />
+    <button
+        class="get_someth"
+        :class="{ inactivate: isInactivateButton }"
+        @click="itsPushed()"
+    >
+        Жамк
+    </button>
+    <!-- <br /><br /><br /> -->
     <!-- <p>{{ places }}</p> -->
     <!-- <p>{{ isNameInBase ? 'Imja v base' : 'Ne naideno v base' }}</p> -->
 </template>
@@ -27,12 +33,17 @@ const nameCode = ref('')
 const places = ref('')
 const nameStor = ref('')
 const isNameInBase = ref(false)
+const isInactivateButton = ref(false)
 
 const itsPushed = async () => {
+    isInactivateButton.value = true
     const docRef = doc(db, 'users', nameCode.value)
     await updateDoc(docRef, {
         ['timestamp' + Date.now().toString().slice(-7)]: serverTimestamp(),
     })
+    setTimeout(() => {
+        isInactivateButton.value = false
+    }, 2500)
 }
 
 const sendNewNameToBase = async () => {
@@ -90,7 +101,7 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="less">
-#get_someth {
+.get_someth {
     font-size: 40px;
     height: 150px;
     width: 300px;
@@ -101,6 +112,36 @@ onMounted(async () => {
         width: 80vw;
         // margin-left: 100vw;
     }
+}
+.get_someth.inactivate {
+    background-color: #ddd;
+    pointer-events: none;
+    user-select: none;
+    // background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background: linear-gradient(
+        90deg,
+        rgba(244, 117, 33, 1) 0%,
+        rgba(244, 117, 33, 1) 50%,
+        rgba(246, 153, 27, 1) 50%,
+        rgba(246, 153, 27, 1) 100%
+    );
+    animation: gradient 2.6s linear;
+    background-size: 200% 200%;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+    // 50% {
+    //     background-position: 100% 50%;
+    // }
+    // 100% {
+    //     background-position: 0% 50%;
+    // }
 }
 form {
     max-width: 500px;

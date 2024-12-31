@@ -131,7 +131,7 @@ onMounted(async () => {
     // )
 
     itsTimer(
-        45,
+        55,
         text_on_page.value.length,
         (st: any) => readText(st),
         () => itsStarted()
