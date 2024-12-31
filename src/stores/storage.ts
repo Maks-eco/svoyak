@@ -103,7 +103,7 @@ const useCounterStore = defineStore('counter', () => {
         const filterValue = (obj: any, key: string, value: any) =>
             obj.find((v: any) => v[key] === value)
 
-        const rounds: Round[] | null = await getAllQuestions()
+        const rounds: Round[] | null = await getAllQuestions(globalRound())
         let data: null | Question = null
         let theme: Theme | null = null
         if (rounds?.length) {

@@ -6,124 +6,206 @@
         "themes": [
             {
                 "id": 1,
-                "name": "Две буквы",
+                "name": "Назови пять",
                 "questions": [
                     {
                         "id": 1,
                         "description": "some",
-                        "ask": "Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1",
-                        "answer": "Юг",
+                        "ask": "Пять сексуальных женщин за 50 (лет)",
+                        "answer": "Уф",
                         "cost": 100
                     },
                     {
                         "id": 2,
                         "description": "some",
-                        "ask": "images/round1/1_2.jpeg",
-                        "answer": "Иж",
+                        "ask": "Пять не Симпсонов из «Симпсонов»",
+                        "answer": "Хорош",
                         "cost": 200
                     },
                     {
                         "id": 3,
                         "description": "some",
-                        "ask": "images/round1/1_3.jpeg",
-                        "answer": "Щи",
+                        "ask": "Пять «кличек» резидентов Comedy Club",
+                        "answer": "Бульдог, каштан, снежок, люсëк, рэмбо",
                         "cost": 300
                     },
                     {
                         "id": 4,
                         "description": "some",
-                        "ask": "images/round1/1_4.jpeg",
-                        "answer": "Го",
+                        "ask": "Пять сексуальных женщин за 60 (лет)",
+                        "answer": "Ну типа",
                         "cost": 400
                     },
                     {
                         "id": 5,
                         "description": "some",
-                        "ask": "images/round1/1_5.jpeg",
-                        "answer": "Ил",
+                        "ask": "Пять фамилий шахматистов (можно ответить всем вместе)",
+                        "answer": "(Карлсен, Крамник, Каспаров Карякин, Фишер, Ботвинник, Ананд)",
                         "cost": 500
                     }
                 ]
             },
             {
                 "id": 2,
-                "name": "Жепки",
+                "name": "Столицы",
                 "questions": [
                     {
                         "id": 1,
                         "description": "some",
-                        "ask": "images/round1/2_1.jpeg",
-                        "answer": "Свинья",
+                        "ask": "В этой столице родился Валдис Пельш.",
+                        "answer": "Рига",
                         "cost": 100
                     },
                     {
                         "id": 2,
                         "description": "some",
-                        "ask": "images/round1/2_2.jpeg",
-                        "answer": "Носорог",
+                        "ask": "Старые названия этой столицы: Лунденвик и Лунденбурх",
+                        "answer": "Лондон",
                         "cost": 200
                     },
                     {
                         "id": 3,
                         "description": "some",
-                        "ask": "images/round1/2_3.jpeg",
-                        "answer": "Скунс",
+                        "ask": "Эрих Мария Ремарк написал роман, названии которого есть эта столица.",
+                        "answer": "Лиссабон/ночь в Лиссабоне",
                         "cost": 300
                     },
                     {
                         "id": 4,
                         "description": "some",
-                        "ask": "images/round1/2_4.jpeg",
-                        "answer": "Лиса",
+                        "ask": "Как называется столица Алжира?",
+                        "answer": "Алжир",
                         "cost": 400
                     },
                     {
                         "id": 5,
                         "description": "some",
-                        "ask": "images/round1/2_5.jpeg",
-                        "answer": "Капибара ",
+                        "ask": "В этой столице находится самая высокая конная статуя в мире в честь выдающегося императора",
+                        "answer": "Улан-Батор",
                         "cost": 500
                     }
                 ]
             },
             {
                 "id": 3,
-                "name": "Пашины прозвища",
+                "name": "Племена",
                 "questions": [
                     {
                         "id": 1,
                         "description": "some",
-                        "ask": "images/round1/3_1.jpeg",
-                        "answer": "Паштет",
-                        "cost": 300
+                        "ask": "Отправляясь в многодневный поход, жители одного африканского племени привязывают к ногам мешочки, в которые кладут этих СУЩЕСТВ. Они помогают им не заблудиться ночью в лесу.",
+                        "answer": "Светлячки",
+                        "cost": 100
                     },
                     {
                         "id": 2,
                         "description": "some",
-                        "ask": "images/round1/3_2.jpeg",
-                        "answer": "Павлик Морозов",
-                        "cost": 600
+                        "ask": "Как на языке африканского племени Банту будет слово «муха»?",
+                        "answer": "Цеце",
+                        "cost": 200
                     },
                     {
                         "id": 3,
                         "description": "some",
-                        "ask": "images/round1/3_3.jpeg",
-                        "answer": "Пахан",
-                        "cost": 900
+                        "ask": "Воинственное племя сентинельцев - это народ, живущий в полной изоляция от цивилизации уже многие тысячи лет. Тем не менее, сентинельцы подпускают к себе чужеземцев, но только на расстоянии. На расстоянии чего?",
+                        "answer": "Стрелы",
+                        "cost": 300
                     },
                     {
                         "id": 4,
                         "description": "some",
-                        "ask": "images/round1/3_4.jpeg",
-                        "answer": "Пабло Эскобар",
-                        "cost": 1200
+                        "ask": "Племена гуннов вырезали врагов целыми поселениями, но всегда оставляли в живых людей этой ПРОФЕССИИ. Такое решение позволяло им приобретать новые виды вооружения.",
+                        "answer": "Кузнецов",
+                        "cost": 400
                     },
                     {
                         "id": 5,
                         "description": "some",
-                        "ask": "images/round1/3_5.jpeg",
-                        "answer": "Павлин ",
-                        "cost": 1500
+                        "ask": "У индейцев племени Квакутл существует традиция: до тех пор пока должник не рассчитается, он оставляет в залог свое... .Что именно? (слово из трех букв)",
+                        "answer": "Имя ",
+                        "cost": 500
+                    }
+                ]
+            },
+            {
+                "id": 4,
+                "name": "Взрослые застолья",
+                "questions": [
+                    {
+                        "id": 1,
+                        "description": "some",
+                        "ask": "Какой месяц короче всех?",
+                        "answer": "Май",
+                        "cost": 100
+                    },
+                    {
+                        "id": 2,
+                        "description": "some",
+                        "ask": "Какие макароны вспоминают при пожелании человеку быть здоровым и большим?",
+                        "answer": "Лапша",
+                        "cost": 200
+                    },
+                    {
+                        "id": 3,
+                        "description": "some",
+                        "ask": "Может ли страус назвать себя птицей?",
+                        "answer": "Нет, так как он не умеет говорить",
+                        "cost": 300
+                    },
+                    {
+                        "id": 4,
+                        "description": "some",
+                        "ask": "Когда беззубый чувствует боль от зубов?",
+                        "answer": "Когда его укусила собака",
+                        "cost": 400
+                    },
+                    {
+                        "id": 5,
+                        "description": "some",
+                        "ask": "Какая река самая страшная?",
+                        "answer": "Река Тигр",
+                        "cost": 500
+                    }
+                ]
+            },
+            {
+                "id": 5,
+                "name": "Как он выглядит",
+                "questions": [
+                    {
+                        "id": 1,
+                        "description": "some",
+                        "ask": "images/round1/kv_1.jpeg",
+                        "answer": "4",
+                        "cost": 100
+                    },
+                    {
+                        "id": 2,
+                        "description": "some",
+                        "ask": "images/round1/kv_2.jpeg",
+                        "answer": "2",
+                        "cost": 200
+                    },
+                    {
+                        "id": 3,
+                        "description": "some",
+                        "ask": "images/round1/kv_3--1.jpeg",
+                        "answer": "1",
+                        "cost": 300
+                    },
+                    {
+                        "id": 4,
+                        "description": "some",
+                        "ask": "images/round1/kv_4--2.jpeg",
+                        "answer": "2",
+                        "cost": 400
+                    },
+                    {
+                        "id": 5,
+                        "description": "some",
+                        "ask": "images/round1/kv_5--3.jpeg",
+                        "answer": "3",
+                        "cost": 500
                     }
                 ]
             }

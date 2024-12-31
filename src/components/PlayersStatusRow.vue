@@ -79,7 +79,7 @@ onMounted(async () => {
         // gap: @grid_gap;
         height: 100%;
         border-radius: 12px;
-        background-color: #ff6960;
+        background-color: #e9e5f3; //#ff6960;
     }
 
     &__image {
@@ -91,7 +91,7 @@ onMounted(async () => {
     &__name,
     &__points {
         margin: 0;
-        color: white;
+        color: #444;
     }
     &__name {
         font-size: 20px;

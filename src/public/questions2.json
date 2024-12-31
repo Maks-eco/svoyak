@@ -2,127 +2,168 @@
     {
         "name": "Raynd 2",
         "koef": 1,
-        "id": 1,
+        "id": 3,
         "themes": [
             {
                 "id": 1,
-                "name": "Две буквы",
+                "name": "Ням-ням",
                 "questions": [
                     {
                         "id": 1,
                         "description": "some",
-                        "ask": "Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1",
-                        "answer": "Юг",
-                        "cost": 444
+                        "ask": "ЕГО раньше называли по-разному: в Канаде - кубаса, в Германии такса, а в Америке в начале XX века - депрессионный сэндвич.",
+                        "answer": "Хот-дог",
+                        "cost": 200
                     },
                     {
                         "id": 2,
                         "description": "some",
-                        "ask": "images/round1/1_2.jpeg",
-                        "answer": "Иж",
-                        "cost": 222
+                        "ask": "Какой орех в Иране называют «смеющийся»?",
+                        "answer": "Фисташка",
+                        "cost": 400
                     },
                     {
                         "id": 3,
                         "description": "some",
-                        "ask": "images/round1/1_3.jpeg",
-                        "answer": "Щи",
-                        "cost": 300
+                        "ask": "Во время Второй мировой войны это БЛЮДО в меню американских забегаловок переименовали в «котлеты свободы»», поскольку любые ассоциации в Германией были нежелательны.",
+                        "answer": "Гамбургер",
+                        "cost": 600
                     },
                     {
                         "id": 4,
                         "description": "some",
-                        "ask": "images/round1/1_4.jpeg",
-                        "answer": "Го",
-                        "cost": 400
+                        "ask": "Одна из самых негигиеничных Достопримечательностей и пари стене твара в Сиэтле, полностью покрытая ЭТИМ. Все началось в 1993 году, когда стоявшие в очереди за билетами стали оставлять ЕЕ со скуки.",
+                        "answer": "Жевательная резинка",
+                        "cost": 800
                     },
                     {
                         "id": 5,
                         "description": "some",
-                        "ask": "images/round1/1_5.jpeg",
-                        "answer": "Ил",
-                        "cost": 500
+                        "ask": "Гастрожурналист Виталий Халюков пишет, что Этот ПРОДУКТ - продолжатель идей Маркса и Ленина, поскольку является самым популярным в мире способом уравнять филе миньон и котлету из столовой.",
+                        "answer": "Кетчуп",
+                        "cost": 1000
                     }
                 ]
             },
             {
                 "id": 2,
-                "name": "Жепки",
+                "name": "Матеша",
                 "questions": [
                     {
                         "id": 1,
                         "description": "some",
-                        "ask": "images/round1/2_1.jpeg",
-                        "answer": "Свинья",
-                        "cost": 100
+                        "ask": "При цифры в Пи после запятой?",
+                        "answer": "141",
+                        "cost": 200
                     },
                     {
                         "id": 2,
                         "description": "some",
-                        "ask": "images/round1/2_2.jpeg",
-                        "answer": "Носорог",
-                        "cost": 200
+                        "ask": "Чему равна гипотенуза прямоугольного треугольника со сторонами 12 и 16?",
+                        "answer": "20",
+                        "cost": 400
                     },
                     {
                         "id": 3,
                         "description": "some",
-                        "ask": "images/round1/2_3.jpeg",
-                        "answer": "Скунс",
-                        "cost": 300
+                        "ask": "Чему равен квадратный корень из 121?",
+                        "answer": "11",
+                        "cost": 600
                     },
                     {
                         "id": 4,
                         "description": "some",
-                        "ask": "images/round1/2_4.jpeg",
-                        "answer": "Лиса",
-                        "cost": 400
+                        "ask": "Чему равен sin30?",
+                        "answer": "0.5",
+                        "cost": 800
                     },
                     {
                         "id": 5,
                         "description": "some",
-                        "ask": "images/round1/2_5.jpeg",
-                        "answer": "Капибара ",
+                        "ask": "Чему равен 5! ? (факториал пяти)",
+                        "answer": "120",
                         "cost": 500
                     }
                 ]
             },
             {
                 "id": 3,
-                "name": "Пашины прозвища",
+                "name": "Порнопародии",
                 "questions": [
                     {
                         "id": 1,
                         "description": "some",
-                        "ask": "images/round1/3_1.jpeg",
-                        "answer": "Паштет",
+                        "ask": "images/round2/PP_200--mr-ms-smith.jpeg",
+                        "answer": "Мистер и миссис Смит",
                         "cost": 300
                     },
                     {
                         "id": 2,
                         "description": "some",
-                        "ask": "images/round1/3_2.jpeg",
-                        "answer": "Павлик Морозов",
+                        "ask": "images/round2/PP_400--krim-chtivo.jpeg",
+                        "answer": "Криминальное чтиво",
                         "cost": 600
                     },
                     {
                         "id": 3,
                         "description": "some",
-                        "ask": "images/round1/3_3.jpeg",
-                        "answer": "Пахан",
+                        "ask": "images/round2/PP_600--noch-v-muzee.jpeg",
+                        "answer": "Ночь в музее",
                         "cost": 900
                     },
                     {
                         "id": 4,
                         "description": "some",
-                        "ask": "images/round1/3_4.jpeg",
-                        "answer": "Пабло Эскобар",
+                        "ask": "images/round2/PP_800-krestn-otez.jpeg",
+                        "answer": "Крестный отец",
                         "cost": 1200
                     },
                     {
                         "id": 5,
                         "description": "some",
-                        "ask": "images/round1/3_5.jpeg",
-                        "answer": "Павлин ",
+                        "ask": "images/round2/PP_1000--kill.jpeg",
+                        "answer": "Убить Билла",
+                        "cost": 1500
+                    }
+                ]
+            },
+            {
+                "id": 4,
+                "name": "Выёбистая мебель",
+                "questions": [
+                    {
+                        "id": 1,
+                        "description": "some",
+                        "ask": "Просто получи баллы",
+                        "answer": "Потому что",
+                        "cost": 300
+                    },
+                    {
+                        "id": 2,
+                        "description": "some",
+                        "ask": "images/round2/VM_400--tahta.jpeg",
+                        "answer": "Тахта",
+                        "cost": 600
+                    },
+                    {
+                        "id": 3,
+                        "description": "some",
+                        "ask": "images/round2/VM_600--trumo.jpeg",
+                        "answer": "Трюмо",
+                        "cost": 900
+                    },
+                    {
+                        "id": 4,
+                        "description": "some",
+                        "ask": "images/round2/VM_800--sekreter.jpeg",
+                        "answer": "Секретер",
+                        "cost": 1200
+                    },
+                    {
+                        "id": 5,
+                        "description": "some",
+                        "ask": "images/round2/VM_1000--komod.jpeg",
+                        "answer": "Комод",
                         "cost": 1500
                     }
                 ]

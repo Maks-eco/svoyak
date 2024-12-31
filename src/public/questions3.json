@@ -1,129 +1,197 @@
 [
     {
-        "name": "Raynd 2",
+        "name": "Raynd 3",
         "koef": 1,
-        "id": 1,
+        "id": 4,
         "themes": [
             {
                 "id": 1,
-                "name": "Две буквы",
+                "name": "Да! Было",
                 "questions": [
                     {
                         "id": 1,
                         "description": "some",
-                        "ask": "Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1",
-                        "answer": "Юг",
-                        "cost": 444
-                    },
-                    {
-                        "id": 2,
-                        "description": "some",
-                        "ask": "images/round1/1_2.jpeg",
-                        "answer": "Иж",
-                        "cost": 222
-                    },
-                    {
-                        "id": 3,
-                        "description": "some",
-                        "ask": "images/round1/1_3.jpeg",
-                        "answer": "Щи",
-                        "cost": 300
-                    },
-                    {
-                        "id": 4,
-                        "description": "some",
-                        "ask": "images/round1/1_4.jpeg",
-                        "answer": "Го",
-                        "cost": 400
-                    },
-                    {
-                        "id": 5,
-                        "description": "some",
-                        "ask": "images/round1/1_5.jpeg",
-                        "answer": "Ил",
-                        "cost": 500
-                    }
-                ]
-            },
-            {
-                "id": 2,
-                "name": "Жепки",
-                "questions": [
-                    {
-                        "id": 1,
-                        "description": "some",
-                        "ask": "images/round1/2_1.jpeg",
-                        "answer": "Свинья",
-                        "cost": 100
-                    },
-                    {
-                        "id": 2,
-                        "description": "some",
-                        "ask": "images/round1/2_2.jpeg",
-                        "answer": "Носорог",
-                        "cost": 200
-                    },
-                    {
-                        "id": 3,
-                        "description": "some",
-                        "ask": "images/round1/2_3.jpeg",
-                        "answer": "Скунс",
-                        "cost": 300
-                    },
-                    {
-                        "id": 4,
-                        "description": "some",
-                        "ask": "images/round1/2_4.jpeg",
-                        "answer": "Лиса",
-                        "cost": 400
-                    },
-                    {
-                        "id": 5,
-                        "description": "some",
-                        "ask": "images/round1/2_5.jpeg",
-                        "answer": "Капибара ",
-                        "cost": 500
-                    }
-                ]
-            },
-            {
-                "id": 3,
-                "name": "Пашины прозвища",
-                "questions": [
-                    {
-                        "id": 1,
-                        "description": "some",
-                        "ask": "images/round1/3_1.jpeg",
-                        "answer": "Паштет",
+                        "ask": "images/round3/DB_300--qip.jpeg",
+                        "answer": "QIP",
                         "cost": 300
                     },
                     {
                         "id": 2,
                         "description": "some",
-                        "ask": "images/round1/3_2.jpeg",
-                        "answer": "Павлик Морозов",
+                        "ask": "images/round3/DB_600--clubhouse.jpeg",
+                        "answer": "clubhouse",
                         "cost": 600
                     },
                     {
                         "id": 3,
                         "description": "some",
-                        "ask": "images/round1/3_3.jpeg",
-                        "answer": "Пахан",
+                        "ask": "images/round3/DB_900--snapchat.jpeg",
+                        "answer": "Snapchat",
                         "cost": 900
                     },
                     {
                         "id": 4,
                         "description": "some",
-                        "ask": "images/round1/3_4.jpeg",
-                        "answer": "Пабло Эскобар",
+                        "ask": "images/round3/DB_1200--doodle-jump.jpeg",
+                        "answer": "Doodle jump",
                         "cost": 1200
                     },
                     {
                         "id": 5,
                         "description": "some",
-                        "ask": "images/round1/3_5.jpeg",
-                        "answer": "Павлин ",
+                        "ask": "images/round3/DB_1500--periskop.jpeg",
+                        "answer": "Перископ",
                         "cost": 1500
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "Кто по масти?",
+                "questions": [
+                    {
+                        "id": 1,
+                        "description": "some",
+                        "ask": "images/round3/KM_300--bubi.jpeg",
+                        "answer": "Буби",
+                        "cost": 300
+                    },
+                    {
+                        "id": 2,
+                        "description": "some",
+                        "ask": "images/round3/km_600--piki.jpeg",
+                        "answer": "Пики",
+                        "cost": 600
+                    },
+                    {
+                        "id": 3,
+                        "description": "some",
+                        "ask": "images/round3/KM_900--piki.jpeg",
+                        "answer": "Пики",
+                        "cost": 900
+                    },
+                    {
+                        "id": 4,
+                        "description": "some",
+                        "ask": "images/round3/KM_1200--kresti.jpeg",
+                        "answer": "Крести",
+                        "cost": 1200
+                    },
+                    {
+                        "id": 5,
+                        "description": "some",
+                        "ask": "images/round3/KM_1500--chervi.jpeg",
+                        "answer": "Черви",
+                        "cost": 1500
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "name": "Песни про глаза",
+                "questions": [
+                    {
+                        "id": 1,
+                        "description": "some",
+                        "ask": "Милаил Боярский",
+                        "answer": "Зеленоглазое такси",
+                        "cost": 300
+                    },
+                    {
+                        "id": 2,
+                        "description": "some",
+                        "ask": "Сплин",
+                        "answer": "Глаза из самого синего льда",
+                        "cost": 600
+                    },
+                    {
+                        "id": 3,
+                        "description": "some",
+                        "ask": "Премьер-министр",
+                        "answer": "Глаза - два бриллианта в три карата",
+                        "cost": 900
+                    },
+                    {
+                        "id": 4,
+                        "description": "some",
+                        "ask": "Лобода",
+                        "answer": "Твои глаза такие чистые, как небо",
+                        "cost": 1200
+                    },
+                    {
+                        "id": 5,
+                        "description": "some",
+                        "ask": "Айдамир Мугу",
+                        "answer": "Черные глаза, вспоминаю, умираю",
+                        "cost": 1500
+                    }
+                ]
+            },
+            {
+                "id": 4,
+                "name": "Приведи порядок",
+                "questions": [
+                    {
+                        "id": 1,
+                        "description": "some",
+                        "ask": "ХНЛРОВ ------------------------------ Расставь эти буквы в алфавитном порядке.",
+                        "answer": "Влнорх",
+                        "cost": 600
+                    },
+                    {
+                        "id": 2,
+                        "description": "some",
+                        "ask": "1) Берлин 2) Париж 3) Рим 4) Лондон Расставь города в порядке их основания.",
+                        "answer": "3241",
+                        "cost": 900
+                    },
+                    {
+                        "id": 3,
+                        "description": "some",
+                        "ask": "1) Еда и напитки 2) Животные и природа 3) Предметы 4) Флаги  ---------------- Расставь в каком порядке находятся эти группы эмодзи в смартфонах",
+                        "answer": "2134",
+                        "cost": 1200
+                    },
+                    {
+                        "id": 4,
+                        "description": "some",
+                        "ask": "1) На краю света 2) Проклятие Черной жемчужины 3) Мертвецы не рассказывают сказки 4) Сундук мертвеца 5) На странных берегах",
+                        "answer": "24153",
+                        "cost": 1500
+                    }
+                ]
+            },
+            {
+                "id": 5,
+                "name": "Вспомнить всё",
+                "questions": [
+                    {
+                        "id": 1,
+                        "description": "some",
+                        "ask": "Какое существо бродит возле дуба в поэме «Руслан и Людмила»?",
+                        "answer": "Леший",
+                        "cost": 300
+                    },
+                    {
+                        "id": 2,
+                        "description": "some",
+                        "ask": "Сколько А в пальчиковых батарейках?",
+                        "answer": "Две А (АА)",
+                        "cost": 600
+                    },
+                    {
+                        "id": 3,
+                        "description": "some",
+                        "ask": "Каких животных также называют водосвинками?",
+                        "answer": "Капибары",
+                        "cost": 900
+                    },
+                    {
+                        "id": 4,
+                        "description": "some",
+                        "ask": "Сколько пар ног у взрослой здоровой особи клеща?",
+                        "answer": "4 пары ног",
+                        "cost": 1200
                     }
                 ]
             }

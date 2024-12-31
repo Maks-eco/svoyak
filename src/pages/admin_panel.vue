@@ -7,7 +7,7 @@
         <!-- <p>admin panel</p> -->
         <!-- <p>{{ tapsState }}</p> -->
         <p>{{ question_ask }}</p>
-        <p>{{ question_answer }}</p>
+        <p class="question__answer">{{ question_answer }}</p>
         <p>{{ questionCost }}</p>
         <div class="panel__divider">
             <div>
@@ -189,6 +189,9 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.question__answer {
+    font-weight: bold;
+}
 .players__wrapper {
     display: flex;
     flex-direction: column;

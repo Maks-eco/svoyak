@@ -167,7 +167,7 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
     display: none;
 }
 .timer-row {
-    height: 30px;
+    height: 20px;
     border-radius: 10px;
     background-color: #ff6960;
     margin: 10px 0;
