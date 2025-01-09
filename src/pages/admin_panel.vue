@@ -38,7 +38,12 @@
                     /><button
                         class="player__button-add"
                         @click="
-                            changeStat(player.id, player.ref).then(() => {})
+                            changeStat(
+                                playersStatus,
+                                player.id,
+                                player.ref,
+                                saveStatus
+                            )
                         "
                     >
                         Add
@@ -46,7 +51,12 @@
                     <button
                         class="player__button-delete"
                         @click="
-                            changeStat(player.id, -player.ref).then(() => {})
+                            changeStat(
+                                playersStatus,
+                                player.id,
+                                -player.ref,
+                                saveStatus
+                            )
                         "
                     >
                         Отжать
@@ -61,6 +71,7 @@
 <script lang="ts" setup>
 import useCounterStore from '@/stores/storage'
 import type { PlayersStatus } from '@/types/GameEntities'
+import { addVisualisationProps, changeStat } from '@/script/admin_panel'
 
 const store = useCounterStore()
 const tapsState = ref('')
@@ -74,74 +85,14 @@ const playersStatus = ref([] as PlayersStatusAndRef[] | null)
 let ddd: any
 
 type PlayersStatusAndRef = Partial<PlayersStatus> & {
-    ref: number //globalThis.Ref<number, number>
+    ref: number
 }
-const changeStat = async (id: string | undefined, ref: any) => {
-    // getPlayersData().then(() => {
-    const newArray: PlayersStatus[] = []
-    console.log('beforesave', playersStatus.value)
-    if (playersStatus.value) {
-        playersStatus.value.forEach((item) => {
-            if (item.id && item.name && item.image) {
-                const newItem: PlayersStatus = {
-                    id: item.id,
-                    name: item.name,
-                    points: id === item.id ? item.points + ref : item.points,
-                    image: item.image,
-                }
 
-                newArray.push(newItem)
-            }
-        })
-    }
-    console.log('savethis', newArray)
-    store.setPlayersData(newArray).then(() => {
+const saveStatus = (array: PlayersStatus[]) => {
+    console.log('savethis', array)
+    store.setPlayersData(array).then(() => {
         getPlayersData()
     })
-
-    // })
-    // getPlayersData()
-}
-const itsPushed = async () => {
-    store.clearPlayersTapState()
-}
-
-const itsInited = async () => {
-    // store.setPlayersData()
-}
-
-const sortThis = (centered: any[]) => {
-    const mapNames = new Map()
-    // mapNames.set('a', 1)
-    // console.log()
-
-    const centerCleared = centered.map((item) => {
-        if (!mapNames.get(item.name)) {
-            mapNames.set(item.name, 1)
-            return { ...item, first: true }
-        }
-        return { ...item, first: false }
-    })
-
-    const centerConverted = centerCleared.map((item) => {
-        return { ...item, converted: msToTime(item.centerUnsign) }
-    })
-
-    // console.log('cc', centerConverted)
-    return centerConverted
-}
-
-function msToTime(duration: any) {
-    let milliseconds: any = Math.floor(duration % 1000),
-        seconds: any = Math.floor((duration / 1000) % 60),
-        minutes: any = Math.floor((duration / (1000 * 60)) % 60),
-        hours: any = Math.floor((duration / (1000 * 60 * 60)) % 24)
-
-    hours = hours < 10 ? '0' + hours : hours
-    minutes = minutes < 10 ? '0' + minutes : minutes
-    seconds = seconds < 10 ? '0' + seconds : seconds
-
-    return hours + ':' + minutes + ':' + seconds + '.' + milliseconds
 }
 
 const getPlayersData = async () => {
@@ -167,16 +118,12 @@ const getPlayersData = async () => {
 
 onMounted(async () => {
     getPlayersData()
-    // store.initPlayersState()
-    // console.log(
-    //     'timestamp' + Date.now().toString().slice(-5),
-    //     'timestamp' + Date.now()
-    // )
+
     setInterval(async () => {
         ;({ string: tapsState.value, centered: ddd } =
             await store.getPlayersTapState())
-        // console.log('upd_tap_info', ddd)
-        answerList.value = sortThis(ddd)
+
+        answerList.value = addVisualisationProps(ddd)
         getPlayersData()
     }, 2000)
 })

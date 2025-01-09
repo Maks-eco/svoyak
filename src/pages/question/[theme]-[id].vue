@@ -57,12 +57,11 @@ const itsStarted = async () => {
 const readText = (char: number) => {
     const cutSymbol = text_on_page.value.length - char
     const procSymbol = (char * 100) / text_on_page.value.length
-    // console.log(char, procSymbol)
+    const readedText = text_on_page.value.slice(0, cutSymbol)
+    const awaitedText = text_on_page.value.slice(cutSymbol)
+
     decreaseTimer(procSymbol)
-    finalText.value = `<span class="highlighted">${text_on_page.value.slice(
-        0,
-        cutSymbol
-    )}</span>${text_on_page.value.slice(cutSymbol)}`
+    finalText.value = `<span class="highlighted">${readedText}</span>${awaitedText}`
 }
 
 const Helllooo = () => {

@@ -1,0 +1,63 @@
+import type { PlayersStatus } from '@/types/GameEntities'
+
+type PlayersStatusAndRef = Partial<PlayersStatus> & {
+    ref: number
+}
+
+const addVisualisationProps = (centered: any[]) => {
+    const mapNames = new Map()
+
+    const centerCleared = centered.map((item) => {
+        if (!mapNames.get(item.name)) {
+            mapNames.set(item.name, 1)
+            return { ...item, first: true }
+        }
+        return { ...item, first: false }
+    })
+
+    const centerConverted = centerCleared.map((item) => {
+        return { ...item, converted: msToTime(item.centerUnsign) }
+    })
+
+    return centerConverted
+}
+
+function msToTime(duration: any) {
+    let milliseconds: any = Math.floor(duration % 1000),
+        seconds: any = Math.floor((duration / 1000) % 60),
+        minutes: any = Math.floor((duration / (1000 * 60)) % 60),
+        hours: any = Math.floor((duration / (1000 * 60 * 60)) % 24)
+
+    hours = hours < 10 ? '0' + hours : hours
+    minutes = minutes < 10 ? '0' + minutes : minutes
+    seconds = seconds < 10 ? '0' + seconds : seconds
+
+    return hours + ':' + minutes + ':' + seconds + '.' + milliseconds
+}
+
+const changeStat = async (
+    playersStat: PlayersStatusAndRef[] | null,
+    id: string | undefined,
+    ref: any,
+    callback: any
+) => {
+    const newArray: PlayersStatus[] = []
+    console.log('beforesave', playersStat)
+    if (playersStat) {
+        playersStat.forEach((item) => {
+            if (item.id && item.name && item.image) {
+                const newItem: PlayersStatus = {
+                    id: item.id,
+                    name: item.name,
+                    points: id === item.id ? item.points + ref : item.points,
+                    image: item.image,
+                }
+
+                newArray.push(newItem)
+            }
+        })
+    }
+    callback(newArray)
+}
+
+export { addVisualisationProps, changeStat }
