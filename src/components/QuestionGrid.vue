@@ -23,7 +23,7 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import type { Round } from '@/types/GameEntities'
+import type { Round } from '~/types/QuestionEntities'
 import OneQuestion from './OneQuestion.vue'
 import useCounterStore from '@/stores/storage'
 

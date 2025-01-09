@@ -21,57 +21,18 @@
                     </div>
                 </div>
             </div>
-            <div class="players__wrapper">
-                <div
-                    class="players__item"
-                    v-for="player in playersStatus"
-                    :key="player.id"
-                >
-                    <!-- <div> -->
-                    <span class="player__name">{{ player.name }}</span
-                    >: {{ player.points }}
-                    <input
-                        class="points__input"
-                        type="number"
-                        maxlength="6"
-                        v-model="player.ref"
-                    /><button
-                        class="player__button-add"
-                        @click="
-                            changeStat(
-                                playersStatus,
-                                player.id,
-                                player.ref,
-                                saveStatus
-                            )
-                        "
-                    >
-                        Add
-                    </button>
-                    <button
-                        class="player__button-delete"
-                        @click="
-                            changeStat(
-                                playersStatus,
-                                player.id,
-                                -player.ref,
-                                saveStatus
-                            )
-                        "
-                    >
-                        Отжать
-                    </button>
-                    <!-- </div> -->
-                </div>
-            </div>
+            <AdminPointsControls
+                :playersStatus="playersStatus"
+                @saveStatus="(array) => saveStatus(array)"
+            />
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
 import useCounterStore from '@/stores/storage'
-import type { PlayersStatus } from '@/types/GameEntities'
-import { addVisualisationProps, changeStat } from '@/script/admin_panel'
+import type { PlayersStatus, PlayersStatusAndRef } from '~/types/PlayerEntities'
+import { addVisualisationProps } from '@/script/admin_panel'
 
 const store = useCounterStore()
 const tapsState = ref('')
@@ -83,10 +44,6 @@ const question_answer = ref('')
 const answerList = ref([] as any[])
 const playersStatus = ref([] as PlayersStatusAndRef[] | null)
 let ddd: any
-
-type PlayersStatusAndRef = Partial<PlayersStatus> & {
-    ref: number
-}
 
 const saveStatus = (array: PlayersStatus[]) => {
     console.log('savethis', array)
@@ -133,43 +90,6 @@ onMounted(async () => {
 <style scoped>
 .question__answer {
     font-weight: bold;
-}
-.players__wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-.player__name {
-    font-weight: bold;
-}
-.players__item {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    padding: 3px;
-    border-radius: 5px;
-    transition: background-color 0.7s;
-
-    &:hover {
-        background-color: rgba(0, 0, 255, 0.158);
-        transition: background-color 0.3s;
-    }
-}
-.points__input {
-    width: 60px;
-}
-.player__button-add,
-.player__button-delete {
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-}
-.player__button-add {
-    background-color: rgb(50, 187, 50);
-}
-.player__button-delete {
-    background-color: rgb(255, 77, 77);
 }
 .panel__divider {
     display: flex;

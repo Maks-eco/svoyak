@@ -14,7 +14,8 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import type { Round, PlayersStatus } from '@/types/GameEntities'
+import type { Round } from '~/types/QuestionEntities'
+import type { PlayersStatus } from '~/types/PlayerEntities'
 import useCounterStore from '@/stores/storage'
 const runtimeConfig = useRuntimeConfig()
 const location = ref('')

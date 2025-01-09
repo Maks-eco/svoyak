@@ -1,8 +1,4 @@
-import type { PlayersStatus } from '@/types/GameEntities'
-
-type PlayersStatusAndRef = Partial<PlayersStatus> & {
-    ref: number
-}
+import type { PlayersStatus, PlayersStatusAndRef } from '~/types/PlayerEntities'
 
 const addVisualisationProps = (centered: any[]) => {
     const mapNames = new Map()

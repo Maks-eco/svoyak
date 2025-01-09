@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Question } from '@/types/GameEntities'
+import type { Question } from '~/types/QuestionEntities'
 import useCounterStore from '@/stores/storage'
 import ControlButtons from '~/components/ControlButtons.vue'
 

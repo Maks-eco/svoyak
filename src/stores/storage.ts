@@ -1,11 +1,8 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import type {
-    Question,
-    Round,
-    Theme,
-    PlayersStatus,
-} from '../types/GameEntities'
+import type { Question, Round, Theme } from '../types/QuestionEntities'
+
+import type { PlayersStatus } from '~/types/PlayerEntities'
 
 // type PlayersStatusAndId = Partial<PlayersStatus> & {
 //     idInBase: string

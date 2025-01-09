@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import type { Question } from '@/types/GameEntities'
+import type { Question } from '~/types/QuestionEntities'
 import useCounterStore from '@/stores/storage'
 
 const isAnswered = ref(false)

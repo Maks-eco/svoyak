@@ -19,11 +19,4 @@ interface Round {
     themes: Theme[]
 }
 
-interface PlayersStatus {
-    id: string
-    name: string
-    points: number
-    image: string
-}
-
-export type { Question, Theme, Round, PlayersStatus }
+export type { Question, Theme, Round }
