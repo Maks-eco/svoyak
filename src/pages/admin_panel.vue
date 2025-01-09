@@ -1,11 +1,6 @@
 <template>
     <div>
         <br /><br /><br />
-        <!-- <button id="get_somethg" @click="itsPushed()">Clear someth!</button>
-        <br /> -->
-        <!-- <button id="get_somethg" @click="itsInited()">Init players</button> -->
-        <!-- <p>admin panel</p> -->
-        <!-- <p>{{ tapsState }}</p> -->
         <p>{{ question_ask }}</p>
         <p class="question__answer">{{ question_answer }}</p>
         <p>{{ questionCost }}</p>

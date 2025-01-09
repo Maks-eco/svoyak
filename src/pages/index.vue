@@ -1,14 +1,4 @@
 <template>
-    <!-- <button @click="setLocale('en')">en</button>
-    <button @click="setLocale('ru')">ru</button> -->
-    <!-- <p>{{ $t('mes') }}</p> -->
-    <!-- <metainfo /> -->
-    <!-- <CartButton /> -->
-    <!-- <CategoryList /> -->
-    <!-- <ProductList /> -->
-    <!-- <QuestionGrid /> -->
-    <!-- <SpamButton /> -->
-    <!-- <SpamButton /> -->
     <SpamButton />
 </template>
 

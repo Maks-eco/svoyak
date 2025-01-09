@@ -1,12 +1,5 @@
-<template>
-    <!-- <SpamButton /> -->
-</template>
+<template></template>
 
-<script lang="ts" setup>
-// import { onMounted, ref } from 'vue'
-// import type { Product } from '../types/Product'
-// import OrderCompletionMessage from '../components/OrderCompletionMessage.vue'
-// import useCounterStore from '../stores/storage'
-</script>
+<script lang="ts" setup></script>
 
 <style scoped></style>

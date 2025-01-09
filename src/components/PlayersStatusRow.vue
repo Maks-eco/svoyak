@@ -1,10 +1,6 @@
 <template>
     <div class="player__wrapper">
-        <!-- <div class="theme__list" v-if="round"> -->
         <div class="player__item" v-for="player in players">
-            <!-- <div class="theme__name">
-                {{ theme.name }}
-            </div> -->
             <img
                 class="player__image"
                 alt="some"
@@ -13,14 +9,12 @@
             <p class="player__name">{{ player.name }}</p>
             <p class="player__points">{{ player.points }}</p>
         </div>
-        <!-- </div> -->
     </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
 import type { Round, PlayersStatus } from '@/types/GameEntities'
-import OneQuestion from './OneQuestion.vue'
 import useCounterStore from '@/stores/storage'
 const runtimeConfig = useRuntimeConfig()
 const location = ref('')
@@ -38,11 +32,6 @@ const getQuestions = async () => {
 
 onMounted(async () => {
     getQuestions()
-    // const dataGame = await store.getGameState()
-    // if (dataGame) {
-    //     players.value = dataGame.data
-    //     console.log('pv', players.value)
-    // }
 
     store.getGameState().then((info) => {
         if (info) {
@@ -67,19 +56,16 @@ onMounted(async () => {
         display: flex;
         justify-content: space-around;
         gap: 20px;
-        // flex-direction: row;
     }
 
     &__item {
         flex: 1;
         display: flex;
         flex-direction: column;
-        // grid-template-columns: repeat(6, 1fr);
         align-items: center;
-        // gap: @grid_gap;
         height: 100%;
         border-radius: 12px;
-        background-color: #e9e5f3; //#ff6960;
+        background-color: #e9e5f3;
     }
 
     &__image {

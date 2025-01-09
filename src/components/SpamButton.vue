@@ -8,13 +8,10 @@
     >
         Жамк
     </button>
-    <!-- <br /><br /><br /> -->
-    <!-- <p>{{ places }}</p> -->
     <!-- <p>{{ isNameInBase ? 'Imja v base' : 'Ne naideno v base' }}</p> -->
 </template>
 
 <script lang="ts" setup>
-// import { initializeApp } from 'firebase/app'
 import {
     addDoc,
     collection,

@@ -5,12 +5,9 @@
             <h4 class="home">Вернуться на главную страницу</h4>
         </router-link>
     </div>
-    <CartButton />
 </template>
 
-<script lang="ts" setup>
-import CartButton from '~/components/ControlButtons.vue'
-</script>
+<script lang="ts" setup></script>
 
 <style scoped>
 .header {

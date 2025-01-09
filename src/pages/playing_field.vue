@@ -3,14 +3,7 @@
     <PlayersStatusRow class="wrapper__players" />
 </template>
 
-<script lang="ts" setup>
-// import useCounterStore from '@/stores/storage'
-// const store = useCounterStore()
-
-// onMounted(() => {
-//     store.initPlayersState()
-// })
-</script>
+<script lang="ts" setup></script>
 
 <style scoped lang="less">
 @padding_fields: 10px;

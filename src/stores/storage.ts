@@ -1,6 +1,5 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import type { StorageProduct } from '../types/StorageProduct'
 import type {
     Question,
     Round,
@@ -53,42 +52,6 @@ const locStorage = {
 }
 
 const useCounterStore = defineStore('counter', () => {
-    let savedVal: StorageProduct[] = []
-    try {
-        savedVal = locStorage.getData('container')
-    } catch {}
-    const count = ref(savedVal)
-    const getValue = computed(() => {
-        return count.value.map((item) => {
-            return { id: item.id, count: item.count }
-        })
-    })
-
-    const getCountItems = computed(() => {
-        return count.value.reduce(
-            (acc: number, item: StorageProduct) => acc + item.count,
-            0
-        )
-    })
-
-    const saveValue = (id: number) => {
-        if (count.value.filter((item) => item.id === id).length === 0) {
-            count.value.push({ id, count: 0 })
-        }
-        count.value = count.value.map((item) => {
-            if (item.id === id) {
-                return { id, count: item.count + 1 }
-            }
-            return item
-        })
-        locStorage.saveData('container', count.value)
-    }
-
-    const deleteItem = (id: number) => {
-        count.value = count.value.filter((item) => item.id !== id)
-        locStorage.saveData('container', count.value)
-    }
-
     const getAllQuestions = async (
         page: number = 1
     ): Promise<null | Round[]> => {
@@ -125,13 +88,11 @@ const useCounterStore = defineStore('counter', () => {
 
             gameStateCol.forEach((doc) => {
                 gameStateArray.push({ ...doc.data(), id: doc.id })
-                // console.log(`${doc.id} => ${doc.data()}`, doc.data())
             })
             let gameStateValue: any = gameStateArray[0].question_timestamp
 
             querySnapshot.forEach((doc) => {
                 itemsArray.push({ ...doc.data(), id: doc.id })
-                // console.log(`${doc.id} => ${doc.data()}`, doc.data())
             })
 
             const timestampConcatMilliseconds = (timestamp: any) => {
@@ -144,9 +105,7 @@ const useCounterStore = defineStore('counter', () => {
 
             const result: any[] = []
             itemsArray.map((item: any) => {
-                // return item.hasOwnProperty('timestamp')
                 for (const [key, value] of Object.entries(item)) {
-                    // console.log(`${key}: ${value}`);
                     if (key.includes('timestamp'))
                         result.push({
                             //...item,
@@ -156,7 +115,7 @@ const useCounterStore = defineStore('counter', () => {
                 }
                 return
             })
-            // console.log('result', result)
+
             const resultSorted = result.sort(
                 (a: any, b: any) =>
                     timestampConcatMilliseconds(a.timestamp) -
@@ -184,7 +143,6 @@ const useCounterStore = defineStore('counter', () => {
             resultSorted.forEach((item, index) => {
                 strRes += `${item.name} was ${index + 1}, `
             })
-            // console.log('result', result, strRes)
             return { string: strRes.slice(0, -2), centered: centerSorted }
         } catch (e) {
             console.error('Error adding document: ', e)
@@ -198,7 +156,6 @@ const useCounterStore = defineStore('counter', () => {
             const querySnapshot = await getDocs(collection(db, 'users'))
             querySnapshot.forEach((doc) => {
                 itemsArray.push({ ...doc.data(), id: doc.id })
-                // console.log(`${doc.id} => ${doc.data()}`, doc.data())
             })
 
             const result: any[] = []
@@ -231,7 +188,7 @@ const useCounterStore = defineStore('counter', () => {
             gameStateArray.push(doc.data() as gameStat)
             stateId = doc.id
         })
-        // console.log('GSAAA', gameStateArray[0])
+
         if (gameStateArray.length > 0)
             return { allData: gameStateArray[0], idInBase: stateId }
         return null
@@ -285,11 +242,6 @@ const useCounterStore = defineStore('counter', () => {
 
     return {
         db,
-        count,
-        getValue,
-        getCountItems,
-        saveValue,
-        deleteItem,
         getAllQuestions,
         getOneQuestion,
         getPlayersTapState,
@@ -299,7 +251,6 @@ const useCounterStore = defineStore('counter', () => {
         setAnsweredQuestion,
         getStatusThisQuestion,
         globalRound,
-        // initPlayersState,
     }
 })
 
