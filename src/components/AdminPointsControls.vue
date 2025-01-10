@@ -15,17 +15,13 @@
                 v-model="player.ref"
             /><button
                 class="player__button-add"
-                @click="
-                    changeStat(playersStatus, player.id, player.ref, updStatus)
-                "
+                @click="updStatus(player.id, player.ref)"
             >
                 Add
             </button>
             <button
                 class="player__button-delete"
-                @click="
-                    changeStat(playersStatus, player.id, -player.ref, updStatus)
-                "
+                @click="updStatus(player.id, -player.ref)"
             >
                 Отжать
             </button>
@@ -36,11 +32,10 @@
 
 <script lang="ts" setup>
 const emit = defineEmits(['saveStatus'])
-const updStatus = (data: any) => {
-    emit('saveStatus', data)
+const updStatus = (id: any, cost: any) => {
+    emit('saveStatus', id, cost)
 }
 import type { PlayersStatusAndRef } from '~/types/PlayerEntities'
-import { changeStat } from '@/script/admin_panel'
 
 const props = defineProps({
     playersStatus: {

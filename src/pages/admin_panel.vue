@@ -23,7 +23,7 @@
             </div>
             <AdminPointsControls
                 :playersStatus="playersStatus"
-                @saveStatus="(array) => saveStatus(array)"
+                @saveStatus="(id, cost) => saveStatus(id, cost)"
             />
         </div>
     </div>
@@ -32,7 +32,8 @@
 <script lang="ts" setup>
 import useCounterStore from '@/stores/storage'
 import type { PlayersStatus, PlayersStatusAndRef } from '~/types/PlayerEntities'
-import { addVisualisationProps } from '@/script/admin_panel'
+import { addVisualisationProps, changeStat } from '@/script/admin_panel'
+// import { changeStat } from '@/script/admin_panel'
 
 const store = useCounterStore()
 const tapsState = ref('')
@@ -45,10 +46,12 @@ const answerList = ref([] as any[])
 const playersStatus = ref([] as PlayersStatusAndRef[] | null)
 let ddd: any
 
-const saveStatus = (array: PlayersStatus[]) => {
-    console.log('savethis', array)
-    store.setPlayersData(array).then(() => {
-        getPlayersData()
+const saveStatus = (id: any, cost: any) => {
+    changeStat(playersStatus.value, id, cost, (array: PlayersStatus[]) => {
+        console.log('savethis', array)
+        store.setPlayersData(array).then(() => {
+            getPlayersData()
+        })
     })
 }
 
