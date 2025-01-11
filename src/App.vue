@@ -7,7 +7,7 @@
     <!-- <router-view /> -->
 </template>
 
-<style>
+<style lang="less">
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -22,7 +22,7 @@
     padding: 10px;
     margin: 5px;
     border-radius: 15px;
-    background-color: #67568c;
+    background-color: @common-secondary-color;
     color: white;
 }
 .logo__img {

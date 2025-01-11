@@ -56,11 +56,11 @@ onMounted(() => {
         height: 100%;
         border-radius: 20px;
         transition: background-color 0.3s;
-        background-color: #67568c;
+        background-color: @common-secondary-color;
 
         &:hover {
             transition: background-color 0.3s;
-            background-color: #50426c;
+            background-color: @common-primary-color;
         }
     }
 

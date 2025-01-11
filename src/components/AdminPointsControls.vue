@@ -80,11 +80,11 @@ const props = defineProps({
     }
 
     &__button-add {
-        background-color: rgb(50, 187, 50);
+        background-color: @accept-primary-color;
     }
 
     &__button-delete {
-        background-color: rgb(255, 77, 77);
+        background-color: @decline-primary-color;
     }
 
     &__points-input {

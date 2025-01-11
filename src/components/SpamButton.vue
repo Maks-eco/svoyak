@@ -58,7 +58,7 @@ onMounted(async () => {
     height: 150px;
     width: 300px;
     margin-left: 30px;
-    background: #50426c;
+    background: @common-primary-color;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -66,7 +66,7 @@ onMounted(async () => {
     cursor: pointer;
 
     &:hover {
-        background: #67568c;
+        background: @common-secondary-color;
     }
 
     @media (max-width: 600px) {
@@ -80,10 +80,10 @@ onMounted(async () => {
     user-select: none;
     background: linear-gradient(
         90deg,
-        rgba(244, 117, 33, 1) 0%,
-        rgba(244, 117, 33, 1) 50%,
-        rgba(246, 153, 27, 1) 50%,
-        rgba(246, 153, 27, 1) 100%
+        @warn-primary-color 0%,
+        @warn-primary-color 50%,
+        @warn-secondary-color 50%,
+        @warn-secondary-color 100%
     );
     animation: timer_gradient calc(2.7s * 2) linear;
     background-size: 200% 200%;

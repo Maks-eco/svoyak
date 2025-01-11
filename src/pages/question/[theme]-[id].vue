@@ -110,7 +110,7 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
     &__timer-row {
         height: 20px;
         border-radius: 10px;
-        background-color: #ff6960;
+        background-color: @support-primary-color;
         margin: 10px 0;
         width: v-bind(timerBarWidth);
         transition: width 0.2s linear;

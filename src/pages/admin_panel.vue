@@ -8,6 +8,7 @@
         </div>
         <div class="panel__divider">
             <div class="answer__items-wrapper">
+                Очередность:
                 <div
                     class="answer__item"
                     v-for="answer in answerList"
@@ -101,6 +102,7 @@ onMounted(async () => {
 }
 .panel__divider {
     display: grid;
+    gap: 24px;
     grid-template-columns: 1fr 1fr;
 
     @media (max-width: 800px) {

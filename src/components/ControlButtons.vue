@@ -52,7 +52,7 @@ const saveAnswer = () => {
     }
 
     &__get-answer {
-        background-color: #67568c;
+        background-color: @common-secondary-color;
         color: white;
         cursor: pointer;
     }
