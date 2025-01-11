@@ -1,5 +1,6 @@
 <template>
     <NuxtLink
+        class="card__link-wrapper"
         :to="{
             name: 'question-theme-id',
             params: {
@@ -9,8 +10,8 @@
         }"
         :item="item"
     >
-        <div class="one-section" :class="{ answered: isAnswered }">
-            <p class="section__descr">{{ item.cost }}</p>
+        <div class="card__block" :class="{ answered: isAnswered }">
+            <p class="card__cost">{{ item.cost }}</p>
         </div>
     </NuxtLink>
 </template>
@@ -42,35 +43,39 @@ onMounted(() => {
 </script>
 
 <style scoped lang="less">
-a {
-    height: 100%;
-    text-decoration: none;
-}
+.card {
+    &__link-wrapper {
+        height: 100%;
+        text-decoration: none;
+    }
 
-.one-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    border-radius: 20px;
-    transition: background-color 0.3s;
-    background-color: #67568c;
-
-    &:hover {
+    &__block {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        border-radius: 20px;
         transition: background-color 0.3s;
-        background-color: #50426c;
+        background-color: #67568c;
+
+        &:hover {
+            transition: background-color 0.3s;
+            background-color: #50426c;
+        }
+    }
+
+    &__cost {
+        margin: 5px;
+        font-size: 24px;
+        color: white; //#333;
+        transition: color 0.4s;
     }
 }
-.one-section.answered {
+.card__block.answered {
     background-color: rgba(233, 233, 233, 0.46);
-    .section__descr {
+
+    .card__cost {
         color: #c5c5c5;
     }
-}
-.section__descr {
-    margin: 5px;
-    font-size: 24px;
-    color: white; //#333;
-    transition: color 0.4s;
 }
 </style>

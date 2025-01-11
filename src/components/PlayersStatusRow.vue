@@ -75,11 +75,13 @@ onMounted(async () => {
         object-fit: cover;
         border-radius: 12px;
     }
+
     &__name,
     &__points {
         margin: 0;
         color: #444;
     }
+
     &__name {
         font-size: 20px;
         text-align: center;

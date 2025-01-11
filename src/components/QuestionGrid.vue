@@ -1,6 +1,6 @@
 <template>
     <div class="theme__wrapper">
-        <div class="theme__list" v-if="round">
+        <div class="theme__row-list" v-if="round">
             <div
                 class="theme__row"
                 v-for="theme in round?.themes"
@@ -17,7 +17,9 @@
                 />
             </div>
         </div>
-        <button class="hidden_button" @click="nextRound()">Next round</button>
+        <button class="next-round__button" @click="nextRound()">
+            Next round
+        </button>
     </div>
 </template>
 
@@ -55,7 +57,8 @@ onMounted(() => {
 
 <style scoped lang="less">
 @grid_gap: 20px;
-.hidden_button {
+
+.next-round__button {
     width: 5px;
     padding: 0;
     overflow: hidden;
@@ -67,12 +70,13 @@ onMounted(() => {
         width: 60px;
     }
 }
+
 .theme {
     &__wrapper {
         display: flex;
     }
 
-    &__list {
+    &__row-list {
         display: flex;
         flex-direction: column;
         gap: @grid_gap;
@@ -82,7 +86,7 @@ onMounted(() => {
 
     &__row {
         display: grid;
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(6, 1fr); //----Add var
         align-items: center;
         gap: @grid_gap;
         height: 100%;

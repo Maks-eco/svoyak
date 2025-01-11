@@ -2,7 +2,7 @@
     <br /><br /><br />
     <NameInput v-if="!isNameInBase" @nameSet="sendNewNameToBase()" />
     <button
-        class="get_someth"
+        class="push-button"
         :class="{ inactivate: isInactivateButton }"
         @click="itsPushed()"
     >
@@ -53,23 +53,31 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="less">
-.get_someth {
+.push-button {
     font-size: 40px;
     height: 150px;
     width: 300px;
     margin-left: 30px;
+    background: #50426c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+
+    &:hover {
+        background: #67568c;
+    }
 
     @media (max-width: 600px) {
         height: 150px;
         width: 80vw;
-        // margin-left: 100vw;
     }
 }
-.get_someth.inactivate {
+.push-button.inactivate {
     background-color: #ddd;
     pointer-events: none;
     user-select: none;
-    // background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background: linear-gradient(
         90deg,
         rgba(244, 117, 33, 1) 0%,
@@ -77,11 +85,11 @@ onMounted(async () => {
         rgba(246, 153, 27, 1) 50%,
         rgba(246, 153, 27, 1) 100%
     );
-    animation: gradient calc(2.7s * 2) linear;
+    animation: timer_gradient calc(2.7s * 2) linear;
     background-size: 200% 200%;
 }
 
-@keyframes gradient {
+@keyframes timer_gradient {
     0% {
         background-position: 0% 50%;
     }
@@ -91,62 +99,5 @@ onMounted(async () => {
     100% {
         background-position: 100% 50%;
     }
-}
-form {
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-input[type='text'],
-input[type='date'],
-textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.checkbox-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.radio-group {
-    display: flex;
-    gap: 15px;
-}
-
-button {
-    background: #50426c;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #67568c;
-}
-
-.error {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
-    display: none;
 }
 </style>

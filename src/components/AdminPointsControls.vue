@@ -1,7 +1,7 @@
 <template>
-    <div class="players__wrapper">
+    <div class="players__container">
         <div
-            class="players__item"
+            class="player__wrapper"
             v-for="player in playersStatus"
             :key="player.id"
         >
@@ -9,7 +9,7 @@
             <span class="player__name">{{ player.name }}</span
             >: {{ player.points }}
             <input
-                class="points__input"
+                class="player__points-input"
                 type="number"
                 maxlength="6"
                 v-model="player.ref"
@@ -17,7 +17,7 @@
                 class="player__button-add"
                 @click="updStatus(player.id, player.ref)"
             >
-                Add
+                Дать
             </button>
             <button
                 class="player__button-delete"
@@ -46,32 +46,31 @@ const props = defineProps({
 </script>
 
 <style scoped lang="less">
-.players__wrapper {
+.players__container {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.players__item {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    padding: 3px;
-    border-radius: 5px;
-    transition: background-color 0.7s;
-
-    &:hover {
-        background-color: rgba(0, 0, 255, 0.158);
-        transition: background-color 0.3s;
-    }
-}
-.points__input {
-    width: 60px;
-}
 .player {
+    &__wrapper {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        padding: 3px;
+        border-radius: 5px;
+        transition: background-color 0.7s;
+
+        &:hover {
+            background-color: rgba(0, 0, 255, 0.158);
+            transition: background-color 0.3s;
+        }
+    }
+
     &__name {
         font-weight: bold;
     }
+
     &__button-add,
     &__button-delete {
         border: none;
@@ -79,11 +78,17 @@ const props = defineProps({
         color: white;
         font-weight: bold;
     }
+
     &__button-add {
         background-color: rgb(50, 187, 50);
     }
+
     &__button-delete {
         background-color: rgb(255, 77, 77);
+    }
+
+    &__points-input {
+        width: 60px;
     }
 }
 </style>

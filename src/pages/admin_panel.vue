@@ -1,18 +1,20 @@
 <template>
     <div>
         <br /><br /><br />
-        <p>{{ question_ask }}</p>
-        <p class="question__answer">{{ question_answer }}</p>
-        <p>{{ questionCost }}</p>
+        <div class="question-info">
+            <p>{{ question_ask }}</p>
+            <p class="question-info__answer">Ответ: {{ question_answer }}</p>
+            <p>Стоимость: {{ questionCost }}</p>
+        </div>
         <div class="panel__divider">
-            <div>
+            <div class="answer__items-wrapper">
                 <div
                     class="answer__item"
                     v-for="answer in answerList"
                     :key="answer.ts"
                     :class="{
-                        first: answer.first,
-                        'false-start': answer.sign < 0,
+                        answer__first: answer.first,
+                        'answer__false-start': answer.sign < 0,
                     }"
                 >
                     <div>
@@ -82,35 +84,59 @@ onMounted(async () => {
 
         answerList.value = addVisualisationProps(ddd)
         getPlayersData()
-    }, 2000)
+    }, 6000) //2000
 })
 </script>
 
-<style scoped>
-.question__answer {
-    font-weight: bold;
+<style scoped lang="less">
+.question-info {
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+
+    &__answer {
+        font-weight: bold;
+    }
 }
 .panel__divider {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @media (max-width: 800px) {
+        grid-template-columns: 1fr;
+    }
 }
-.answer__item {
-    color: gray;
-    font-weight: bold;
-}
-.first {
-    background-color: rgb(29, 133, 8);
-}
-.false-start {
-    color: rgb(126, 85, 32);
-}
-.first,
-.first.false-start {
-    color: white;
-    width: fit-content;
-    border-radius: 12px;
-    padding: 3px 15px;
-}
-.first.false-start {
-    background-color: red;
+.answer {
+    &__items-wrapper {
+        @media (max-width: 800px) {
+            order: 2;
+        }
+    }
+
+    &__item {
+        color: gray;
+        font-weight: bold;
+    }
+
+    &__first {
+        background-color: rgb(29, 133, 8);
+    }
+
+    &__false-start {
+        color: rgb(126, 85, 32);
+    }
+
+    &__first,
+    &__first.answer__false-start {
+        color: white;
+        width: fit-content;
+        border-radius: 12px;
+        padding: 3px 15px;
+    }
+
+    &__first.answer__false-start {
+        background-color: red;
+    }
 }
 </style>

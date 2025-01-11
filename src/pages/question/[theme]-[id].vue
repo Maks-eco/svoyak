@@ -1,10 +1,14 @@
 <template>
-    <div class="big-text__wrapper">
-        <div class="timer-row"></div>
+    <div class="question-viewer__wrapper">
+        <div class="question-viewer__timer-row"></div>
         <div :class="{ hidden: !isImage }">
-            <img class="big-image" alt="some" :src="location + img_on_page" />
+            <img
+                class="question-viewer__big-image"
+                alt="some"
+                :src="location + img_on_page"
+            />
         </div>
-        <div :class="{ hidden: isImage }" class="big-text">
+        <div :class="{ hidden: isImage }" class="question-viewer">
             <!-- {{ text_on_page }} -->
             <p v-html="finalText"></p>
         </div>
@@ -89,47 +93,42 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
 </script>
 
 <style lang="less">
-.v-enter-active,
-.v-leave-active {
-    transition: opacity 0.3s ease;
-}
-.v-enter-from,
-.v-leave-to {
-    opacity: 0;
-}
 .highlighted {
     color: #7958c2;
 }
+
 .hidden {
     display: none;
 }
-.timer-row {
-    height: 20px;
-    border-radius: 10px;
-    background-color: #ff6960;
-    margin: 10px 0;
-    width: v-bind(timerBarWidth);
-    transition: width 0.2s linear;
-}
-.big-text {
+
+.question-viewer {
     font-size: 40px;
     text-align: center;
     margin: auto 0;
     color: #333;
 
+    &__timer-row {
+        height: 20px;
+        border-radius: 10px;
+        background-color: #ff6960;
+        margin: 10px 0;
+        width: v-bind(timerBarWidth);
+        transition: width 0.2s linear;
+    }
+
     &__wrapper {
         position: fixed;
         display: flex;
-        // justify-content: center;
         flex-direction: column;
         align-items: center;
         height: 70%;
         width: 100%;
     }
-}
-.big-image {
-    border-radius: 20px;
-    height: 100%;
-    width: 100%;
+
+    &__big-image {
+        border-radius: 20px;
+        height: 100%;
+        width: 100%;
+    }
 }
 </style>
