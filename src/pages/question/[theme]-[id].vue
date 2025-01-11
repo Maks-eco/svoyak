@@ -21,7 +21,7 @@ import type { Question } from '~/types/QuestionEntities'
 import useCounterStore from '@/stores/storage'
 import ControlButtons from '~/components/ControlButtons.vue'
 
-import { serverTimestamp, updateDoc, doc } from 'firebase/firestore'
+import { timerEventEmitter, readText } from '@/script/question_page'
 
 const runtimeConfig = useRuntimeConfig()
 const store = useCounterStore()
@@ -33,75 +33,16 @@ const img_on_page = ref('' as string)
 const location = ref('' as string)
 const finalText = ref('')
 const timerBarWidth = ref('100%')
-const db = store.db
 
 const theme_id = ref('')
 const questn_id = ref('')
 
-const itsStarted = async () => {
-    const gameState = await store.getGameState()
-    console.log('gs', gameState)
-    if (gameState?.idInBase && question.value) {
-        const docRef = doc(db, 'game_state', gameState?.idInBase)
-        const updateTimestamp = await updateDoc(docRef, {
-            question_timestamp: serverTimestamp(),
-            question_cost: question.value.cost,
-            question_ask: question.value.ask,
-            question_answer: question.value.answer,
-        })
-    } else {
-        console.log('Not started!')
-    }
-}
-
-const readText = (char: number) => {
-    const cutSymbol = text_on_page.value.length - char
-    const procSymbol = (char * 100) / text_on_page.value.length
-    const readedText = text_on_page.value.slice(0, cutSymbol)
-    const awaitedText = text_on_page.value.slice(cutSymbol)
-
-    decreaseTimer(procSymbol)
-    finalText.value = `<span class="highlighted">${readedText}</span>${awaitedText}`
-}
-
-const Helllooo = () => {
-    console.log('hello')
-}
-const decreaseTimer = (steps?: number) => {
-    // console.log('s', steps)
+const decreaseTimerBarWidth = (steps?: number) => {
     if (steps) timerBarWidth.value = steps.toString() + '%'
-}
-// let steps = 50
-const itsTimer = async (
-    stepPause: number,
-    steps: number,
-    callback: any,
-    onEnd?: any
-) => {
-    callback(steps - 1)
-    // console.log(steps)
-    if (steps > 0) {
-        setTimeout(async () => {
-            await itsTimer(
-                stepPause,
-                steps - 1,
-                (st: any) => {
-                    callback(st)
-                },
-                () => {
-                    onEnd()
-                }
-            )
-        }, stepPause)
-    } else {
-        onEnd()
-    }
 }
 
 const getAnswer = () => {
     if (question.value) text_on_page.value = question.value.answer
-    console.log('aga')
-    /*только для тестов!*/ //itsStarted()
 }
 
 onMounted(async () => {
@@ -122,18 +63,17 @@ onMounted(async () => {
     if (question.value) text_on_page.value = question.value.ask
     console.log('route', route, location.value)
 
-    // itsTimer(
-    //     50,
-    //     100,
-    //     (st: any) => decreaseTimer(st),
-    //     () => Helllooo()
-    // )
-
-    itsTimer(
+    timerEventEmitter(
         55,
         text_on_page.value.length,
-        (st: any) => readText(st),
-        () => itsStarted()
+        (st: any) => {
+            finalText.value = readText(
+                st,
+                text_on_page.value,
+                decreaseTimerBarWidth
+            )
+        },
+        () => store.tapsInputWasStarted(question.value)
     )
 })
 
@@ -145,8 +85,6 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
         isImage.value = false
         finalText.value = text_on_page.value
     }
-
-    console.log('i watch', isImage.value)
 })
 </script>
 

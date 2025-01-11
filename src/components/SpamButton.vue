@@ -12,32 +12,17 @@
 </template>
 
 <script lang="ts" setup>
-import {
-    addDoc,
-    collection,
-    serverTimestamp,
-    getDocs,
-    updateDoc,
-    doc,
-} from 'firebase/firestore'
-
 import useCounterStore from '@/stores/storage'
 
 const store = useCounterStore()
-const db = store.db
-
 const nameCode = ref('')
-const places = ref('')
 const nameStor = ref('')
 const isNameInBase = ref(false)
 const isInactivateButton = ref(false)
 
 const itsPushed = async () => {
     isInactivateButton.value = true
-    const docRef = doc(db, 'users', nameCode.value)
-    await updateDoc(docRef, {
-        ['timestamp' + Date.now().toString().slice(-7)]: serverTimestamp(),
-    })
+    await store.userDoingTap(nameCode.value)
     setTimeout(() => {
         isInactivateButton.value = false
     }, 2500)
@@ -46,48 +31,18 @@ const itsPushed = async () => {
 const sendNewNameToBase = async () => {
     const mynameStorage = localStorage.getItem('myname')
     nameStor.value = mynameStorage ? mynameStorage : ''
-    const { isExist } = await isExistInBase()
-    if (!isExist) {
-        try {
-            const docRef = await addDoc(collection(db, 'users'), {
-                name: nameStor.value,
-                // timestamp: serverTimestamp(),
-            })
-            console.log('Document written with ID: ', docRef.id)
-            nameCode.value = docRef.id
-            isNameInBase.value = true
-        } catch (e) {
-            console.error('Error adding document: ', e)
-        }
-    }
-}
-
-const isExistInBase = async () => {
-    try {
-        const itemsArray: any[] = []
-        const querySnapshot = await getDocs(collection(db, 'users'))
-        querySnapshot.forEach((doc) => {
-            itemsArray.push({ ...doc.data(), id: doc.id })
-            // console.log(`${doc.id} => ${doc.data()}`, doc.data())
-        })
-        const result = itemsArray.filter((item: any) => {
-            return item?.name?.toString() === nameStor.value /*nameStor*/
-        })
-        console.log('?', result, itemsArray)
-        return { isExist: result.length !== 0, id: result[0].id }
-    } catch (e) {
-        console.error('Error adding document: ', e)
-        return { isExist: false, id: 0 }
-    }
+    store.sendNewNameToTheBase(nameStor.value).then((id) => {
+        nameCode.value = id
+        isNameInBase.value = true
+    })
 }
 
 onMounted(async () => {
     const mynameStorage = localStorage.getItem('myname')
     nameStor.value = mynameStorage ? mynameStorage : ''
     if (nameStor.value) {
-        const { isExist, id } = await isExistInBase()
+        const { isExist, id } = await store.isNameExistInBase(nameStor.value)
         if (!isExist) {
-            // sendNewNameToBase()
             isNameInBase.value = false
         } else {
             nameCode.value = id
@@ -122,7 +77,7 @@ onMounted(async () => {
         rgba(246, 153, 27, 1) 50%,
         rgba(246, 153, 27, 1) 100%
     );
-    animation: gradient 2.7s linear;
+    animation: gradient calc(2.7s * 2) linear;
     background-size: 200% 200%;
 }
 
@@ -130,15 +85,12 @@ onMounted(async () => {
     0% {
         background-position: 0% 50%;
     }
+    50% {
+        background-position: 100% 50%;
+    }
     100% {
         background-position: 100% 50%;
     }
-    // 50% {
-    //     background-position: 100% 50%;
-    // }
-    // 100% {
-    //     background-position: 0% 50%;
-    // }
 }
 form {
     max-width: 500px;

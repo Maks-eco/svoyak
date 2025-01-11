@@ -18,7 +18,9 @@ import {
     collection,
     setDoc,
     doc,
+    addDoc,
     updateDoc,
+    serverTimestamp,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -237,6 +239,75 @@ const useCounterStore = defineStore('counter', () => {
         }
     }
 
+    const tapsInputWasStarted = async (question: Question | null) => {
+        const gameState = await getGameState()
+        console.log('gs', gameState)
+        if (gameState?.idInBase && question) {
+            const docRef = doc(db, 'game_state', gameState?.idInBase)
+            const updateTimestamp = await updateDoc(docRef, {
+                question_timestamp: serverTimestamp(),
+                question_cost: question.cost,
+                question_ask: question.ask,
+                question_answer: question.answer,
+            })
+        } else {
+            console.log('Not started!')
+        }
+    }
+
+    const isNameExistInBase = async (searchedName: string) => {
+        try {
+            const itemsArray: any[] = []
+            const querySnapshot = await getDocs(collection(db, 'users'))
+            querySnapshot.forEach((doc) => {
+                itemsArray.push({ ...doc.data(), id: doc.id })
+                // console.log(`${doc.id} => ${doc.data()}`, doc.data())
+            })
+            const result = itemsArray.filter((item: any) => {
+                return (
+                    item?.name?.toString() === searchedName
+                ) /*nameStor.value */
+            })
+            console.log('?', result, itemsArray)
+            return { isExist: result.length !== 0, id: result[0].id }
+        } catch (e) {
+            console.error('Error adding document: ', e)
+            return { isExist: false, id: 0 }
+        }
+    }
+
+    const sendNewNameToTheBase = async (
+        localStoredName: string
+    ): Promise<string> => {
+        const { isExist } = await isNameExistInBase(localStoredName)
+        return new Promise(async (resolve, reject) => {
+            if (!isExist) {
+                try {
+                    const docRef = await addDoc(collection(db, 'users'), {
+                        name: localStoredName,
+                        // timestamp: serverTimestamp(),
+                    })
+                    console.log('Document written with ID: ', docRef.id)
+                    // nameCode.value = docRef.id
+                    // isNameInBase.value = true
+                    resolve(docRef.id)
+                } catch (e) {
+                    console.error('Error adding document: ', e)
+                    reject(e)
+                }
+            } else {
+                reject('Already adding to the document')
+            }
+        })
+    }
+
+    const userDoingTap = async (nameCode: string) => {
+        const docRef = doc(db, 'users', nameCode)
+        await updateDoc(docRef, {
+            ['timestamp' + Date.now().toString().slice(-7)]: serverTimestamp(),
+        })
+    }
+
     return {
         db,
         getAllQuestions,
@@ -248,6 +319,10 @@ const useCounterStore = defineStore('counter', () => {
         setAnsweredQuestion,
         getStatusThisQuestion,
         globalRound,
+        tapsInputWasStarted,
+        isNameExistInBase,
+        sendNewNameToTheBase,
+        userDoingTap,
     }
 })
 

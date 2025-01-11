@@ -18,7 +18,7 @@ const addVisualisationProps = (centered: any[]) => {
     return centerConverted
 }
 
-function msToTime(duration: any) {
+const msToTime = (duration: any) => {
     let milliseconds: any = Math.floor(duration % 1000),
         seconds: any = Math.floor((duration / 1000) % 60),
         minutes: any = Math.floor((duration / (1000 * 60)) % 60),

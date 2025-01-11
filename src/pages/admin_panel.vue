@@ -33,15 +33,12 @@
 import useCounterStore from '@/stores/storage'
 import type { PlayersStatus, PlayersStatusAndRef } from '~/types/PlayerEntities'
 import { addVisualisationProps, changeStat } from '@/script/admin_panel'
-// import { changeStat } from '@/script/admin_panel'
 
 const store = useCounterStore()
 const tapsState = ref('')
-const ratedState = ref('')
 const questionCost = ref(0)
 const question_ask = ref('')
 const question_answer = ref('')
-// const ratedState = ref('')
 const answerList = ref([] as any[])
 const playersStatus = ref([] as PlayersStatusAndRef[] | null)
 let ddd: any
@@ -87,7 +84,6 @@ onMounted(async () => {
         getPlayersData()
     }, 2000)
 })
-// getPlayersTapState
 </script>
 
 <style scoped>
@@ -109,7 +105,6 @@ onMounted(async () => {
 }
 .first,
 .first.false-start {
-    /* background-color: red; */
     color: white;
     width: fit-content;
     border-radius: 12px;
