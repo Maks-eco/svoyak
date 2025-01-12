@@ -117,7 +117,7 @@ onMounted(async () => {
     }
 
     &__item {
-        color: gray;
+        color: @inactive-text-color;
         font-weight: bold;
     }
 

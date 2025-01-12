@@ -57,8 +57,8 @@ const saveAnswer = () => {
         cursor: pointer;
     }
     &__to-menu {
-        background-color: gainsboro;
-        color: #444;
+        background-color: @gray-info-background-color;
+        color: @text-primary-color;
     }
 
     &__get-answer,

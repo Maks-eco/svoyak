@@ -72,10 +72,10 @@ onMounted(() => {
     }
 }
 .card__block.answered {
-    background-color: rgba(233, 233, 233, 0.46);
+    background-color: @inactive-background-color;
 
     .card__cost {
-        color: #c5c5c5;
+        color: @inactive-text-color;
     }
 }
 </style>

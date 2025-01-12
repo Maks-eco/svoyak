@@ -66,7 +66,7 @@ onMounted(async () => {
         align-items: center;
         height: 100%;
         border-radius: 12px;
-        background-color: #e9e5f3;
+        background-color: @gray-info-background-color;
     }
 
     &__image {
@@ -79,7 +79,7 @@ onMounted(async () => {
     &__name,
     &__points {
         margin: 0;
-        color: #444;
+        color: @text-primary-color;
     }
 
     &__name {

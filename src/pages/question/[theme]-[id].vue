@@ -94,7 +94,7 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
 
 <style lang="less">
 .highlighted {
-    color: #7958c2;
+    color: @common-highlighted-color;
 }
 
 .hidden {
@@ -105,7 +105,7 @@ watch(text_on_page, async (newQuestion, oldQuestion) => {
     font-size: 40px;
     text-align: center;
     margin: auto 0;
-    color: #333;
+    color: @text-primary-color;
 
     &__timer-row {
         height: 20px;

@@ -75,7 +75,6 @@ onMounted(async () => {
     }
 }
 .push-button.inactivate {
-    background-color: #ddd;
     pointer-events: none;
     user-select: none;
     background: linear-gradient(
