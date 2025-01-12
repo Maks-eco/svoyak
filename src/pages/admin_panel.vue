@@ -28,6 +28,7 @@
                 :playersStatus="playersStatus"
                 @saveStatus="(id, cost) => saveStatus(id, cost)"
             />
+            <!-- <IconsSet /> -->
         </div>
     </div>
 </template>
@@ -36,6 +37,7 @@
 import useCounterStore from '@/stores/storage'
 import type { PlayersStatus, PlayersStatusAndRef } from '~/types/PlayerEntities'
 import { addVisualisationProps, changeStat } from '@/script/admin_panel'
+// import IconsSet from '~/components/IconsSet.vue'
 
 const store = useCounterStore()
 const tapsState = ref('')

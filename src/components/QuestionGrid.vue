@@ -25,13 +25,14 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import type { Round } from '~/types/QuestionEntities'
+import type { Round, Theme } from '~/types/QuestionEntities'
 import OneQuestion from './OneQuestionCard.vue'
 import useCounterStore from '@/stores/storage'
 
 const store = useCounterStore()
 
 const round = ref(null as Round | null)
+const numberOfColumns = ref(1)
 
 const nextRound = () => {
     console.log('rv', round.value?.id)
@@ -46,7 +47,15 @@ const nextRound = () => {
 
 const getQuestions = async () => {
     const rounds = await store.getAllQuestions(store.globalRound())
-    if (rounds && rounds.length > 0) round.value = rounds[0]
+    if (rounds && rounds.length > 0) {
+        round.value = rounds[0]
+        round.value.themes.forEach((theme: Theme) => {
+            let maxQuestionInRowCount = 0
+            theme.questions.forEach(() => maxQuestionInRowCount++)
+            if (numberOfColumns.value < maxQuestionInRowCount)
+                numberOfColumns.value = maxQuestionInRowCount
+        })
+    }
     console.log('roundVal', round.value)
 }
 
@@ -86,14 +95,16 @@ onMounted(() => {
 
     &__row {
         display: grid;
-        grid-template-columns: repeat(6, 1fr); //----Add var
+        grid-template-columns: repeat(calc(v-bind('numberOfColumns') + 1), 1fr);
         align-items: center;
         gap: @grid_gap;
         height: 100%;
     }
 
     &__name {
+        color: @text-primary-color;
         font-size: 20px;
+        font-weight: 500;
         text-align: center;
     }
 }

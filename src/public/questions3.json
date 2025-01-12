@@ -35,13 +35,6 @@
                         "ask": "images/round3/DB_1200--doodle-jump.jpeg",
                         "answer": "Doodle jump",
                         "cost": 1200
-                    },
-                    {
-                        "id": 5,
-                        "description": "some",
-                        "ask": "images/round3/DB_1500--periskop.jpeg",
-                        "answer": "Перископ",
-                        "cost": 1500
                     }
                 ]
             },
@@ -76,13 +69,6 @@
                         "ask": "images/round3/KM_1200--kresti.jpeg",
                         "answer": "Крести",
                         "cost": 1200
-                    },
-                    {
-                        "id": 5,
-                        "description": "some",
-                        "ask": "images/round3/KM_1500--chervi.jpeg",
-                        "answer": "Черви",
-                        "cost": 1500
                     }
                 ]
             },
@@ -117,13 +103,6 @@
                         "ask": "Лобода",
                         "answer": "Твои глаза такие чистые, как небо",
                         "cost": 1200
-                    },
-                    {
-                        "id": 5,
-                        "description": "some",
-                        "ask": "Айдамир Мугу",
-                        "answer": "Черные глаза, вспоминаю, умираю",
-                        "cost": 1500
                     }
                 ]
             },
