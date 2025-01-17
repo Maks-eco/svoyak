@@ -2,7 +2,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { Question, Round, Theme } from '../types/QuestionEntities'
 
-import type { PlayersStatus } from '~/types/PlayerEntities'
+import type { PlayersStatus, Tap } from '~/types/PlayerEntities'
 
 // type PlayersStatusAndId = Partial<PlayersStatus> & {
 //     idInBase: string
@@ -14,6 +14,7 @@ const token = 'public_RiNvjTVVzKLhFNWyzR5fNY68u1GMHLEs'
 import { initializeApp } from 'firebase/app'
 import {
     getFirestore,
+    getDoc,
     getDocs,
     collection,
     setDoc,
@@ -159,7 +160,7 @@ const useCounterStore = defineStore('counter', () => {
 
             const result: any[] = []
             itemsArray.map(async (item: any) => {
-                await setDoc(doc(db, 'users', item.id), { name: item.name })
+                await setDoc(doc(db, 'users', item.id), { ...item, taps: [] })
 
                 // return
             })
@@ -195,6 +196,7 @@ const useCounterStore = defineStore('counter', () => {
 
     const setPlayersData = async (data: PlayersStatus[]) => {
         const gameState = await getGameState()
+        console.log('setPlayersData', gameState)
         if (gameState) {
             {
                 const docRef = doc(db, 'game_state', gameState.idInBase)
@@ -283,9 +285,19 @@ const useCounterStore = defineStore('counter', () => {
         return new Promise(async (resolve, reject) => {
             if (!isExist) {
                 try {
-                    const docRef = await addDoc(collection(db, 'users'), {
+                    const newPlayerData: PlayersStatus = {
+                        id: 'some',
                         name: localStoredName,
-                        // timestamp: serverTimestamp(),
+                        points: 0,
+                        image: '1.svg',
+                        taps: [],
+                    }
+                    const docRef = await addDoc(collection(db, 'users'), {
+                        // name: localStoredName,
+                        ...newPlayerData,
+                    })
+                    await updateDoc(docRef, {
+                        id: docRef.id,
                     })
                     console.log('Document written with ID: ', docRef.id)
                     // nameCode.value = docRef.id
@@ -303,13 +315,24 @@ const useCounterStore = defineStore('counter', () => {
 
     const userDoingTap = async (nameCode: string) => {
         const docRef = doc(db, 'users', nameCode)
-        await updateDoc(docRef, {
+        console.log(docRef)
+        const playerData: PlayersStatus = (
+            await getDoc(docRef)
+        ).data() as PlayersStatus
+        const taps = {
+            ...playerData.taps,
             ['timestamp' + Date.now().toString().slice(-7)]: serverTimestamp(),
-        })
+        }
+        // taps.push(serverTimestamp())
+        // taps={
+        //     ['timestamp' + Date.now().toString().slice(-7)]: serverTimestamp(),
+        // })
+
+        console.log(taps)
+        await updateDoc(docRef, { taps: taps })
     }
 
     return {
-        db,
         getAllQuestions,
         getOneQuestion,
         getPlayersTapState,
