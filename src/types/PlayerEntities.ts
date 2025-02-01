@@ -16,4 +16,12 @@ type PlayersStatusAndRef = Partial<PlayersStatus> & {
     ref: number
 }
 
-export type { PlayersStatus, PlayersStatusAndRef, Tap }
+interface gameStat {
+    data: PlayersStatus[]
+    question_timestamp: any
+    question_cost: number
+    question_ask: string
+    question_answer: string
+}
+
+export type { PlayersStatus, PlayersStatusAndRef, Tap, gameStat }

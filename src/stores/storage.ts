@@ -2,7 +2,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { Question, Round, Theme } from '../types/QuestionEntities'
 
-import type { PlayersStatus, Tap } from '~/types/PlayerEntities'
+import type { PlayersStatus, Tap, gameStat } from '~/types/PlayerEntities'
 
 // type PlayersStatusAndId = Partial<PlayersStatus> & {
 //     idInBase: string
@@ -89,6 +89,7 @@ const useCounterStore = defineStore('counter', () => {
             gameStateCol.forEach((doc) => {
                 gameStateArray.push({ ...doc.data(), id: doc.id })
             })
+            console.log(gameStateArray[0])
             let gameStateValue: any = gameStateArray[0].question_timestamp
 
             querySnapshot.forEach((doc) => {
@@ -169,14 +170,6 @@ const useCounterStore = defineStore('counter', () => {
         }
     }
 
-    interface gameStat {
-        data: PlayersStatus[]
-        question_timestamp: any
-        question_cost: number
-        question_ask: string
-        question_answer: string
-    }
-
     const getGameState = async (): Promise<{
         allData: gameStat
         idInBase: string
@@ -191,6 +184,24 @@ const useCounterStore = defineStore('counter', () => {
 
         if (gameStateArray.length > 0)
             return { allData: gameStateArray[0], idInBase: stateId }
+        return null
+    }
+
+    const getPlayersData = async (): Promise<{
+        allData: PlayersStatus[]
+        idInBase: string
+    } | null> => {
+        const playersStateArray: PlayersStatus[] = []
+        let stateId = ''
+        const playersStateCollection = await getDocs(collection(db, 'users'))
+        console.log(playersStateCollection)
+        playersStateCollection.forEach((doc) => {
+            playersStateArray.push(doc.data() as PlayersStatus)
+            stateId = doc.id
+        })
+        // console.log(playersStateArray)
+        if (playersStateArray.length > 0)
+            return { allData: playersStateArray, idInBase: stateId }
         return null
     }
 
@@ -338,6 +349,7 @@ const useCounterStore = defineStore('counter', () => {
         getPlayersTapState,
         getGameState,
         clearPlayersTapState,
+        getPlayersData,
         setPlayersData,
         setAnsweredQuestion,
         getStatusThisQuestion,

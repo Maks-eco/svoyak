@@ -35,7 +35,11 @@
 
 <script lang="ts" setup>
 import useCounterStore from '@/stores/storage'
-import type { PlayersStatus, PlayersStatusAndRef } from '~/types/PlayerEntities'
+import type {
+    PlayersStatus,
+    PlayersStatusAndRef,
+    gameStat,
+} from '~/types/PlayerEntities'
 import { addVisualisationProps, changeStat } from '@/script/admin_panel'
 // import IconsSet from '~/components/IconsSet.vue'
 
@@ -58,16 +62,17 @@ const saveStatus = (id: any, cost: any) => {
 }
 
 const getPlayersData = async () => {
-    store.getGameState().then((info) => {
-        playersStatus.value = []
-        if (info) {
-            const bufarray: PlayersStatus[] = info.allData.data
+    const info: { allData: gameStat } | null = await store.getGameState()
+    const bufarray: { allData: PlayersStatus[] } | null =
+        await store.getPlayersData()
+    if (info) {
+        questionCost.value = info.allData.question_cost
+        question_ask.value = info.allData.question_ask
+        question_answer.value = info.allData.question_answer
 
-            questionCost.value = info.allData.question_cost
-            question_ask.value = info.allData.question_ask
-            question_answer.value = info.allData.question_answer
-
-            bufarray.forEach((bufitem) => {
+        if (bufarray?.allData) {
+            playersStatus.value = []
+            bufarray.allData.forEach((bufitem) => {
                 playersStatus.value?.push({
                     ...bufitem,
                     ref: info.allData.question_cost,
@@ -75,7 +80,7 @@ const getPlayersData = async () => {
             })
             console.log('pv', bufarray, playersStatus.value)
         }
-    })
+    }
 }
 
 onMounted(async () => {

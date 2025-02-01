@@ -34,12 +34,9 @@ const getQuestions = async () => {
 onMounted(async () => {
     getQuestions()
 
-    store.getGameState().then((info) => {
-        if (info) {
-            players.value = info.allData.data
-            console.log('pv', info.allData)
-        }
-    })
+    const bufarray: { allData: PlayersStatus[] } | null =
+        await store.getPlayersData()
+    if (bufarray?.allData) players.value = bufarray.allData
 
     if (runtimeConfig.app?.baseURL && window.location?.origin)
         location.value =
