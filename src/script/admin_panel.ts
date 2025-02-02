@@ -31,29 +31,32 @@ const msToTime = (duration: any) => {
     return hours + ':' + minutes + ':' + seconds + '.' + milliseconds
 }
 
+type PlayerPoint = Omit<PlayersStatus, 'image' | 'taps'>
+
 const changeStat = async (
     playersStat: PlayersStatusAndRef[] | null,
     id: string | undefined,
     ref: any,
-    callback: any
+    callback: (PlayersStatus: PlayerPoint) => void
 ) => {
-    const newArray: PlayersStatus[] = []
+    // type Pal
+    const newArray: PlayerPoint[] = []
     console.log('beforesave', playersStat)
     if (playersStat) {
         playersStat.forEach((item) => {
             if (item.id && item.name && item.image) {
-                const newItem: PlayersStatus = {
+                const newItem: PlayerPoint = {
                     id: item.id,
                     name: item.name,
                     points: id === item.id ? item.points + ref : item.points,
-                    image: item.image,
+                    // image: item.image,
                 }
-
-                newArray.push(newItem)
+                if (id === item.id) newArray.push(newItem)
             }
         })
     }
-    callback(newArray)
+    callback(newArray[0])
 }
 
 export { addVisualisationProps, changeStat }
+export type { PlayerPoint }

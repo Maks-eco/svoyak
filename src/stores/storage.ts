@@ -4,10 +4,6 @@ import type { Question, Round, Theme } from '../types/QuestionEntities'
 
 import type { PlayersStatus, Tap, gameStat } from '~/types/PlayerEntities'
 
-// type PlayersStatusAndId = Partial<PlayersStatus> & {
-//     idInBase: string
-// }
-
 const storeId = '108362264'
 const token = 'public_RiNvjTVVzKLhFNWyzR5fNY68u1GMHLEs'
 
@@ -76,43 +72,47 @@ const useCounterStore = defineStore('counter', () => {
         return data
     }
 
+    const getBaseDocs = async <ListItemType>(
+        doc_name: string
+    ): Promise<ListItemType[]> => {
+        const itemsArray: ListItemType[] = []
+        const querySnapshot = await getDocs(collection(db, doc_name))
+
+        querySnapshot.forEach((doc) => {
+            itemsArray.push({
+                ...(doc.data() as ListItemType),
+                id: doc.id,
+            })
+        })
+
+        return itemsArray
+    }
+
     const getPlayersTapState = async (): Promise<{
         string: string
         centered: any
     }> => {
         try {
-            const itemsArray: any[] = []
-            const querySnapshot = await getDocs(collection(db, 'users'))
-            const gameStateCol = await getDocs(collection(db, 'game_state'))
-            const gameStateArray: any[] = []
-
-            gameStateCol.forEach((doc) => {
-                gameStateArray.push({ ...doc.data(), id: doc.id })
-            })
-            console.log(gameStateArray[0])
+            const itemsArray: PlayersStatus[] =
+                await getBaseDocs<PlayersStatus>('users')
+            const gameStateArray: gameStat[] = await getBaseDocs<gameStat>(
+                'game_state'
+            )
             let gameStateValue: any = gameStateArray[0].question_timestamp
-
-            querySnapshot.forEach((doc) => {
-                itemsArray.push({ ...doc.data(), id: doc.id })
-            })
 
             const timestampConcatMilliseconds = (timestamp: any) => {
                 const res =
                     timestamp.seconds * 1e3 + timestamp.nanoseconds / 1e6
-
-                // console.log('r', res)
                 return res
             }
-
+            console.log('querySnapshot', itemsArray)
             const result: any[] = []
-            itemsArray.map((item: any) => {
-                for (const [key, value] of Object.entries(item)) {
-                    if (key.includes('timestamp'))
-                        result.push({
-                            //...item,
-                            timestamp: value,
-                            name: item.name,
-                        })
+            itemsArray.map((item: PlayersStatus) => {
+                for (const [key, value] of Object.entries(item.taps)) {
+                    result.push({
+                        timestamp: value,
+                        name: item.name,
+                    })
                 }
                 return
             })
@@ -133,8 +133,6 @@ const useCounterStore = defineStore('counter', () => {
                     centerUnsign: Math.abs(centerWithSign),
                     sign: centerWithSign >= 0 ? 1 : -1,
                     ts: timestampConcatMilliseconds(item.timestamp),
-                    // gs: gameStateValue.seconds,
-                    // is: item.seconds,
                 }
             })
             const centerSorted = centered.sort(
@@ -205,17 +203,12 @@ const useCounterStore = defineStore('counter', () => {
         return null
     }
 
-    const setPlayersData = async (data: PlayersStatus[]) => {
-        const gameState = await getGameState()
-        console.log('setPlayersData', gameState)
-        if (gameState) {
-            {
-                const docRef = doc(db, 'game_state', gameState.idInBase)
-                const updateTimestamp = await updateDoc(docRef, {
-                    data: data,
-                })
-            }
-        }
+    const setPlayerData = async <Type extends { [x: string]: any }>(
+        id: string,
+        data: Type
+    ) => {
+        const docRef = doc(db, 'users', id)
+        await updateDoc(docRef, { ...data })
     }
 
     const globalRound = (id?: number): number => {
@@ -256,7 +249,7 @@ const useCounterStore = defineStore('counter', () => {
         const gameState = await getGameState()
         console.log('gs', gameState)
         if (gameState?.idInBase && question) {
-            const docRef = doc(db, 'game_state', gameState?.idInBase)
+            const docRef = doc(db, 'game_state', gameState.idInBase)
             const updateTimestamp = await updateDoc(docRef, {
                 question_timestamp: serverTimestamp(),
                 question_cost: question.cost,
@@ -334,12 +327,6 @@ const useCounterStore = defineStore('counter', () => {
             ...playerData.taps,
             ['timestamp' + Date.now().toString().slice(-7)]: serverTimestamp(),
         }
-        // taps.push(serverTimestamp())
-        // taps={
-        //     ['timestamp' + Date.now().toString().slice(-7)]: serverTimestamp(),
-        // })
-
-        console.log(taps)
         await updateDoc(docRef, { taps: taps })
     }
 
@@ -350,7 +337,7 @@ const useCounterStore = defineStore('counter', () => {
         getGameState,
         clearPlayersTapState,
         getPlayersData,
-        setPlayersData,
+        setPlayerData,
         setAnsweredQuestion,
         getStatusThisQuestion,
         globalRound,

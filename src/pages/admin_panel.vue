@@ -40,6 +40,7 @@ import type {
     PlayersStatusAndRef,
     gameStat,
 } from '~/types/PlayerEntities'
+import type { PlayerPoint } from '@/script/admin_panel'
 import { addVisualisationProps, changeStat } from '@/script/admin_panel'
 // import IconsSet from '~/components/IconsSet.vue'
 
@@ -53,15 +54,17 @@ const playersStatus = ref([] as PlayersStatusAndRef[] | null)
 let ddd: any
 
 const saveStatus = (id: any, cost: any) => {
-    changeStat(playersStatus.value, id, cost, (array: PlayersStatus[]) => {
-        console.log('savethis', array)
-        store.setPlayersData(array).then(() => {
-            getPlayersData()
-        })
+    changeStat(playersStatus.value, id, cost, (playerStatus: PlayerPoint) => {
+        console.log('savethis', playerStatus)
+        store
+            .setPlayerData<PlayerPoint>(playerStatus.id, playerStatus)
+            .then(() => {
+                updatePlayersData()
+            })
     })
 }
 
-const getPlayersData = async () => {
+const updatePlayersData = async () => {
     const info: { allData: gameStat } | null = await store.getGameState()
     const bufarray: { allData: PlayersStatus[] } | null =
         await store.getPlayersData()
@@ -84,14 +87,14 @@ const getPlayersData = async () => {
 }
 
 onMounted(async () => {
-    getPlayersData()
+    updatePlayersData()
 
     setInterval(async () => {
-        ;({ string: tapsState.value, centered: ddd } =
-            await store.getPlayersTapState())
-
-        answerList.value = addVisualisationProps(ddd)
-        getPlayersData()
+        const tapStateValues: { centered: any } =
+            await store.getPlayersTapState()
+        console.log('tapStateValues', tapStateValues)
+        answerList.value = addVisualisationProps(tapStateValues.centered)
+        updatePlayersData()
     }, 6000) //2000
 })
 </script>

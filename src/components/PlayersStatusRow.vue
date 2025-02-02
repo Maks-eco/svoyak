@@ -42,7 +42,7 @@ onMounted(async () => {
         location.value =
             window.location.origin +
             runtimeConfig.app?.baseURL +
-            'images/players/'
+            'images/looks/'
 })
 </script>
 
@@ -67,7 +67,7 @@ onMounted(async () => {
     }
 
     &__image {
-        width: 100%;
+        // width: 100%;
         height: calc(100% - 75px);
         object-fit: cover;
         border-radius: 12px;
