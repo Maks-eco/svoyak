@@ -151,17 +151,10 @@ const useCounterStore = defineStore('counter', () => {
 
     const clearPlayersTapState = async () => {
         try {
-            const itemsArray: any[] = []
-            const querySnapshot = await getDocs(collection(db, 'users'))
-            querySnapshot.forEach((doc) => {
-                itemsArray.push({ ...doc.data(), id: doc.id })
-            })
-
-            const result: any[] = []
-            itemsArray.map(async (item: any) => {
+            const itemsArray: PlayersStatus[] =
+                await getBaseDocs<PlayersStatus>('users')
+            itemsArray.map(async (item: PlayersStatus) => {
                 await setDoc(doc(db, 'users', item.id), { ...item, taps: [] })
-
-                // return
             })
         } catch (e) {
             console.error('Error adding document: ', e)
@@ -172,34 +165,20 @@ const useCounterStore = defineStore('counter', () => {
         allData: gameStat
         idInBase: string
     } | null> => {
-        const gameStateArray: gameStat[] = []
-        let stateId = ''
-        const gameStateCollection = await getDocs(collection(db, 'game_state'))
-        gameStateCollection.forEach((doc) => {
-            gameStateArray.push(doc.data() as gameStat)
-            stateId = doc.id
-        })
-
+        const gameStateArray = await getBaseDocs<gameStat>('game_state')
         if (gameStateArray.length > 0)
-            return { allData: gameStateArray[0], idInBase: stateId }
+            return {
+                allData: gameStateArray[0],
+                idInBase: gameStateArray[0].id,
+            }
         return null
     }
 
     const getPlayersData = async (): Promise<{
         allData: PlayersStatus[]
-        idInBase: string
     } | null> => {
-        const playersStateArray: PlayersStatus[] = []
-        let stateId = ''
-        const playersStateCollection = await getDocs(collection(db, 'users'))
-        console.log(playersStateCollection)
-        playersStateCollection.forEach((doc) => {
-            playersStateArray.push(doc.data() as PlayersStatus)
-            stateId = doc.id
-        })
-        // console.log(playersStateArray)
-        if (playersStateArray.length > 0)
-            return { allData: playersStateArray, idInBase: stateId }
+        const playersStateArray = await getBaseDocs<PlayersStatus>('users')
+        if (playersStateArray.length > 0) return { allData: playersStateArray }
         return null
     }
 
@@ -263,18 +242,11 @@ const useCounterStore = defineStore('counter', () => {
 
     const isNameExistInBase = async (searchedName: string) => {
         try {
-            const itemsArray: any[] = []
-            const querySnapshot = await getDocs(collection(db, 'users'))
-            querySnapshot.forEach((doc) => {
-                itemsArray.push({ ...doc.data(), id: doc.id })
-                // console.log(`${doc.id} => ${doc.data()}`, doc.data())
+            const itemsArray = await getBaseDocs<PlayersStatus>('users')
+            const result = itemsArray.filter((item: PlayersStatus) => {
+                return item?.name?.toString() === searchedName
             })
-            const result = itemsArray.filter((item: any) => {
-                return (
-                    item?.name?.toString() === searchedName
-                ) /*nameStor.value */
-            })
-            console.log('?', result, itemsArray)
+            // console.log('?', result, itemsArray)
             return { isExist: result.length !== 0, id: result[0].id }
         } catch (e) {
             console.error('Error adding document: ', e)

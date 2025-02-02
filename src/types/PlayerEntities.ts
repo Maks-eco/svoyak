@@ -18,6 +18,7 @@ type PlayersStatusAndRef = Partial<PlayersStatus> & {
 
 interface gameStat {
     // data: PlayersStatus[]
+    id: string
     question_timestamp: any
     question_cost: number
     question_ask: string
