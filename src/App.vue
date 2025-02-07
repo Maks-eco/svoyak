@@ -24,6 +24,7 @@
     border-radius: 15px;
     background-color: @common-secondary-color;
     color: white;
+    opacity: 0.75;
 }
 .logo__img {
     width: 200px;

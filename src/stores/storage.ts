@@ -250,12 +250,13 @@ const useCounterStore = defineStore('counter', () => {
             return { isExist: result.length !== 0, id: result[0].id }
         } catch (e) {
             console.error('Error adding document: ', e)
-            return { isExist: false, id: 0 }
+            return { isExist: false, id: '0' }
         }
     }
 
     const sendNewNameToTheBase = async (
-        localStoredName: string
+        localStoredName: string,
+        iconId: string
     ): Promise<string> => {
         const { isExist } = await isNameExistInBase(localStoredName)
         return new Promise(async (resolve, reject) => {
@@ -265,19 +266,15 @@ const useCounterStore = defineStore('counter', () => {
                         id: 'some',
                         name: localStoredName,
                         points: 0,
-                        image: '1.svg',
+                        image: iconId + '.svg',
                         taps: [],
                     }
                     const docRef = await addDoc(collection(db, 'users'), {
-                        // name: localStoredName,
                         ...newPlayerData,
                     })
                     await updateDoc(docRef, {
                         id: docRef.id,
                     })
-                    console.log('Document written with ID: ', docRef.id)
-                    // nameCode.value = docRef.id
-                    // isNameInBase.value = true
                     resolve(docRef.id)
                 } catch (e) {
                     console.error('Error adding document: ', e)

@@ -1,6 +1,7 @@
 <template>
     <br /><br /><br />
     <NameInput v-if="!isNameInBase" @nameSet="sendNewNameToBase()" />
+    <IconСhoose @iconSet="(id:string) => saveImg(id)" />
     <button
         class="push-button"
         :class="{ inactivate: isInactivateButton }"
@@ -13,12 +14,19 @@
 
 <script lang="ts" setup>
 import useCounterStore from '@/stores/storage'
+import IconСhoose from './IconСhoose.vue'
 
 const store = useCounterStore()
 const nameCode = ref('')
 const nameStor = ref('')
 const isNameInBase = ref(false)
 const isInactivateButton = ref(false)
+const imgId = ref('1')
+
+const saveImg = (id: string) => {
+    console.log('i catch image: ', id)
+    imgId.value = id
+}
 
 const itsPushed = async () => {
     isInactivateButton.value = true
@@ -31,7 +39,7 @@ const itsPushed = async () => {
 const sendNewNameToBase = async () => {
     const mynameStorage = localStorage.getItem('myname')
     nameStor.value = mynameStorage ? mynameStorage : ''
-    store.sendNewNameToTheBase(nameStor.value).then((id) => {
+    store.sendNewNameToTheBase(nameStor.value, imgId.value).then((id) => {
         nameCode.value = id
         isNameInBase.value = true
     })
