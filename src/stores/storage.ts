@@ -12,6 +12,7 @@ import {
     getFirestore,
     getDoc,
     getDocs,
+    deleteDoc,
     collection,
     setDoc,
     doc,
@@ -299,6 +300,10 @@ const useCounterStore = defineStore('counter', () => {
         await updateDoc(docRef, { taps: taps })
     }
 
+    const deleteUser = async (nameCode: string) => {
+        await deleteDoc(doc(db, 'users', nameCode))
+    }
+
     return {
         getAllQuestions,
         getOneQuestion,
@@ -314,6 +319,7 @@ const useCounterStore = defineStore('counter', () => {
         isNameExistInBase,
         sendNewNameToTheBase,
         userDoingTap,
+        deleteUser,
     }
 })
 
