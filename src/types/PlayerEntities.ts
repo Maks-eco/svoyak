@@ -3,6 +3,7 @@ interface PlayersStatus {
     name: string
     points: number
     image: string
+    browserId: BrowserId
     taps: EctTap //Tap
 }
 
@@ -10,6 +11,10 @@ type Tap = Record<string, any>
 
 interface EctTap {
     [timestamp: string]: any
+}
+
+interface BrowserId {
+    [id: string]: string
 }
 
 type PlayersStatusAndRef = Partial<PlayersStatus> & {

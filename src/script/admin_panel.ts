@@ -31,7 +31,7 @@ const msToTime = (duration: any) => {
     return hours + ':' + minutes + ':' + seconds + '.' + milliseconds
 }
 
-type PlayerPoint = Omit<PlayersStatus, 'image' | 'taps'>
+type PlayerPoint = Omit<PlayersStatus, 'image' | 'taps' | 'browserId'>
 
 const changeStat = async (
     playersStat: PlayersStatusAndRef[] | null,

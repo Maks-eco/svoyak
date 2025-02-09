@@ -23,7 +23,7 @@
 import { ref, onMounted } from 'vue'
 import type { Round } from '~/types/QuestionEntities'
 import type { PlayersStatus } from '~/types/PlayerEntities'
-import useCounterStore from '@/stores/storage'
+import { useCounterStore } from '@/stores/storage'
 const runtimeConfig = useRuntimeConfig()
 const location = ref('')
 

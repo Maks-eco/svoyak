@@ -22,7 +22,7 @@
 
 <script lang="ts" setup>
 import type { Question } from '~/types/QuestionEntities'
-import useCounterStore from '@/stores/storage'
+import { useCounterStore } from '@/stores/storage'
 import ControlButtons from '~/components/ControlButtons.vue'
 
 import { timerEventEmitter, readText } from '@/script/question_page'

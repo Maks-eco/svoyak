@@ -12,6 +12,8 @@
 <script lang="ts" setup>
 // const numberOfPurchases = useCounterStore()
 import { ref, onMounted } from 'vue'
+import { locStorage } from '@/stores/storage'
+
 const name = ref('')
 const nameCode = ref('')
 const storedName = ref('')
@@ -19,14 +21,16 @@ const storedName = ref('')
 const emit = defineEmits(['nameSet'])
 
 const saveName = () => {
-    localStorage.setItem('myname', name.value)
+    locStorage.saveData('myname', name.value)
+    // localStorage.setItem('myname', name.value)
     const lsName = localStorage.getItem('myname')
     storedName.value = lsName ? lsName : ''
     if (lsName) emit('nameSet')
 }
 
 onMounted(() => {
-    const nameStor = localStorage.getItem('myname')
+    const nameStor = locStorage.getData('myname')
+    // const nameStor = localStorage.getItem('myname')
     if (nameStor) {
         storedName.value = name.value = nameStor
     }

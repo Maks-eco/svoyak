@@ -45,7 +45,15 @@ const locStorage = {
     saveData: (name: string, value: any) => {
         localStorage.setItem(name, JSON.stringify(value))
     },
-    getData: (name: string) => JSON.parse(localStorage.getItem(name) || ''),
+    getData: (name: string) => {
+        let value
+        try {
+            value = JSON.parse(localStorage.getItem(name) || '')
+            return value
+        } catch {
+            return ''
+        }
+    },
 }
 
 const useCounterStore = defineStore('counter', () => {
@@ -255,19 +263,37 @@ const useCounterStore = defineStore('counter', () => {
         }
     }
 
+    const makeRandomId = (length: number): string => {
+        let result = ''
+        const characters =
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+        const charactersLength = characters.length
+        let counter = 0
+        while (counter < length) {
+            result += characters.charAt(
+                Math.floor(Math.random() * charactersLength)
+            )
+            counter += 1
+        }
+        return result
+    }
+
     const sendNewNameToTheBase = async (
         localStoredName: string,
         iconId: string
     ): Promise<string> => {
-        const { isExist } = await isNameExistInBase(localStoredName)
+        const { isExist, id } = await isNameExistInBase(localStoredName)
         return new Promise(async (resolve, reject) => {
             if (!isExist) {
                 try {
+                    const newId = makeRandomId(10)
+                    locStorage.saveData('browserId', newId)
                     const newPlayerData: PlayersStatus = {
                         id: 'some',
                         name: localStoredName,
                         points: 0,
                         image: iconId + '.svg',
+                        browserId: { id: newId },
                         taps: [],
                     }
                     const docRef = await addDoc(collection(db, 'users'), {
@@ -282,9 +308,54 @@ const useCounterStore = defineStore('counter', () => {
                     reject(e)
                 }
             } else {
-                reject('Already adding to the document')
+                // reject('Already adding to the document')
+                checkBrowserId(id)
+                    .then((data) => {
+                        console.log('then', data)
+                    })
+                    .catch((data) => {
+                        console.log('err', data)
+                    })
             }
         })
+    }
+
+    const checkBrowserId = async (nameCode: string) => {
+        let savedId: string = locStorage.getData('browserId')
+        if (savedId === '') {
+            const savedId = makeRandomId(10)
+            locStorage.saveData('browserId', savedId)
+        }
+
+        const docRef = doc(db, 'users', nameCode)
+        //get value from cookie, compare with entities in broIds
+        //if not exist - add new
+        const playerData: PlayersStatus = (
+            await getDoc(docRef)
+        ).data() as PlayersStatus
+
+        const userIds = []
+        if (playerData.browserId) {
+            for (const [key, value] of Object.entries(playerData.browserId)) {
+                userIds.push(value)
+            }
+        }
+        console.log(
+            'checkBrowserId',
+            playerData.browserId,
+            userIds,
+            savedId,
+            userIds.includes(savedId)
+        )
+        if (!userIds.includes(savedId)) {
+            const browserIds = {
+                ...playerData.browserId,
+                ['id' + Date.now().toString().slice(-7)]: savedId,
+            }
+            await updateDoc(docRef, { browserId: browserIds })
+            throw 'pupa'
+        }
+        return docRef.id
     }
 
     const userDoingTap = async (nameCode: string) => {
@@ -323,4 +394,4 @@ const useCounterStore = defineStore('counter', () => {
     }
 })
 
-export default useCounterStore
+export { useCounterStore, locStorage }

@@ -27,7 +27,7 @@
 import { ref, onMounted } from 'vue'
 import type { Round, Theme } from '~/types/QuestionEntities'
 import OneQuestion from './OneQuestionCard.vue'
-import useCounterStore from '@/stores/storage'
+import { useCounterStore } from '@/stores/storage'
 
 const store = useCounterStore()
 

@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import useCounterStore from '@/stores/storage'
+import { useCounterStore } from '@/stores/storage'
 import IconСhoose from './IconСhoose.vue'
 
 const store = useCounterStore()
@@ -39,10 +39,12 @@ const itsPushed = async () => {
 const sendNewNameToBase = async () => {
     const mynameStorage = localStorage.getItem('myname')
     nameStor.value = mynameStorage ? mynameStorage : ''
-    store.sendNewNameToTheBase(nameStor.value, imgId.value).then((id) => {
-        nameCode.value = id
-        isNameInBase.value = true
-    })
+    store
+        .sendNewNameToTheBase(nameStor.value, imgId.value)
+        .then((id: string) => {
+            nameCode.value = id
+            isNameInBase.value = true
+        })
 }
 
 onMounted(async () => {

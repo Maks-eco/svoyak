@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts" setup>
-import useCounterStore from '@/stores/storage'
+import { useCounterStore } from '@/stores/storage'
 import type {
     PlayersStatus,
     PlayersStatusAndRef,

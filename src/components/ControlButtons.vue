@@ -29,7 +29,7 @@ const props = defineProps({
 const getAnswer = () => {
     emit('getAnswer')
 }
-import useCounterStore from '../stores/storage'
+import { useCounterStore } from '../stores/storage'
 
 const store = useCounterStore()
 const saveAnswer = () => {
