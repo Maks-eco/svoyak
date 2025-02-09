@@ -26,6 +26,7 @@
             </div>
             <AdminPointsControls
                 :playersStatus="playersStatus"
+                :questionCost="questionCost"
                 @saveStatus="(id, cost) => saveStatus(id, cost)"
             />
             <!-- <IconsSet /> -->
@@ -50,7 +51,7 @@ const questionCost = ref(0)
 const question_ask = ref('')
 const question_answer = ref('')
 const answerList = ref([] as any[])
-const playersStatus = ref([] as PlayersStatusAndRef[] | null)
+const playersStatus = ref([] as PlayersStatus[] | null)
 let ddd: any
 
 const saveStatus = (id: any, cost: any) => {
@@ -72,16 +73,10 @@ const updatePlayersData = async () => {
         questionCost.value = info.allData.question_cost
         question_ask.value = info.allData.question_ask
         question_answer.value = info.allData.question_answer
-
-        if (bufarray?.allData) {
+        if (bufarray) {
+            console.log('very update')
             playersStatus.value = []
-            bufarray.allData.forEach((bufitem) => {
-                playersStatus.value?.push({
-                    ...bufitem,
-                    ref: info.allData.question_cost,
-                })
-            })
-            console.log('pv', bufarray, playersStatus.value)
+            playersStatus.value = [...bufarray.allData]
         }
     }
 }

@@ -34,7 +34,7 @@ const msToTime = (duration: any) => {
 type PlayerPoint = Omit<PlayersStatus, 'image' | 'taps' | 'browserId'>
 
 const changeStat = async (
-    playersStat: PlayersStatusAndRef[] | null,
+    playersStat: PlayersStatus[] | null,
     id: string | undefined,
     ref: any,
     callback: (PlayersStatus: PlayerPoint) => void
