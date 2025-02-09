@@ -10,7 +10,6 @@
 </template>
 
 <script lang="ts" setup>
-// const numberOfPurchases = useCounterStore()
 import { ref, onMounted } from 'vue'
 import { locStorage } from '@/stores/storage'
 
@@ -20,11 +19,9 @@ const storedName = ref('')
 const emit = defineEmits(['nameSet'])
 
 const saveName = () => {
-    locStorage.saveData('myname', name.value)
-    const lsName: string | null = locStorage.getData('myname')
-    if (lsName) {
-        storedName.value = lsName
-        emit('nameSet')
+    if (name.value !== '') {
+        storedName.value = name.value
+        emit('nameSet', name.value)
     }
 }
 

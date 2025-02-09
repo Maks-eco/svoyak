@@ -1,6 +1,9 @@
 <template>
     <br /><br /><br />
-    <NameInput v-if="!isNameInBase" @nameSet="sendNewNameToBase()" />
+    <NameInput
+        v-if="!isNameInBase"
+        @nameSet="(name:string) => sendNewNameToBase(name)"
+    />
     <IconСhoose @iconSet="(id:string) => saveImg(id)" />
     <button
         class="push-button"
@@ -36,17 +39,15 @@ const itsPushed = async () => {
     }, 2500)
 }
 
-const sendNewNameToBase = async () => {
-    const mynameStorage: string | null = locStorage.getData('myname')
-    if (mynameStorage) {
-        nameStor.value = mynameStorage
-        store
-            .sendNewNameToTheBase(nameStor.value, imgId.value)
-            .then((id: string) => {
-                nameCode.value = id
-                isNameInBase.value = true
-            })
-    }
+const sendNewNameToBase = async (mynameStorage: string) => {
+    locStorage.saveData('myname', mynameStorage)
+    nameStor.value = mynameStorage
+    store
+        .sendNewNameToTheBase(nameStor.value, imgId.value)
+        .then((id: string) => {
+            nameCode.value = id
+            isNameInBase.value = true
+        })
 }
 
 onMounted(async () => {

@@ -27,6 +27,7 @@ const isStartDeletion = ref(false)
 const emit = defineEmits(['approvedDeletion'])
 
 const deleteHim = () => {
+    isStartDeletion.value = false
     emit('approvedDeletion')
 }
 </script>

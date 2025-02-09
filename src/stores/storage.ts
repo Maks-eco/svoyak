@@ -216,8 +216,8 @@ const useCounterStore = defineStore('counter', () => {
         } else if (storageRound) {
             round = parseInt(storageRound)
         } else {
-            locStorage.saveData('globalRound', 0)
-            round = 0
+            locStorage.saveData('globalRound', 1)
+            round = 1
         }
 
         console.log(round)
@@ -231,10 +231,9 @@ const useCounterStore = defineStore('counter', () => {
     const setAnsweredQuestion = (theme: any, id: any) => {
         let savedVal: Answers | null =
             locStorage.getData<Answers>('containerAnswer')
-        if (savedVal) {
-            savedVal = { ...savedVal, [`${theme}_${id}`]: true }
-            locStorage.saveData('containerAnswer', savedVal)
-        }
+
+        savedVal = { ...savedVal, [`${theme}_${id}`]: true }
+        locStorage.saveData('containerAnswer', savedVal)
     }
 
     const getStatusThisQuestion = (theme: string, id: string): boolean => {
