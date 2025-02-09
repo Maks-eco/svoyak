@@ -27,7 +27,7 @@
 import { ref, onMounted } from 'vue'
 import type { Round, Theme } from '~/types/QuestionEntities'
 import OneQuestion from './OneQuestionCard.vue'
-import { useCounterStore } from '@/stores/storage'
+import { useCounterStore, locStorage } from '@/stores/storage'
 
 const store = useCounterStore()
 
@@ -37,7 +37,7 @@ const numberOfColumns = ref(1)
 const nextRound = () => {
     console.log('rv', round.value?.id)
     store.globalRound(round.value?.id)
-    localStorage.removeItem('containerAnswer')
+    locStorage.removeData('containerAnswer')
 
     setTimeout(() => {
         navigateTo('/playing_field')

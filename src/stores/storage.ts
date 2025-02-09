@@ -45,14 +45,21 @@ const locStorage = {
     saveData: (name: string, value: any) => {
         localStorage.setItem(name, JSON.stringify(value))
     },
-    getData: (name: string) => {
+    getData: <T>(name: string): T | null => {
         let value
         try {
-            value = JSON.parse(localStorage.getItem(name) || '')
-            return value
+            let stored = localStorage.getItem(name)
+            if (stored) {
+                value = JSON.parse(stored)
+                return value as T
+            }
+            return null
         } catch {
-            return ''
+            return null
         }
+    },
+    removeData: (name: string) => {
+        localStorage.removeItem(name)
     },
 }
 
@@ -200,37 +207,48 @@ const useCounterStore = defineStore('counter', () => {
     }
 
     const globalRound = (id?: number): number => {
-        let round: number = id ? id : 0
-        let bufround: number = NaN
-        try {
-            bufround = parseInt(locStorage.getData('globalRound'))
-        } catch {}
-        round = round > 0 ? round : bufround
-        locStorage.saveData('globalRound', round)
+        let round: number
+        const storageRound: string | null =
+            locStorage.getData<string>('globalRound')
+        if (id) {
+            locStorage.saveData('globalRound', id)
+            round = id
+        } else if (storageRound) {
+            round = parseInt(storageRound)
+        } else {
+            locStorage.saveData('globalRound', 0)
+            round = 0
+        }
+
         console.log(round)
         return round
     }
 
+    interface Answers {
+        [key: string]: boolean
+    }
+
     const setAnsweredQuestion = (theme: any, id: any) => {
-        let savedVal: {} = {}
-        try {
-            savedVal = locStorage.getData('containerAnswer')
-        } catch {}
-        savedVal = { ...savedVal, [`${theme}_${id}`]: true }
-        locStorage.saveData('containerAnswer', savedVal)
+        let savedVal: Answers | null =
+            locStorage.getData<Answers>('containerAnswer')
+        if (savedVal) {
+            savedVal = { ...savedVal, [`${theme}_${id}`]: true }
+            locStorage.saveData('containerAnswer', savedVal)
+        }
     }
 
     const getStatusThisQuestion = (theme: string, id: string): boolean => {
-        let savedVal: { [key: string]: boolean } = {}
-        try {
-            savedVal = locStorage.getData('containerAnswer')
-        } catch {}
-        const index: string = `${theme}_${id}`
-        if (savedVal[index]) {
-            return savedVal[index]
-        } else {
-            return false
+        let savedVal: Answers | null =
+            locStorage.getData<Answers>('containerAnswer')
+        if (savedVal) {
+            const index: string = `${theme}_${id}`
+            if (savedVal[index]) {
+                return savedVal[index]
+            } else {
+                return false
+            }
         }
+        return false
     }
 
     const tapsInputWasStarted = async (question: Question | null) => {
@@ -321,9 +339,9 @@ const useCounterStore = defineStore('counter', () => {
     }
 
     const checkBrowserId = async (nameCode: string) => {
-        let savedId: string = locStorage.getData('browserId')
-        if (savedId === '') {
-            const savedId = makeRandomId(10)
+        let savedId: string | null = locStorage.getData('browserId')
+        if (!savedId) {
+            savedId = makeRandomId(10)
             locStorage.saveData('browserId', savedId)
         }
 

@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useCounterStore } from '@/stores/storage'
+import { useCounterStore, locStorage } from '@/stores/storage'
 import IconСhoose from './IconСhoose.vue'
 
 const store = useCounterStore()
@@ -37,26 +37,32 @@ const itsPushed = async () => {
 }
 
 const sendNewNameToBase = async () => {
-    const mynameStorage = localStorage.getItem('myname')
-    nameStor.value = mynameStorage ? mynameStorage : ''
-    store
-        .sendNewNameToTheBase(nameStor.value, imgId.value)
-        .then((id: string) => {
-            nameCode.value = id
-            isNameInBase.value = true
-        })
+    const mynameStorage: string | null = locStorage.getData('myname')
+    if (mynameStorage) {
+        nameStor.value = mynameStorage
+        store
+            .sendNewNameToTheBase(nameStor.value, imgId.value)
+            .then((id: string) => {
+                nameCode.value = id
+                isNameInBase.value = true
+            })
+    }
 }
 
 onMounted(async () => {
-    const mynameStorage = localStorage.getItem('myname')
-    nameStor.value = mynameStorage ? mynameStorage : ''
-    if (nameStor.value) {
-        const { isExist, id } = await store.isNameExistInBase(nameStor.value)
-        if (!isExist) {
-            isNameInBase.value = false
-        } else {
-            nameCode.value = id
-            isNameInBase.value = true
+    const mynameStorage: string | null = locStorage.getData('myname')
+    if (mynameStorage) {
+        nameStor.value = mynameStorage
+        if (nameStor.value) {
+            const { isExist, id } = await store.isNameExistInBase(
+                nameStor.value
+            )
+            if (!isExist) {
+                isNameInBase.value = false
+            } else {
+                nameCode.value = id
+                isNameInBase.value = true
+            }
         }
     }
 })

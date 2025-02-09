@@ -3,8 +3,10 @@
 </template>
 
 <script lang="ts" setup>
+import { locStorage } from '@/stores/storage'
+
 onMounted(() => {
-    const nameStor = localStorage.getItem('myname')
+    const nameStor: string | null = locStorage.getData('myname')
     if (nameStor === 'admin') {
         navigateTo('/admin_panel')
     }

@@ -15,22 +15,21 @@ import { ref, onMounted } from 'vue'
 import { locStorage } from '@/stores/storage'
 
 const name = ref('')
-const nameCode = ref('')
 const storedName = ref('')
 
 const emit = defineEmits(['nameSet'])
 
 const saveName = () => {
     locStorage.saveData('myname', name.value)
-    // localStorage.setItem('myname', name.value)
-    const lsName = localStorage.getItem('myname')
-    storedName.value = lsName ? lsName : ''
-    if (lsName) emit('nameSet')
+    const lsName: string | null = locStorage.getData('myname')
+    if (lsName) {
+        storedName.value = lsName
+        emit('nameSet')
+    }
 }
 
 onMounted(() => {
-    const nameStor = locStorage.getData('myname')
-    // const nameStor = localStorage.getItem('myname')
+    const nameStor: string | null = locStorage.getData('myname')
     if (nameStor) {
         storedName.value = name.value = nameStor
     }
