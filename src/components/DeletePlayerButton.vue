@@ -5,7 +5,7 @@
                 class="delete-button__button"
                 @click="isStartDeletion = true"
             >
-                Удолить
+                <img class="delete-icon" alt="some" src="@/public/close.svg" />
             </button>
         </div>
         <div class="approve-window__wrapper" v-show="isStartDeletion">
@@ -37,8 +37,15 @@ const deleteHim = () => {
     &__wrapper {
     }
     &__button {
-        border: 1px solid red;
+        border: none;
+        cursor: pointer;
+        background-color: transparent;
     }
+}
+
+.delete-icon {
+    height: 24px;
+    width: 24px;
 }
 
 .approve-window {
@@ -51,7 +58,7 @@ const deleteHim = () => {
         background: white;
         padding: 50px;
         border-radius: 20px;
-        z-index: 10;
+        z-index: 30;
         transform: translate(-50%, -50%);
     }
     &__background {
@@ -61,7 +68,7 @@ const deleteHim = () => {
         height: 100vh;
         width: 100vw;
         background-color: rgba(128, 128, 128, 0.445);
-        z-index: 5;
+        z-index: 20;
     }
 }
 </style>
