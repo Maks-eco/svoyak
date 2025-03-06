@@ -23,6 +23,9 @@
         <button class="clear-round__button" @click="clearRound()">
             Clear round
         </button>
+        <p class="round-counter" v-if="currentRound > 0">
+            <span>Round</span> {{ currentRound }}
+        </p>
     </div>
 </template>
 
@@ -38,6 +41,7 @@ const round = ref(null as Round | null)
 const numberOfColumns = ref(1)
 const questionsKey = ref(0)
 const roundKey = ref(0)
+const currentRound = ref(0)
 
 const nextRound = () => {
     console.log('rv', round.value?.id)
@@ -54,6 +58,7 @@ const clearRound = () => {
 }
 
 const getQuestions = async () => {
+    currentRound.value = store.globalRound()
     const rounds = await store.getAllQuestions(store.globalRound())
     if (rounds && rounds.length > 0) {
         round.value = rounds[0]
@@ -74,6 +79,17 @@ onMounted(() => {
 
 <style scoped lang="less">
 @grid_gap: 20px;
+
+.round-counter {
+    position: absolute;
+    left: 100px;
+    margin: 0;
+    color: @text-primary-color;
+
+    span {
+        font-size: 13px;
+    }
+}
 
 .next-round__button,
 .clear-round__button {

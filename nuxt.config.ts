@@ -21,4 +21,14 @@ export default defineNuxtConfig({
     i18n: {
         vueI18n: '@/plugins/i18n.config.ts',
     },
+    runtimeConfig: {
+        public: {
+            apiKey: '',
+            authDomain: '',
+            projectId: '',
+            storageBucket: '',
+            messagingSenderId: '',
+            appId: '',
+        },
+    },
 })

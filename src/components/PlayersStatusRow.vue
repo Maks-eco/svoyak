@@ -52,7 +52,7 @@ onMounted(async () => {
     const bufarray: { allData: PlayersStatus[] } | null =
         await store.getPlayersData()
     if (bufarray?.allData) players.value = bufarray.allData
-
+    console.log(players.value)
     if (runtimeConfig.app?.baseURL && window.location?.origin)
         location.value =
             window.location.origin +

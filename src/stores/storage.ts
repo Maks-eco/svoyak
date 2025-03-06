@@ -4,9 +4,6 @@ import type { Question, Round, Theme } from '../types/QuestionEntities'
 
 import type { PlayersStatus, Tap, gameStat } from '~/types/PlayerEntities'
 
-const storeId = '108362264'
-const token = 'public_RiNvjTVVzKLhFNWyzR5fNY68u1GMHLEs'
-
 import { initializeApp } from 'firebase/app'
 import {
     getFirestore,
@@ -21,25 +18,11 @@ import {
     serverTimestamp,
 } from 'firebase/firestore'
 
-const firebaseConfig = {
-    apiKey: 'AIzaSyAqtrA7R-eTQEyEsApXu_ZcX4xAIbVbOzw',
-    authDomain: 'svoyak-game.firebaseapp.com',
-    projectId: 'svoyak-game',
-    storageBucket: 'svoyak-game.firebasestorage.app',
-    messagingSenderId: '665514390922',
-    appId: '1:665514390922:web:00af8370ac10f15e608473',
+interface IDictionary {
+    [id: string]: string
 }
 
 let globalGameState: any = null
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig)
-const db = getFirestore(app)
-
-const options = {
-    method: 'GET',
-    headers: { accept: 'application/json', Authorization: `Bearer ${token}` },
-}
 
 const locStorage = {
     saveData: (name: string, value: any) => {
@@ -64,6 +47,20 @@ const locStorage = {
 }
 
 const useCounterStore = defineStore('counter', () => {
+    const config = useRuntimeConfig()
+
+    const firebaseConfig = {
+        apiKey: config.public.apiKey,
+        authDomain: config.public.authDomain,
+        projectId: config.public.projectId,
+        storageBucket: config.public.storageBucket,
+        messagingSenderId: config.public.messagingSenderId,
+        appId: config.public.appId,
+    }
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig)
+    const db = getFirestore(app)
+
     const getAllQuestions = async (
         page: number = 1
     ): Promise<null | Round[]> => {
@@ -194,7 +191,12 @@ const useCounterStore = defineStore('counter', () => {
         allData: PlayersStatus[]
     } | null> => {
         const playersStateArray = await getBaseDocs<PlayersStatus>('users')
-        if (playersStateArray.length > 0) return { allData: playersStateArray }
+        const playersStateArrayWithoutAdmin = playersStateArray.filter(
+            (item) => item.name !== 'admin'
+        )
+
+        if (playersStateArray.length > 0)
+            return { allData: playersStateArrayWithoutAdmin }
         return null
     }
 
