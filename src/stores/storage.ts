@@ -4,9 +4,7 @@ import type { Question, Round, Theme } from '../types/QuestionEntities'
 
 import type { PlayersStatus, Tap, gameStat } from '~/types/PlayerEntities'
 
-import { initializeApp } from 'firebase/app'
 import {
-    getFirestore,
     getDoc,
     getDocs,
     deleteDoc,
@@ -16,13 +14,8 @@ import {
     addDoc,
     updateDoc,
     serverTimestamp,
+    Firestore,
 } from 'firebase/firestore'
-
-interface IDictionary {
-    [id: string]: string
-}
-
-let globalGameState: any = null
 
 const locStorage = {
     saveData: (name: string, value: any) => {
@@ -47,19 +40,8 @@ const locStorage = {
 }
 
 const useCounterStore = defineStore('counter', () => {
-    const config = useRuntimeConfig()
-
-    const firebaseConfig = {
-        apiKey: config.public.apiKey,
-        authDomain: config.public.authDomain,
-        projectId: config.public.projectId,
-        storageBucket: config.public.storageBucket,
-        messagingSenderId: config.public.messagingSenderId,
-        appId: config.public.appId,
-    }
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig)
-    const db = getFirestore(app)
+    const nuxtApp = useNuxtApp()
+    const db = nuxtApp.$firestore as Firestore
 
     const getAllQuestions = async (
         page: number = 1
