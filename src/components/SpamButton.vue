@@ -28,7 +28,7 @@
 
 <script lang="ts" setup>
 import { useCounterStore, locStorage } from '@/stores/storage'
-import IconСhoose from './IconСhoose.vue'
+import IconСhoose from './IconChoose.vue'
 
 const store = useCounterStore()
 const nameCode = ref('')
