@@ -9,6 +9,18 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
+            - name: 'Create env file'
+              run: |
+                  touch .env
+                  echo API_ENDPOINT="https://xxx.execute-api.us-west-2.amazonaws.com" >> .env
+                  echo API_KEY=${{ secrets.API_KEY }} >> .env
+                  echo NUXT_PUBLIC_API_KEY=${{ env.NUXT_PUBLIC_API_KEY }} >> .env
+                  echo NUXT_PUBLIC_AUTH_DOMAIN=${{ env.NUXT_PUBLIC_AUTH_DOMAIN }} >> .env
+                  echo NUXT_PUBLIC_PROJECT_ID=${{ env.NUXT_PUBLIC_PROJECT_ID }} >> .env
+                  echo NUXT_PUBLIC_STORAGE_BUCKET=${{ env.NUXT_PUBLIC_STORAGE_BUCKET }} >> .env
+                  echo NUXT_PUBLIC_MESSAGING_SENDERID=${{ env.NUXT_PUBLIC_MESSAGING_SENDERID }} >> .env
+                  echo NUXT_PUBLIC_APP_ID=${{ env.NUXT_PUBLIC_APP_ID }} >> .env
+                  cat .env
             - uses: actions/checkout@v4
             - run: corepack enable
             - uses: actions/setup-node@v4
