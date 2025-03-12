@@ -15,7 +15,7 @@ jobs:
               with:
                   node-version: '20'
             # Pick your own package manager and build script
-            - env:
+            env:
                   NUXT_PUBLIC_API_KEY: ${{ vars.NUXT_PUBLIC_API_KEY }}
                   NUXT_PUBLIC_AUTH_DOMAIN: ${{ vars.NUXT_PUBLIC_AUTH_DOMAIN }}
                   NUXT_PUBLIC_PROJECT_ID: ${{ vars.NUXT_PUBLIC_PROJECT_ID }}
@@ -43,7 +43,7 @@ jobs:
         # Specify runner + deployment step
         runs-on: ubuntu-latest
         steps:
-            - env:
+            env:
                   NUXT_PUBLIC_API_KEY: ${{ vars.NUXT_PUBLIC_API_KEY }}
                   NUXT_PUBLIC_AUTH_DOMAIN: ${{ vars.NUXT_PUBLIC_AUTH_DOMAIN }}
                   NUXT_PUBLIC_PROJECT_ID: ${{ vars.NUXT_PUBLIC_PROJECT_ID }}
