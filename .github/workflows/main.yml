@@ -7,13 +7,6 @@ on:
             - main
 jobs:
     build:
-        env:
-            NUXT_PUBLIC_API_KEY: ${{ vars.NUXT_PUBLIC_API_KEY }}
-            NUXT_PUBLIC_AUTH_DOMAIN: ${{ vars.NUXT_PUBLIC_AUTH_DOMAIN }}
-            NUXT_PUBLIC_PROJECT_ID: ${{ vars.NUXT_PUBLIC_PROJECT_ID }}
-            NUXT_PUBLIC_STORAGE_BUCKET: ${{ vars.NUXT_PUBLIC_STORAGE_BUCKET }}
-            NUXT_PUBLIC_MESSAGING_SENDERID: ${{ vars.NUXT_PUBLIC_MESSAGING_SENDERID }}
-            NUXT_PUBLIC_APP_ID: ${{ vars.NUXT_PUBLIC_APP_ID }}
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -22,6 +15,13 @@ jobs:
               with:
                   node-version: '20'
             # Pick your own package manager and build script
+            - env:
+                  NUXT_PUBLIC_API_KEY: ${{ vars.NUXT_PUBLIC_API_KEY }}
+                  NUXT_PUBLIC_AUTH_DOMAIN: ${{ vars.NUXT_PUBLIC_AUTH_DOMAIN }}
+                  NUXT_PUBLIC_PROJECT_ID: ${{ vars.NUXT_PUBLIC_PROJECT_ID }}
+                  NUXT_PUBLIC_STORAGE_BUCKET: ${{ vars.NUXT_PUBLIC_STORAGE_BUCKET }}
+                  NUXT_PUBLIC_MESSAGING_SENDERID: ${{ vars.NUXT_PUBLIC_MESSAGING_SENDERID }}
+                  NUXT_PUBLIC_APP_ID: ${{ vars.NUXT_PUBLIC_APP_ID }}
             - run: npm install
             - run: npx nuxt build --preset github_pages --base="/svoyak/"
             - name: Upload artifact
@@ -30,13 +30,6 @@ jobs:
                   path: ./.output/public
     # Deployment job
     deploy:
-        env:
-            NUXT_PUBLIC_API_KEY: ${{ vars.NUXT_PUBLIC_API_KEY }}
-            NUXT_PUBLIC_AUTH_DOMAIN: ${{ vars.NUXT_PUBLIC_AUTH_DOMAIN }}
-            NUXT_PUBLIC_PROJECT_ID: ${{ vars.NUXT_PUBLIC_PROJECT_ID }}
-            NUXT_PUBLIC_STORAGE_BUCKET: ${{ vars.NUXT_PUBLIC_STORAGE_BUCKET }}
-            NUXT_PUBLIC_MESSAGING_SENDERID: ${{ vars.NUXT_PUBLIC_MESSAGING_SENDERID }}
-            NUXT_PUBLIC_APP_ID: ${{ vars.NUXT_PUBLIC_APP_ID }}
         # Add a dependency to the build job
         needs: build
         # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
@@ -50,6 +43,13 @@ jobs:
         # Specify runner + deployment step
         runs-on: ubuntu-latest
         steps:
+            - env:
+                  NUXT_PUBLIC_API_KEY: ${{ vars.NUXT_PUBLIC_API_KEY }}
+                  NUXT_PUBLIC_AUTH_DOMAIN: ${{ vars.NUXT_PUBLIC_AUTH_DOMAIN }}
+                  NUXT_PUBLIC_PROJECT_ID: ${{ vars.NUXT_PUBLIC_PROJECT_ID }}
+                  NUXT_PUBLIC_STORAGE_BUCKET: ${{ vars.NUXT_PUBLIC_STORAGE_BUCKET }}
+                  NUXT_PUBLIC_MESSAGING_SENDERID: ${{ vars.NUXT_PUBLIC_MESSAGING_SENDERID }}
+                  NUXT_PUBLIC_APP_ID: ${{ vars.NUXT_PUBLIC_APP_ID }}
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v4
