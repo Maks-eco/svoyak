@@ -1,10 +1,12 @@
 <template>
-    <NuxtLink to="/" class="logo-link">
-        <!-- <img class="logo__img" alt="logo" src="./assets/logo.jpg" /> -->
-        Свояк
-    </NuxtLink>
-    <NuxtPage page-key="index" />
-    <!-- <router-view /> -->
+    <div class="app__wrapper">
+        <NuxtLink to="/" class="logo-link">
+            <!-- <img class="logo__img" alt="logo" src="./assets/logo.jpg" /> -->
+            Свояк
+        </NuxtLink>
+        <NuxtPage page-key="index" />
+        <!-- <router-view /> -->
+    </div>
 </template>
 
 <style lang="less">

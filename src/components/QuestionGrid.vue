@@ -17,12 +17,15 @@
                 />
             </div>
         </div>
-        <button class="next-round__button" @click="nextRound()">
-            Next round
-        </button>
-        <button class="clear-round__button" @click="clearRound()">
-            Clear round
-        </button>
+        <SidebarControls>
+            <button class="next-round__button" @click="nextRound()">
+                Next round
+            </button>
+            <button class="clear-round__button" @click="clearRound()">
+                Clear round
+            </button>
+            <LogoutButton />
+        </SidebarControls>
         <p class="round-counter" v-if="currentRound > 0">
             <span>Round</span> {{ currentRound }}
         </p>
@@ -93,17 +96,7 @@ onMounted(() => {
 
 .next-round__button,
 .clear-round__button {
-    width: 5px;
-    padding: 0;
-    overflow: hidden;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 100;
-
-    &:hover {
-        width: 60px;
-    }
+    // padding: 0;
 }
 
 .clear-round__button {
