@@ -1,6 +1,6 @@
 <template>
     <NuxtLink class="logout-button" to="login" @click="logOut()"
-        >Ekekesit</NuxtLink
+        >Выйти / Сменить имя</NuxtLink
     >
 </template>
 
@@ -12,3 +12,9 @@ const logOut = () => {
     locStorage.removeData('myname')
 }
 </script>
+
+<style lang="less">
+.logout-button {
+    .secondary-info-button();
+}
+</style>

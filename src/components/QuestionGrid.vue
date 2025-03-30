@@ -19,10 +19,10 @@
         </div>
         <SidebarControls>
             <button class="next-round__button" @click="nextRound()">
-                Next round
+                Следующий раунд
             </button>
             <button class="clear-round__button" @click="clearRound()">
-                Clear round
+                Сбросить отгаданное
             </button>
             <LogoutButton />
         </SidebarControls>
@@ -97,6 +97,7 @@ onMounted(() => {
 .next-round__button,
 .clear-round__button {
     // padding: 0;
+    .secondary-info-button();
 }
 
 .clear-round__button {

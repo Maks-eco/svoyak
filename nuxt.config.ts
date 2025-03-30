@@ -13,7 +13,8 @@ export default defineNuxtConfig({
         css: {
             preprocessorOptions: {
                 less: {
-                    additionalData: '@import "@/global/colors.less";',
+                    additionalData:
+                        '@import "@/global/colors.less"; @import "@/global/mixins.less";',
                 },
             },
         },

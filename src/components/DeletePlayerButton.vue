@@ -10,9 +10,16 @@
         </div>
         <div class="approve-window__wrapper" v-show="isStartDeletion">
             <div class="approve-window__message">
-                Tochno ydalit???
-                <button @click="deleteHim()">Удолить</button>
-                <button @click="isStartDeletion = false">Nonono</button>
+                Удалить игрока?
+                <button class="approve-window__button" @click="deleteHim()">
+                    Удолить
+                </button>
+                <button
+                    class="approve-window__button"
+                    @click="isStartDeletion = false"
+                >
+                    Nonono
+                </button>
             </div>
 
             <div class="approve-window__background"></div>
@@ -52,6 +59,9 @@ const deleteHim = () => {
     &__wrapper {
     }
     &__message {
+        display: flex;
+        gap: 8px;
+        align-items: center;
         position: fixed;
         left: 50%;
         top: 50%;
@@ -69,6 +79,9 @@ const deleteHim = () => {
         width: 100vw;
         background-color: rgba(128, 128, 128, 0.445);
         z-index: 20;
+    }
+    &__button {
+        .secondary-info-button();
     }
 }
 </style>

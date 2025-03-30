@@ -34,12 +34,12 @@ const toggleSettings = () => {
         position: fixed;
         bottom: 0;
         left: 0;
-        width: 300px;
+        width: 270px;
         height: 50vh;
         padding: 16px;
         box-sizing: border-box;
         background-color: @common-primary-color;
-        transform: translateX(-300px);
+        transform: translateX(-270px);
         transition: transform 0.3s ease;
         z-index: 110;
 
@@ -63,9 +63,9 @@ const toggleSettings = () => {
     @toggle-background: @common-primary-color;
     &__toggle {
         position: absolute;
-        height: 40px;
+        height: 20px;
         top: 0;
-        right: -50px;
+        right: -30px;
         padding: 10px;
         border-radius: 12px;
         background-color: @toggle-background;
@@ -82,7 +82,7 @@ const toggleSettings = () => {
             left: 0;
             bottom: -20px;
             border-style: solid;
-            border-width: 20px 50px 0 0;
+            border-width: 22px 34px 0 0;
             border-color: @toggle-background transparent transparent transparent;
         }
 
@@ -93,8 +93,8 @@ const toggleSettings = () => {
         }
     }
     &__close-icon {
-        height: 40px;
-        width: 40px;
+        height: 20px;
+        width: 20px;
         filter: invert(1);
     }
 }
