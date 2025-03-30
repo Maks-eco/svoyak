@@ -1,9 +1,9 @@
 <template>
-    <div>
-        <div>
-            <h4 class="input-subtitle">Своя игра</h4>
-            <h2 class="input-title">Создать игрока</h2>
-        </div>
+    <IconСhoose class="icons" @iconSet="(id:string) => saveImg(id)" />
+    <div class="inputs-first-step">
+        <h4 class="input-subtitle">Своя игра</h4>
+        <h2 class="input-title">Создать игрока</h2>
+
         <div class="name-info__wrapper">
             <input
                 class="name-info__input"
@@ -12,32 +12,47 @@
                 name="login"
                 type="text"
                 v-model="name"
-                maxlength="20"
+                maxlength="12"
             />
             <label class="name-info__label" for="login">{{
                 storedName ? 'Твой ник: ' + storedName : 'Введи ник:'
             }}</label>
         </div>
         <p><-- выбери своё тотемное животное</p>
-        <button class="save-button" @click="saveName">Сохранить</button>
     </div>
+
+    <button
+        class="save-button"
+        :class="{ active: isAllFieldFilled }"
+        @click="saveName"
+    >
+        Сохранить
+    </button>
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
 import { locStorage } from '@/stores/storage'
+import IconСhoose from '@/components/IconChoose.vue'
 
 const name = ref('')
 const storedName = ref('')
 const isNameEmpty = ref(true)
+const imgId = ref(null as String | null)
+const isAllFieldFilled = ref(false)
 
 const emit = defineEmits(['nameSet'])
 
 const saveName = () => {
-    if (name.value !== '') {
+    if (name.value !== '' && imgId.value) {
         storedName.value = name.value
-        emit('nameSet', name.value)
+        emit('nameSet', name.value, imgId.value)
     }
+}
+
+const saveImg = (id: string) => {
+    console.log('i catch image: ', id)
+    imgId.value = id
 }
 
 onMounted(() => {
@@ -50,9 +65,24 @@ onMounted(() => {
 watch(name, async () => {
     isNameEmpty.value = name.value === '' ? true : false
 })
+
+watch([name, imgId], ([newA, newB], [prevA, prevB]) => {
+    console.log('name.value', name.value, name.value !== '')
+    if (name.value !== '' && imgId.value) {
+        isAllFieldFilled.value = true
+    } else {
+        isAllFieldFilled.value = false
+    }
+})
 </script>
 
 <style scoped lang="less">
+.inputs-first-step {
+    grid-area: inputs;
+}
+.icons {
+    grid-area: icons;
+}
 .input-subtitle,
 .input-title {
     text-align: right;
@@ -103,9 +133,15 @@ watch(name, async () => {
     padding: 8px;
     border: none;
     border-radius: 10px;
-    background-color: orangered;
+    background-color: gray;
     color: white;
     text-decoration: none;
     align-self: end;
+    pointer-events: none;
+
+    &.active {
+        background-color: orangered;
+        pointer-events: all;
+    }
 }
 </style>

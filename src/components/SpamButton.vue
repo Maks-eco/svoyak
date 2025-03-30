@@ -1,29 +1,11 @@
 <template>
-    <div v-if="!isNameInBase" class="form-grid">
-        <div class="link__wrapper">
-            <NuxtLink class="link--admin" to="/admin_panel">
-                Зайти за админа
-            </NuxtLink>
-            <NuxtLink class="link--playing-field" to="/playing_field">
-                На игровое поле</NuxtLink
-            >
-        </div>
-        <IconСhoose class="icons" @iconSet="(id:string) => saveImg(id)" />
-        <NameInput
-            class="inputs"
-            v-if="!isNameInBase"
-            @nameSet="(name:string) => sendNewNameToBase(name)"
-        />
-    </div>
     <button
-        v-else
         class="push-button"
         :class="{ inactivate: isInactivateButton }"
         @click="itsPushed()"
     >
         Жамк
     </button>
-    <!-- <p>{{ isNameInBase ? 'Imja v base' : 'Ne naideno v base' }}</p> -->
 </template>
 
 <script lang="ts" setup>
@@ -81,50 +63,6 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="less">
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-        'links links'
-        'icons inputs';
-    margin: auto 20vw;
-
-    @media (max-width: 800px) {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            'links'
-            'icons'
-            'inputs';
-        margin: auto 10px;
-    }
-}
-.link {
-    &__wrapper {
-        grid-area: links;
-    }
-    &--admin,
-    &--playing-field {
-        padding: 8px;
-        border-radius: 10px;
-        background-color: orangered;
-        color: white;
-        text-decoration: none;
-    }
-    &--admin {
-    }
-    &--playing-field {
-    }
-}
-.icons {
-    grid-area: icons;
-    display: grid;
-    grid-template-columns: repeat(4, 60px);
-    grid-auto-rows: 45px;
-}
-.inputs {
-    grid-area: inputs;
-    display: grid;
-}
 .push-button {
     font-size: 40px;
     height: 150px;

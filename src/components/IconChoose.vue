@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <span class="player-icon__wrapper" v-for="icon in imageList">
             <img
                 @click="choosedIcon(icon.id)"
@@ -51,6 +51,15 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="less">
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 60px);
+    grid-auto-rows: 45px;
+
+    @media (max-width: 800px) {
+        grid-template-columns: repeat(5, 50px);
+    }
+}
 .player-icon {
     &__wrapper {
         position: relative;
