@@ -13,6 +13,8 @@ import { useCounterStore } from '@/stores/storage'
 
 const store = useCounterStore()
 const nameCode = ref('')
+const nameStor = ref('')
+const isNameInBase = ref(false)
 const isInactivateButton = ref(false)
 
 const itsPushed = async () => {
@@ -22,6 +24,24 @@ const itsPushed = async () => {
         isInactivateButton.value = false
     }, 2500)
 }
+
+onMounted(async () => {
+    const mynameStorage: string | null = locStorage.getData('myname')
+    if (mynameStorage) {
+        nameStor.value = mynameStorage
+        if (nameStor.value) {
+            const { isExist, id } = await store.isNameExistInBase(
+                nameStor.value
+            )
+            if (!isExist) {
+                isNameInBase.value = false
+            } else {
+                nameCode.value = id
+                isNameInBase.value = true
+            }
+        }
+    }
+})
 </script>
 
 <style scoped lang="less">
