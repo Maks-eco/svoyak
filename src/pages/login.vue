@@ -1,5 +1,5 @@
 <template>
-    <div class="form-grid">
+    <div class="form-grid" :key="formKey">
         <div class="link__wrapper">
             <NuxtLink class="link--admin" to="/admin_panel">
                 Зайти за админа
@@ -25,6 +25,7 @@ const store = useCounterStore()
 const nameCode = ref('')
 const nameStor = ref('')
 const isNameInBase = ref(false)
+const formKey = ref(0)
 
 const sendNewNameToBase = async (mynameStorage: string, imageId: string) => {
     locStorage.saveData('myname', mynameStorage)
@@ -32,7 +33,10 @@ const sendNewNameToBase = async (mynameStorage: string, imageId: string) => {
     store.sendNewNameToTheBase(nameStor.value, imageId).then((id: string) => {
         nameCode.value = id
         isNameInBase.value = true
-        navigateTo('/player_panel')
+        console.log('formKey', formKey)
+        formKey.value++
+        navigateTo('/')
+        formKey.value++
     })
 }
 
@@ -57,6 +61,7 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="less">
+@top-buttons-color: @common-highlighted-color;
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -84,7 +89,7 @@ onMounted(async () => {
     &--playing-field {
         padding: 8px;
         border-radius: 10px;
-        background-color: orangered;
+        background-color: @top-buttons-color;
         color: white;
         text-decoration: none;
     }

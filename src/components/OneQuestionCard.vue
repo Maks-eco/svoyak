@@ -57,6 +57,7 @@ onMounted(() => {
         border-radius: 20px;
         transition: background-color 0.3s;
         background-color: @common-secondary-color;
+        .shadow();
 
         &:hover {
             transition: background-color 0.3s;
@@ -73,6 +74,7 @@ onMounted(() => {
 }
 .card__block.answered {
     background-color: @inactive-background-color;
+    .shadow-none();
 
     .card__cost {
         color: @inactive-text-color;

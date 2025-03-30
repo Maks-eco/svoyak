@@ -1,10 +1,17 @@
 <template>
     <div>
         <div class="contol__wrapper">
-            <div class="contol__get-answer" @click="getAnswer">Ответ</div>
+            <div
+                class="contol__get-answer"
+                :class="{ highlighted: !isAnswered }"
+                @click="getAnswer"
+            >
+                Ответ
+            </div>
             <NuxtLink
                 @click="saveAnswer()"
                 class="contol__to-menu"
+                :class="{ highlighted: isAnswered }"
                 to="/playing_field"
                 >В меню</NuxtLink
             >
@@ -13,6 +20,7 @@
 </template>
 
 <script lang="ts" setup>
+const isAnswered = ref(false)
 const emit = defineEmits(['getAnswer'])
 
 const props = defineProps({
@@ -28,6 +36,7 @@ const props = defineProps({
 
 const getAnswer = () => {
     emit('getAnswer')
+    isAnswered.value = true
 }
 import { useCounterStore } from '../stores/storage'
 
@@ -51,14 +60,19 @@ const saveAnswer = () => {
         padding: 12px;
     }
 
-    &__get-answer {
-        background-color: @common-secondary-color;
-        color: white;
-        cursor: pointer;
-    }
+    &__get-answer,
     &__to-menu {
-        background-color: @gray-info-background-color;
+        background: @gray-info-background-color;
         color: @text-primary-color;
+        cursor: pointer;
+        .shadow-none();
+    }
+
+    &__get-answer.highlighted,
+    &__to-menu.highlighted {
+        background: @common-secondary-color;
+        color: white;
+        .shadow();
     }
 
     &__get-answer,

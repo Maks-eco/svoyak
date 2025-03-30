@@ -37,6 +37,7 @@ const img_on_page = ref('' as string)
 const location = ref('' as string)
 const finalText = ref('')
 const timerBarWidth = ref('100%')
+const isAnswered = ref(false)
 
 const theme_id = ref('')
 const questn_id = ref('')
@@ -47,6 +48,7 @@ const decreaseTimerBarWidth = (steps?: number) => {
 
 const getAnswer = () => {
     if (question.value) text_on_page.value = question.value.answer
+    isAnswered.value = true
 }
 
 onMounted(async () => {

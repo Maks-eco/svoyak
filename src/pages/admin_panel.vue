@@ -27,6 +27,9 @@
             />
             <!-- <IconsSet /> -->
         </div>
+        <SidebarControls>
+            <LogoutButton />
+        </SidebarControls>
     </div>
 </template>
 

@@ -64,16 +64,21 @@ onMounted(async () => {
 
 <style scoped lang="less">
 .push-button {
-    font-size: 40px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
     height: 150px;
     width: 300px;
-    margin-left: 30px;
     background: @common-primary-color;
     color: white;
+    font-size: 40px;
     padding: 10px 20px;
     border: none;
     border-radius: 12px;
     cursor: pointer;
+    .shadow();
 
     &:hover {
         background: @common-secondary-color;

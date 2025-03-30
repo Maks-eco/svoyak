@@ -3,14 +3,15 @@ import { locStorage } from '@/stores/storage'
 
 onMounted(() => {
     const nameStor: string | null = locStorage.getData('myname')
-    if (nameStor === 'admin') {
-        navigateTo('/admin_panel')
-    }
-    if (nameStor === 'pole') {
-        navigateTo('/playing_field')
-    }
+    console.log('nameStor', nameStor, nameStor === 'admin')
     if (nameStor) {
-        navigateTo('/player_panel')
+        if (nameStor === 'admin') {
+            navigateTo('/admin_panel')
+        } else if (nameStor === 'pole') {
+            navigateTo('/playing_field')
+        } else {
+            navigateTo('/player_panel')
+        }
     } else {
         navigateTo('/login')
     }

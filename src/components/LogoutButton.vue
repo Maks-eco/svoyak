@@ -10,8 +10,5 @@ const roundKey = ref(0)
 
 const logOut = () => {
     locStorage.removeData('myname')
-    locStorage.removeData('browserId')
-    // roundKey.value++
-    // navigateTo('/')
 }
 </script>

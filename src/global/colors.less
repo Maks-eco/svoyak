@@ -1,6 +1,11 @@
 @common-primary-color: #50426c;
 @common-secondary-color: #67568c;
 @common-highlighted-color: #7958c2;
+@primary-color-gradient: linear-gradient(
+    45deg,
+    rgba(80, 66, 108, 1) 0%,
+    rgba(121, 88, 194, 1) 100%
+);
 
 @support-primary-color: #ff6960;
 @support-secondary-color: #ff8d87;
@@ -17,3 +22,17 @@
 @inactive-background-color: #f5f5f5;
 
 @gray-info-background-color: #e9e5f3;
+
+.shadow() {
+    -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    transition: -webkit-box-shadow 0.3s, -moz-box-shadow 0.3s, box-shadow 0.3s;
+}
+
+.shadow-none() {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    transition: -webkit-box-shadow 0.3s, -moz-box-shadow 0.3s, box-shadow 0.3s;
+}

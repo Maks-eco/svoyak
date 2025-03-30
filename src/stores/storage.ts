@@ -312,7 +312,8 @@ const useCounterStore = defineStore('counter', () => {
                 // reject('Already adding to the document')
                 checkBrowserId(id)
                     .then((data) => {
-                        console.log('then', data)
+                        console.log('then-checkBrowserId', data)
+                        resolve(data)
                     })
                     .catch((data) => {
                         console.log('err', data)

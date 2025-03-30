@@ -18,7 +18,7 @@
                 storedName ? 'Твой ник: ' + storedName : 'Введи ник:'
             }}</label>
         </div>
-        <p><-- выбери своё тотемное животное</p>
+        <p class="icon-choose__label"><-- выбери своё тотемное животное</p>
     </div>
 
     <button
@@ -77,6 +77,14 @@ watch([name, imgId], ([newA, newB], [prevA, prevB]) => {
 </script>
 
 <style scoped lang="less">
+@title-color: @common-highlighted-color;
+@input-line-color: @common-highlighted-color;
+@save-button-color-active: @primary-color-gradient;
+@save-button-color-inactive: @inactive-background-color;
+@save-button-text-color-active: white;
+@save-button-text-color-inactive: @inactive-text-color;
+@label-text-color: @text-primary-color;
+
 .inputs-first-step {
     grid-area: inputs;
 }
@@ -86,7 +94,7 @@ watch([name, imgId], ([newA, newB], [prevA, prevB]) => {
 .input-subtitle,
 .input-title {
     text-align: right;
-    color: orangered;
+    color: @title-color;
     margin: 0;
 }
 .input-subtitle {
@@ -115,7 +123,7 @@ watch([name, imgId], ([newA, newB], [prevA, prevB]) => {
     &__input {
         display: block;
         border: none;
-        border-bottom: 2px solid orangered;
+        border-bottom: 2px solid @input-line-color;
 
         &:focus-visible {
             outline: none;
@@ -129,19 +137,34 @@ watch([name, imgId], ([newA, newB], [prevA, prevB]) => {
     }
 }
 
+.name-info__label {
+    color: @inactive-text-color;
+}
+.icon-choose__label {
+    color: @label-text-color;
+}
+
 .save-button {
     padding: 8px;
     border: none;
     border-radius: 10px;
-    background-color: gray;
-    color: white;
+    background: @save-button-color-inactive;
+    color: @save-button-text-color-inactive;
+    font-size: 16px;
     text-decoration: none;
     align-self: end;
     pointer-events: none;
+    .shadow-none();
 
     &.active {
-        background-color: orangered;
+        background: @save-button-color-active;
         pointer-events: all;
+        color: @save-button-text-color-active;
+        .shadow();
+    }
+
+    @media (max-width: 800px) {
+        margin-top: 40px;
     }
 }
 </style>
