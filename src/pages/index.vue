@@ -1,7 +1,3 @@
-<template>
-    <SpamButton />
-</template>
-
 <script lang="ts" setup>
 import { locStorage } from '@/stores/storage'
 
@@ -12,6 +8,11 @@ onMounted(() => {
     }
     if (nameStor === 'pole') {
         navigateTo('/playing_field')
+    }
+    if (nameStor) {
+        navigateTo('/player_panel')
+    } else {
+        navigateTo('/login')
     }
 })
 </script>

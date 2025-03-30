@@ -1,5 +1,7 @@
 <template>
-    <button class="logout-button" @click="logOut()">Ekekesit</button>
+    <NuxtLink class="logout-button" to="login" @click="logOut()"
+        >Ekekesit</NuxtLink
+    >
 </template>
 
 <script lang="ts" setup>

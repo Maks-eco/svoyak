@@ -1,6 +1,5 @@
 <template>
     <div>
-        <br /><br /><br />
         <div class="question-info">
             <p>{{ question_ask }}</p>
             <p class="question-info__answer">Ответ: {{ question_answer }}</p>
@@ -18,10 +17,7 @@
                         'answer__false-start': answer.sign < 0,
                     }"
                 >
-                    <div>
-                        {{ answer.name }}: {{ answer.converted }} (
-                        {{ answer.center }})
-                    </div>
+                    <div>{{ answer.name }}: {{ answer.converted }}</div>
                 </div>
             </div>
             <AdminPointsControls
@@ -103,6 +99,13 @@ onMounted(async () => {
 
     &__answer {
         font-weight: bold;
+    }
+
+    @media (max-width: 800px) {
+        p {
+            margin: 4px;
+            font-size: 12px;
+        }
     }
 }
 .panel__divider {

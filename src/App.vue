@@ -26,7 +26,13 @@
     border-radius: 15px;
     background-color: @common-secondary-color;
     color: white;
-    opacity: 0.75;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
 }
 .logo__img {
     width: 200px;

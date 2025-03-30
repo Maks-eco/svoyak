@@ -1,7 +1,11 @@
 <template>
     <div class="super-setting__container" :class="{ open: isSettingsOpen }">
         <slot></slot>
-        <div @click="toggleSettings()" class="super-setting__toggle">
+        <div
+            @click="toggleSettings()"
+            class="super-setting__toggle"
+            :class="{ open: isSettingsOpen }"
+        >
             <img
                 class="super-setting__close-icon"
                 alt="some"
@@ -68,6 +72,8 @@ const toggleSettings = () => {
         cursor: pointer;
         user-select: none;
         z-index: -20;
+        opacity: 0.5;
+        transition: opacity 0.3s ease;
 
         &::after {
             content: '';
@@ -79,9 +85,16 @@ const toggleSettings = () => {
             border-width: 20px 50px 0 0;
             border-color: @toggle-background transparent transparent transparent;
         }
+
+        &:hover,
+        &.open {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
     }
     &__close-icon {
         height: 40px;
+        width: 40px;
         filter: invert(1);
     }
 }

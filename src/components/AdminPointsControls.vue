@@ -6,8 +6,11 @@
             :key="player.id"
         >
             <!-- <div> -->
-            <span class="player__name">{{ player.name }}</span
-            >: {{ player.points }}
+            <span class="player__name-wrapper">
+                <span class="player__name">{{ player.name }}: </span
+                >{{ player.points }}
+            </span>
+
             <input
                 class="player__points-input"
                 type="number"
@@ -91,6 +94,31 @@ watch(playersStatus, async () => {
         &:hover {
             background-color: rgba(0, 0, 255, 0.158);
             transition: background-color 0.3s;
+        }
+
+        @media (max-width: 400px) {
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            row-gap: 0;
+
+            &::after {
+                content: '';
+                position: absolute;
+                height: 1px;
+                width: calc(100% - 20px);
+                margin: 0 10px;
+                background-color: #ddd;
+            }
+
+            &:first-child::after {
+                content: none;
+            }
+        }
+    }
+
+    &__name-wrapper {
+        @media (max-width: 400px) {
+            flex-basis: 100%;
         }
     }
 
