@@ -9,20 +9,11 @@
 </template>
 
 <script lang="ts" setup>
-import { useCounterStore, locStorage } from '@/stores/storage'
-import IconСhoose from './IconChoose.vue'
+import { useCounterStore } from '@/stores/storage'
 
 const store = useCounterStore()
 const nameCode = ref('')
-const nameStor = ref('')
-const isNameInBase = ref(false)
 const isInactivateButton = ref(false)
-const imgId = ref('1')
-
-const saveImg = (id: string) => {
-    console.log('i catch image: ', id)
-    imgId.value = id
-}
 
 const itsPushed = async () => {
     isInactivateButton.value = true
@@ -31,35 +22,6 @@ const itsPushed = async () => {
         isInactivateButton.value = false
     }, 2500)
 }
-
-const sendNewNameToBase = async (mynameStorage: string) => {
-    locStorage.saveData('myname', mynameStorage)
-    nameStor.value = mynameStorage
-    store
-        .sendNewNameToTheBase(nameStor.value, imgId.value)
-        .then((id: string) => {
-            nameCode.value = id
-            isNameInBase.value = true
-        })
-}
-
-onMounted(async () => {
-    const mynameStorage: string | null = locStorage.getData('myname')
-    if (mynameStorage) {
-        nameStor.value = mynameStorage
-        if (nameStor.value) {
-            const { isExist, id } = await store.isNameExistInBase(
-                nameStor.value
-            )
-            if (!isExist) {
-                isNameInBase.value = false
-            } else {
-                nameCode.value = id
-                isNameInBase.value = true
-            }
-        }
-    }
-})
 </script>
 
 <style scoped lang="less">

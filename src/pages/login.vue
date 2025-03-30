@@ -33,7 +33,6 @@ const sendNewNameToBase = async (mynameStorage: string, imageId: string) => {
     store.sendNewNameToTheBase(nameStor.value, imageId).then((id: string) => {
         nameCode.value = id
         isNameInBase.value = true
-        console.log('formKey', formKey)
         formKey.value++
         navigateTo('/')
         formKey.value++

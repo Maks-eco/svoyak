@@ -41,7 +41,6 @@ const changeStat = async (
 ) => {
     // type Pal
     const newArray: PlayerPoint[] = []
-    console.log('beforesave', playersStat)
     if (playersStat) {
         playersStat.forEach((item) => {
             if (item.id && item.name && item.image) {

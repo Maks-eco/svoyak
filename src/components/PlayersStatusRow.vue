@@ -35,7 +35,6 @@ const players = ref(null as PlayersStatus[] | null)
 const getQuestions = async () => {
     const rounds = await store.getAllQuestions()
     if (rounds && rounds.length > 0) round.value = rounds[0]
-    console.log(round.value)
 }
 
 const deletePlayer = async (player_id: string) => {
@@ -52,7 +51,6 @@ onMounted(async () => {
     const bufarray: { allData: PlayersStatus[] } | null =
         await store.getPlayersData()
     if (bufarray?.allData) players.value = bufarray.allData
-    console.log(players.value)
     if (runtimeConfig.app?.baseURL && window.location?.origin)
         location.value =
             window.location.origin +

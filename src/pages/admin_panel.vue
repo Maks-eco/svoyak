@@ -55,7 +55,6 @@ let ddd: any
 
 const saveStatus = (id: any, cost: any) => {
     changeStat(playersStatus.value, id, cost, (playerStatus: PlayerPoint) => {
-        console.log('savethis', playerStatus)
         store
             .setPlayerData<PlayerPoint>(playerStatus.id, playerStatus)
             .then(() => {
@@ -73,7 +72,6 @@ const updatePlayersData = async () => {
         question_ask.value = info.allData.question_ask
         question_answer.value = info.allData.question_answer
         if (bufarray) {
-            console.log('very update')
             playersStatus.value = []
             playersStatus.value = [...bufarray.allData]
         }
@@ -86,7 +84,6 @@ onMounted(async () => {
     setInterval(async () => {
         const tapStateValues: { centered: any } =
             await store.getPlayersTapState()
-        console.log('tapStateValues', tapStateValues)
         answerList.value = addVisualisationProps(tapStateValues.centered)
         updatePlayersData()
     }, 6000) //2000

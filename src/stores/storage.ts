@@ -100,7 +100,6 @@ const useCounterStore = defineStore('counter', () => {
                     timestamp.seconds * 1e3 + timestamp.nanoseconds / 1e6
                 return res
             }
-            console.log('querySnapshot', itemsArray)
             const result: any[] = []
             itemsArray.map((item: PlayersStatus) => {
                 for (const [key, value] of Object.entries(item.taps)) {
@@ -139,7 +138,6 @@ const useCounterStore = defineStore('counter', () => {
             })
             return { string: strRes.slice(0, -2), centered: centerSorted }
         } catch (e) {
-            console.error('Error adding document: ', e)
             return { string: '', centered: null }
         }
     }
@@ -151,9 +149,7 @@ const useCounterStore = defineStore('counter', () => {
             itemsArray.map(async (item: PlayersStatus) => {
                 await setDoc(doc(db, 'users', item.id), { ...item, taps: [] })
             })
-        } catch (e) {
-            console.error('Error adding document: ', e)
-        }
+        } catch (e) {}
     }
 
     const getGameState = async (): Promise<{
@@ -203,8 +199,6 @@ const useCounterStore = defineStore('counter', () => {
             locStorage.saveData('globalRound', 1)
             round = 1
         }
-
-        console.log(round)
         return round
     }
 
@@ -236,7 +230,6 @@ const useCounterStore = defineStore('counter', () => {
 
     const tapsInputWasStarted = async (question: Question | null) => {
         const gameState = await getGameState()
-        console.log('gs', gameState)
         if (gameState?.idInBase && question) {
             const docRef = doc(db, 'game_state', gameState.idInBase)
             const updateTimestamp = await updateDoc(docRef, {
@@ -245,8 +238,6 @@ const useCounterStore = defineStore('counter', () => {
                 question_ask: question.ask,
                 question_answer: question.answer,
             })
-        } else {
-            console.log('Not started!')
         }
     }
 
@@ -256,10 +247,8 @@ const useCounterStore = defineStore('counter', () => {
             const result = itemsArray.filter((item: PlayersStatus) => {
                 return item?.name?.toString() === searchedName
             })
-            // console.log('?', result, itemsArray)
             return { isExist: result.length !== 0, id: result[0].id }
         } catch (e) {
-            console.error('Error adding document: ', e)
             return { isExist: false, id: '0' }
         }
     }
@@ -305,18 +294,16 @@ const useCounterStore = defineStore('counter', () => {
                     })
                     resolve(docRef.id)
                 } catch (e) {
-                    console.error('Error adding document: ', e)
                     reject(e)
                 }
             } else {
                 // reject('Already adding to the document')
                 checkBrowserId(id)
                     .then((data) => {
-                        console.log('then-checkBrowserId', data)
                         resolve(data)
                     })
-                    .catch((data) => {
-                        console.log('err', data)
+                    .catch((e) => {
+                        reject(e)
                     })
             }
         })
@@ -342,13 +329,6 @@ const useCounterStore = defineStore('counter', () => {
                 userIds.push(value)
             }
         }
-        console.log(
-            'checkBrowserId',
-            playerData.browserId,
-            userIds,
-            savedId,
-            userIds.includes(savedId)
-        )
         if (!userIds.includes(savedId)) {
             const browserIds = {
                 ...playerData.browserId,
@@ -362,7 +342,6 @@ const useCounterStore = defineStore('counter', () => {
 
     const userDoingTap = async (nameCode: string) => {
         const docRef = doc(db, 'users', nameCode)
-        console.log(docRef)
         const playerData: PlayersStatus = (
             await getDoc(docRef)
         ).data() as PlayersStatus

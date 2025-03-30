@@ -51,7 +51,6 @@ const saveName = () => {
 }
 
 const saveImg = (id: string) => {
-    console.log('i catch image: ', id)
     imgId.value = id
 }
 
@@ -67,7 +66,6 @@ watch(name, async () => {
 })
 
 watch([name, imgId], ([newA, newB], [prevA, prevB]) => {
-    console.log('name.value', name.value, name.value !== '')
     if (name.value !== '' && imgId.value) {
         isAllFieldFilled.value = true
     } else {

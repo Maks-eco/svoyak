@@ -67,7 +67,6 @@ onMounted(async () => {
     if (runtimeConfig.app?.baseURL && window.location?.origin)
         location.value = window.location.origin + runtimeConfig.app?.baseURL
     if (question.value) text_on_page.value = question.value.ask
-    console.log('route', route, location.value)
 
     timerEventEmitter(
         55,

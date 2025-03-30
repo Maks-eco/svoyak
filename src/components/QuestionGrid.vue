@@ -47,7 +47,6 @@ const roundKey = ref(0)
 const currentRound = ref(0)
 
 const nextRound = () => {
-    console.log('rv', round.value?.id)
     store.globalRound(round.value?.id)
     locStorage.removeData('containerAnswer')
 
@@ -72,7 +71,6 @@ const getQuestions = async () => {
                 numberOfColumns.value = maxQuestionInRowCount
         })
     }
-    console.log('roundVal', round.value)
 }
 
 onMounted(() => {

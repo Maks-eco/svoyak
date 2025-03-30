@@ -5,7 +5,6 @@ const timerEventEmitter = async (
     onEnd?: any
 ) => {
     callback(steps - 1)
-    // console.log(steps)
     if (steps > 0) {
         setTimeout(async () => {
             await timerEventEmitter(

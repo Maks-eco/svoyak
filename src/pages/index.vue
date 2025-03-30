@@ -3,7 +3,6 @@ import { locStorage } from '@/stores/storage'
 
 onMounted(() => {
     const nameStor: string | null = locStorage.getData('myname')
-    console.log('nameStor', nameStor, nameStor === 'admin')
     if (nameStor) {
         if (nameStor === 'admin') {
             navigateTo('/admin_panel')
