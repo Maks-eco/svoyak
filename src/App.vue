@@ -2,7 +2,7 @@
     <div class="app__wrapper">
         <NuxtLink to="/" class="logo-link">
             <!-- <img class="logo__img" alt="logo" src="./assets/logo.jpg" /> -->
-            Своя игра
+            SIGame
         </NuxtLink>
         <NuxtPage page-key="index" />
         <!-- <router-view /> -->
