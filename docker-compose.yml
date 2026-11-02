@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  nuxt-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: svoyak-nuxt-prod
+    restart: always
+    profiles:
+      - build
+    ports:
+      - "80:3000"
+    environment:
+      - NODE_ENV=production
+  nuxt-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: svoyak-nuxt-dev
+    profiles:
+      - dev
+    ports:
+      - "3000:3000"
+      - "24678:24678"
+    volumes:
+      - .:/svoyak
+      - /svoyak/node_modules
+    environment:
+      - NODE_ENV=development
